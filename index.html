@@ -97,19 +97,20 @@
       <div>
         <h1>Weapon Ball Z</h1>
         <div class="subtitle">
-          Simulation Weapon Battle Game
+          Simulation weapon battle game – collect builds, upgrade stats, and survive endless waves.
         </div>
       </div>
     </header>
 
     <section class="download-box">
-      <div>📦 Latest version: <strong>v1.0.0</strong></div>
-      <div class="changelog">
+      <div>📦 Latest version: <strong id="versionText">v1.0.0</strong></div>
+      <div class="changelog" id="changelog">
 - First public release
 - Fixed several minor bugs
       </div>
 
       <a class="btn-download"
+         id="downloadLink"
          href="https://github.com/Puddin707/weapon-ball-z-builds/releases/download/v1.0.0/Weapon.Ball.Z.v1.0.0.apk">
         ⬇️ Download APK for Android
       </a>
@@ -128,6 +129,41 @@
       © 2025 Weapon Ball Z. All rights reserved.
     </footer>
   </div>
+
+  <!-- Auto update version + download link from latest GitHub release -->
+  <script>
+    async function updateFromLatestRelease() {
+      try {
+        const res = await fetch("https://api.github.com/repos/Puddin707/weapon-ball-z-builds/releases/latest");
+        if (!res.ok) return;
+
+        const data = await res.json();
+
+        const version = data.tag_name || "v1.0.0";
+        const asset = (data.assets || [])[0];
+
+        const versionEl   = document.getElementById("versionText");
+        const linkEl      = document.getElementById("downloadLink");
+        const changelogEl = document.getElementById("changelog");
+
+        if (versionEl) versionEl.textContent = version;
+
+        // If there is an asset (APK), point the button to it
+        if (linkEl && asset && asset.browser_download_url) {
+          linkEl.href = asset.browser_download_url;
+        }
+
+        // If you write release notes on GitHub, use them as changelog
+        if (changelogEl && data.body) {
+          changelogEl.textContent = data.body;
+        }
+      } catch (e) {
+        console.log("Failed to fetch latest release info:", e);
+      }
+    }
+
+    updateFromLatestRelease();
+  </script>
 </body>
 </html>
 
