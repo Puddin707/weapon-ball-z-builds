@@ -63,6 +63,11 @@
       opacity: 0.9;
       white-space: pre-line;
     }
+    .download-count {
+      margin-top: 6px;
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
     .screenshots {
       margin-top: 32px;
     }
@@ -114,6 +119,11 @@
          href="https://github.com/Puddin707/weapon-ball-z-builds/releases/download/v1.0.0/Weapon.Ball.Z.v1.0.0.apk">
         ⬇️ Download APK for Android
       </a>
+
+      <!-- Chỗ hiện số lượt tải -->
+      <div class="download-count" id="downloadCount">
+        Downloads: ...
+      </div>
     </section>
 
     <section class="screenshots">
@@ -130,7 +140,7 @@
     </footer>
   </div>
 
-  <!-- Auto update version + download link from latest GitHub release -->
+  <!-- Auto update version + download link + download count from latest GitHub release -->
   <script>
     async function updateFromLatestRelease() {
       try {
@@ -140,11 +150,13 @@
         const data = await res.json();
 
         const version = data.tag_name || "v1.0.0";
-        const asset = (data.assets || [])[0];
+        const assets = data.assets || [];
+        const asset = assets[0];
 
         const versionEl   = document.getElementById("versionText");
         const linkEl      = document.getElementById("downloadLink");
         const changelogEl = document.getElementById("changelog");
+        const downloadEl  = document.getElementById("downloadCount");
 
         if (versionEl) versionEl.textContent = version;
 
@@ -157,6 +169,17 @@
         if (changelogEl && data.body) {
           changelogEl.textContent = data.body;
         }
+
+        // Tính tổng lượt download (hoặc chỉ asset đầu tiên cũng được)
+        if (downloadEl && assets.length > 0) {
+          let totalDownloads = 0;
+          for (const a of assets) {
+            if (typeof a.download_count === "number") {
+              totalDownloads += a.download_count;
+            }
+          }
+          downloadEl.textContent = "Downloads: " + totalDownloads;
+        }
       } catch (e) {
         console.log("Failed to fetch latest release info:", e);
       }
@@ -166,4 +189,5 @@
   </script>
 </body>
 </html>
+
 
