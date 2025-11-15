@@ -140,17 +140,26 @@
     </footer>
   </div>
 
-  <!-- Auto update version + download link + download count from latest GitHub release -->
+  <!-- Auto update version + download link + total download count from GitHub -->
   <script>
     async function updateFromLatestRelease() {
       try {
-        const res = await fetch("https://api.github.com/repos/Puddin707/weapon-ball-z-builds/releases/latest");
-        if (!res.ok) return;
+        // Gọi song song: 1 cái lấy latest, 1 cái lấy list releases để cộng tổng download
+        const [latestRes, allRes] = await Promise.all([
+          fetch("https://api.github.com/repos/Puddin707/weapon-ball-z-builds/releases/latest"),
+          fetch("https://api.github.com/repos/Puddin707/weapon-ball-z-builds/releases?per_page=100")
+        ]);
 
-        const data = await res.json();
+        if (!latestRes.ok) {
+          console.log("Failed to fetch latest release info");
+          return;
+        }
 
-        const version = data.tag_name || "v1.0.0";
-        const assets = data.assets || [];
+        const latest = await latestRes.json();
+        const allReleases = allRes.ok ? await allRes.json() : [];
+
+        const version = latest.tag_name || "v1.0.0";
+        const assets = latest.assets || [];
         const asset = assets[0];
 
         const versionEl   = document.getElementById("versionText");
@@ -160,28 +169,39 @@
 
         if (versionEl) versionEl.textContent = version;
 
-        // If there is an asset (APK), point the button to it
         if (linkEl && asset && asset.browser_download_url) {
           linkEl.href = asset.browser_download_url;
         }
 
-        // If you write release notes on GitHub, use them as changelog
-        if (changelogEl && data.body) {
-          changelogEl.textContent = data.body;
+        if (changelogEl && latest.body) {
+          changelogEl.textContent = latest.body;
         }
 
-        // Tính tổng lượt download (hoặc chỉ asset đầu tiên cũng được)
-        if (downloadEl && assets.length > 0) {
+        if (downloadEl) {
           let totalDownloads = 0;
-          for (const a of assets) {
-            if (typeof a.download_count === "number") {
-              totalDownloads += a.download_count;
+
+          if (Array.isArray(allReleases)) {
+            for (const rel of allReleases) {
+              if (!rel.assets) continue;
+              for (const a of rel.assets) {
+                if (typeof a.download_count === "number") {
+                  totalDownloads += a.download_count;
+                }
+              }
+            }
+          } else if (assets.length > 0) {
+            // Fallback: nếu allReleases không phải array thì dùng tạm latest
+            for (const a of assets) {
+              if (typeof a.download_count === "number") {
+                totalDownloads += a.download_count;
+              }
             }
           }
+
           downloadEl.textContent = "Downloads: " + totalDownloads;
         }
       } catch (e) {
-        console.log("Failed to fetch latest release info:", e);
+        console.log("Failed to fetch release info:", e);
       }
     }
 
