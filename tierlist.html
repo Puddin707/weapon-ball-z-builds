@@ -13,7 +13,6 @@
       margin: 0; font-family: system-ui, -apple-system, sans-serif;
       background: radial-gradient(circle at top, #1a2344, #050814);
       color: #f5f5f5; min-height: 100vh; overflow-x: hidden;
-      /* Chặn kéo refresh trang trên mobile để đỡ phiền khi đang xếp tier */
       overscroll-behavior-y: contain; 
     }
     .snowflake {
@@ -54,10 +53,12 @@
     .btn {
       border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer;
       font-weight: bold; color: white; font-size: 0.9rem; transition: transform 0.2s;
+      display: flex; align-items: center; gap: 5px;
     }
     .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
     .btn-save { background: #2ea043; }
     .btn-reset { background: #d42426; }
+    .btn-add { background: #4b6fff; margin-top: 10px; width: 100%; justify-content: center; padding: 12px; }
 
     /* TIER LIST BOARD */
     .tier-container {
@@ -66,24 +67,45 @@
     }
     .tier-row {
       display: flex; min-height: 80px; background: #1a1a1a; border-bottom: 1px solid #333;
+      position: relative;
     }
+    
+    /* LABEL & COLORS */
     .tier-label {
       width: 60px; display: flex; align-items: center; justify-content: center;
       font-size: 1.2rem; font-weight: 800; color: #000;
       text-shadow: 0 1px 2px rgba(255,255,255,0.4);
       flex-shrink: 0; text-align: center; padding: 5px; word-break: break-word; outline: none;
+      cursor: pointer; /* Click to change color */
+      user-select: none;
     }
-    .tier-s { background-color: #ff7f7f; }
-    .tier-a { background-color: #ffbf7f; }
-    .tier-b { background-color: #ffdf7f; }
-    .tier-c { background-color: #ffff7f; }
-    .tier-d { background-color: #bfff7f; }
+    .tier-label:hover::after {
+        content: '🎨'; position: absolute; font-size: 10px; bottom: 2px; right: 2px; opacity: 0.5;
+    }
+    
+    /* Color classes */
+    .bg-red { background-color: #ff7f7f; }
+    .bg-orange { background-color: #ffbf7f; }
+    .bg-yellow { background-color: #ffdf7f; }
+    .bg-green { background-color: #ffff7f; } /* C thường là vàng chanh */
+    .bg-lightgreen { background-color: #bfff7f; }
+    .bg-blue { background-color: #7ffffc; }
+    .bg-purple { background-color: #d67fff; }
+    .bg-grey { background-color: #cccccc; }
 
     .tier-items {
       flex-grow: 1; display: flex; flex-wrap: wrap; align-items: center;
       padding: 5px; gap: 5px; min-height: 80px; transition: background 0.2s;
+      border-right: 1px solid #333;
     }
     .tier-items.drag-over { background: #333; }
+
+    /* DELETE ROW BUTTON */
+    .tier-controls {
+      width: 30px; display: flex; align-items: center; justify-content: center;
+      background: #222; cursor: pointer; color: #555; transition: 0.2s;
+    }
+    .tier-controls:hover { background: #3a0000; color: #ff5555; }
 
     /* IMAGE BANK */
     .image-bank {
@@ -93,19 +115,13 @@
       min-height: 120px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
     }
     
-    /* ITEM ẢNH (QUAN TRỌNG: FIX MOBILE + FIX MỜ ẢNH) */
+    /* ITEM ẢNH */
     .draggable-item {
       width: 60px; height: 60px; cursor: grab;
       border-radius: 8px; object-fit: cover;
       background: #222; border: 2px solid transparent; 
       transition: transform 0.1s;
-      
-      /* Fix ảnh mờ pixel art */
-      image-rendering: pixelated;       
-      image-rendering: -moz-crisp-edges;
-      image-rendering: crisp-edges;
-      
-      /* Fix mobile: Chặn sự kiện chạm để không bị cuộn trang khi kéo */
+      image-rendering: pixelated;        
       touch-action: none; 
       -webkit-touch-callout: none;
     }
@@ -145,16 +161,15 @@
     <div class="save-area">
       <input type="text" id="listName" class="input-name" placeholder="Name your list..." />
       <button class="btn btn-save" onclick="saveNewList()"><i class="fa-solid fa-floppy-disk"></i> Save</button>
-      <button class="btn btn-reset" onclick="resetCurrentBoard()">🔄 Clear</button>
+      <button class="btn btn-reset" onclick="resetBoardFull()"><i class="fa-solid fa-rotate-right"></i> Reset</button>
     </div>
 
-    <div class="tier-container">
-      <div class="tier-row"><div class="tier-label tier-s" contenteditable="true">S</div><div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div></div>
-      <div class="tier-row"><div class="tier-label tier-a" contenteditable="true">A</div><div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div></div>
-      <div class="tier-row"><div class="tier-label tier-b" contenteditable="true">B</div><div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div></div>
-      <div class="tier-row"><div class="tier-label tier-c" contenteditable="true">C</div><div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div></div>
-      <div class="tier-row"><div class="tier-label tier-d" contenteditable="true">D</div><div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div></div>
-    </div>
+    <div class="tier-container" id="board">
+      </div>
+    
+    <button class="btn btn-add" onclick="addNewRow()">
+        <i class="fa-solid fa-plus"></i> Add New Tier
+    </button>
 
     <div class="image-bank" id="bank" ondrop="drop(event)" ondragover="allowDrop(event)">
       <h3 style="width:100%; text-align:center; color:#888; margin:0 0 10px; font-size:0.9rem;">Wait for images... 👇</h3>
@@ -166,20 +181,34 @@
     </div>
     
     <footer style="text-align: center; margin-top: 40px; color: #888; font-size: 0.8rem;">
-      Mobile supported. Auto-saving enabled.
+      Click on Tier Label to change color.<br>Mobile supported. Auto-saving enabled.
     </footer>
   </div>
 
   <script>
-    // --- 1. CẤU HÌNH GITHUB ---
+    // --- 1. CONFIG ---
     const githubUser = 'Puddin707';
     const githubRepo = 'weapon-ball-z-builds';
     const folderPath = 'images/tierlist'; 
     const imageBasePath = `${folderPath}/`; 
     const bank = document.getElementById('bank');
+    const board = document.getElementById('board');
 
-    // --- 2. HÀM KHỞI TẠO (INIT) ---
+    // Mảng màu sắc để cycle khi đổi màu
+    const tierColors = ['bg-red', 'bg-orange', 'bg-yellow', 'bg-green', 'bg-lightgreen', 'bg-blue', 'bg-purple', 'bg-grey'];
+
+    // Mặc định ban đầu
+    const defaultRows = [
+        { label: 'S', color: 'bg-red' },
+        { label: 'A', color: 'bg-orange' },
+        { label: 'B', color: 'bg-yellow' },
+        { label: 'C', color: 'bg-green' },
+        { label: 'D', color: 'bg-lightgreen' }
+    ];
+
+    // --- 2. INIT ---
     async function init() {
+      // Load Images
       let files = [];
       try {
         const response = await fetch(`https://api.github.com/repos/${githubUser}/${githubRepo}/contents/${folderPath}`);
@@ -188,37 +217,114 @@
         files = data.filter(file => file.name.match(/\.(png|jpg|jpeg|gif)$/i)).map(file => file.name);
       } catch (err) {
         console.error("Lỗi:", err);
-        bank.innerHTML = '<h3 style="color:red; text-align:center; width:100%">Không tìm thấy ảnh trên GitHub</h3>';
+        bank.innerHTML = '<h3 style="color:red; text-align:center; width:100%">Load Error</h3>';
       }
 
       bank.innerHTML = '<h3 style="width:100%; text-align:center; color:#888; margin:0 0 10px; font-size:0.9rem;">Drag images from here 👇</h3>';
       
-      files.forEach((imgName, index) => {
+      files.forEach(imgName => {
         const img = document.createElement('img');
         img.src = imageBasePath + imgName;
         img.className = 'draggable-item';
         img.draggable = true;
-        
-        // Tạo ID an toàn
         const safeId = 'drag-' + imgName.replace(/[^a-zA-Z0-9]/g, '');
         img.id = safeId;
-        
-        // Event Listeners cho Desktop
         img.addEventListener('dragstart', drag);
-        
-        // Fix cho một số trình duyệt mobile cũ nếu Polyfill chưa kịp chạy
         img.addEventListener('touchstart', function(e) {}, {passive: false});
-
         img.onerror = function() { this.style.display = 'none'; };
         bank.appendChild(img);
       });
 
-      const currentDraft = localStorage.getItem('wbz_current_draft');
-      if (currentDraft) { setTimeout(() => restoreBoard(JSON.parse(currentDraft)), 100); }
+      // Load Board State or Default
+      const currentDraft = localStorage.getItem('wbz_current_draft_v2');
+      if (currentDraft) {
+         setTimeout(() => restoreBoard(JSON.parse(currentDraft)), 100);
+      } else {
+         // Create default rows
+         defaultRows.forEach(row => createRowDOM(row.label, row.color));
+      }
       renderSavedLists();
     }
 
-    // --- DRAG & DROP LOGIC ---
+    // --- 3. DYNAMIC ROW LOGIC (ADD/DELETE) ---
+    
+    function createRowDOM(labelText = 'New', colorClass = 'bg-grey', images = []) {
+        const rowDiv = document.createElement('div');
+        rowDiv.className = 'tier-row';
+        
+        // 1. Label
+        const labelDiv = document.createElement('div');
+        labelDiv.className = `tier-label ${colorClass}`;
+        labelDiv.contentEditable = true;
+        labelDiv.innerText = labelText;
+        labelDiv.onclick = function() { cycleColor(this); };
+        labelDiv.addEventListener('input', saveCurrentDraft); // Auto save text change
+        
+        // 2. Items Container
+        const itemsDiv = document.createElement('div');
+        itemsDiv.className = 'tier-items';
+        itemsDiv.ondrop = function(event) { drop(event); };
+        itemsDiv.ondragover = function(event) { allowDrop(event); };
+        
+        // Put images in if any (for restore)
+        images.forEach(imgId => {
+            const img = document.getElementById(imgId);
+            if(img) itemsDiv.appendChild(img);
+        });
+
+        // 3. Delete Button
+        const controlsDiv = document.createElement('div');
+        controlsDiv.className = 'tier-controls';
+        controlsDiv.innerHTML = '<i class="fa-solid fa-trash"></i>';
+        controlsDiv.onclick = function() { deleteRow(this); };
+
+        rowDiv.appendChild(labelDiv);
+        rowDiv.appendChild(itemsDiv);
+        rowDiv.appendChild(controlsDiv);
+        
+        board.appendChild(rowDiv);
+    }
+
+    function addNewRow() {
+        createRowDOM('?', 'bg-grey');
+        saveCurrentDraft();
+    }
+
+    function deleteRow(btn) {
+        if(!confirm("Remove this row? Images will return to bank.")) return;
+        const row = btn.closest('.tier-row');
+        // Move images back to bank
+        const images = row.querySelectorAll('img');
+        images.forEach(img => bank.appendChild(img));
+        // Remove DOM
+        row.remove();
+        saveCurrentDraft();
+    }
+
+    function cycleColor(labelEl) {
+        // Find current color class
+        let currentClass = tierColors.find(c => labelEl.classList.contains(c)) || 'bg-grey';
+        let index = tierColors.indexOf(currentClass);
+        // Remove old
+        labelEl.classList.remove(currentClass);
+        // Add new (next in array)
+        let newIndex = (index + 1) % tierColors.length;
+        labelEl.classList.add(tierColors[newIndex]);
+        saveCurrentDraft();
+    }
+
+    function resetBoardFull() {
+        if(!confirm("Reset board to default?")) return;
+        // Move all images to bank
+        document.querySelectorAll('.tier-items img').forEach(img => bank.appendChild(img));
+        // Clear board HTML
+        board.innerHTML = '';
+        // Re-create default rows
+        defaultRows.forEach(row => createRowDOM(row.label, row.color));
+        saveCurrentDraft();
+    }
+
+    // --- 4. DRAG & DROP ---
     function allowDrop(ev) { ev.preventDefault(); ev.target.closest('.tier-items, .image-bank')?.classList.add('drag-over'); }
     function drag(ev) { ev.dataTransfer.setData("text", ev.target.id); }
     function drop(ev) {
@@ -235,45 +341,49 @@
         if(ev.target.classList.contains('tier-items') || ev.target.classList.contains('image-bank')) ev.target.classList.remove('drag-over');
     });
 
-    // --- SAVE LOGIC ---
+    // --- 5. SAVE SYSTEM (UPDATED FOR DYNAMIC ROWS) ---
     function getBoardState() {
-      const state = {};
-      document.querySelectorAll('.tier-row').forEach((row, index) => {
-        const label = row.querySelector('.tier-label').innerText;
-        const imgIds = Array.from(row.querySelector('.tier-items').querySelectorAll('img')).map(img => img.id);
-        state['row-' + index] = { label: label, images: imgIds };
+      const rowsData = [];
+      const rows = document.querySelectorAll('.tier-row');
+      rows.forEach(row => {
+          const labelEl = row.querySelector('.tier-label');
+          const color = tierColors.find(c => labelEl.classList.contains(c)) || 'bg-grey';
+          const label = labelEl.innerText;
+          const imgIds = Array.from(row.querySelector('.tier-items').querySelectorAll('img')).map(img => img.id);
+          rowsData.push({ label, color, images: imgIds });
       });
-      return state;
+      return rowsData;
     }
-    function restoreBoard(data) {
-      document.querySelectorAll('.tier-items img').forEach(img => bank.appendChild(img));
-      document.querySelectorAll('.tier-row').forEach((row, index) => {
-        const key = 'row-' + index;
-        if (data[key]) {
-            row.querySelector('.tier-label').innerText = data[key].label;
-            const container = row.querySelector('.tier-items');
-            data[key].images.forEach(id => {
-                const img = document.getElementById(id);
-                if (img) container.appendChild(img);
-            });
-        }
+
+    function restoreBoard(rowsData) {
+      // Clear current board
+      board.innerHTML = '';
+      // Move all images to bank first to ensure they are found
+      document.querySelectorAll('.draggable-item').forEach(img => bank.appendChild(img));
+      
+      // Re-build
+      rowsData.forEach(data => {
+          createRowDOM(data.label, data.color, data.images);
       });
     }
-    function saveCurrentDraft() { localStorage.setItem('wbz_current_draft', JSON.stringify(getBoardState())); }
-    document.querySelectorAll('.tier-label').forEach(l => l.addEventListener('input', saveCurrentDraft));
+
+    function saveCurrentDraft() { 
+        localStorage.setItem('wbz_current_draft_v2', JSON.stringify(getBoardState())); 
+    }
 
     function saveNewList() {
       const name = document.getElementById('listName').value.trim();
       if (!name) return alert("Please enter a name!");
       const newSave = { id: Date.now(), name: name, date: new Date().toLocaleDateString(), data: getBoardState() };
-      const savedLists = JSON.parse(localStorage.getItem('wbz_saved_lists') || '[]');
+      const savedLists = JSON.parse(localStorage.getItem('wbz_saved_lists_v2') || '[]');
       savedLists.push(newSave);
-      localStorage.setItem('wbz_saved_lists', JSON.stringify(savedLists));
+      localStorage.setItem('wbz_saved_lists_v2', JSON.stringify(savedLists));
       alert("Saved!");
       document.getElementById('listName').value = ''; renderSavedLists();
     }
+
     function renderSavedLists() {
-      const savedLists = JSON.parse(localStorage.getItem('wbz_saved_lists') || '[]');
+      const savedLists = JSON.parse(localStorage.getItem('wbz_saved_lists_v2') || '[]');
       const container = document.getElementById('savedListContainer');
       const section = document.getElementById('librarySection');
       if (savedLists.length === 0) { section.style.display = 'none'; return; }
@@ -282,28 +392,32 @@
       savedLists.forEach(list => {
         const div = document.createElement('div');
         div.className = 'saved-item';
-        div.innerHTML = `<div class="saved-info"><h4>${list.name}</h4><span>${list.date}</span></div>
+        div.innerHTML = `<div class="saved-info"><h4>${list.name}</h4><span>${list.date} (${list.data.length} tiers)</span></div>
           <div class="saved-actions"><button class="btn btn-sm btn-load" onclick="loadSavedList(${list.id})">Load</button>
           <button class="btn btn-sm btn-delete" onclick="deleteSavedList(${list.id})"><i class="fa-solid fa-trash"></i></button></div>`;
         container.appendChild(div);
       });
     }
+
     function loadSavedList(id) {
-      if(!confirm("Load this list?")) return;
-      const savedLists = JSON.parse(localStorage.getItem('wbz_saved_lists') || '[]');
+      if(!confirm("Load this list? Current unsaved work will be lost.")) return;
+      const savedLists = JSON.parse(localStorage.getItem('wbz_saved_lists_v2') || '[]');
       const listToLoad = savedLists.find(l => l.id === id);
-      if (listToLoad) { restoreBoard(listToLoad.data); saveCurrentDraft(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+      if (listToLoad) { 
+          restoreBoard(listToLoad.data); 
+          saveCurrentDraft(); 
+          window.scrollTo({ top: 0, behavior: 'smooth' }); 
+      }
     }
+
     function deleteSavedList(id) {
       if(!confirm("Delete this list?")) return;
-      let savedLists = JSON.parse(localStorage.getItem('wbz_saved_lists') || '[]');
+      let savedLists = JSON.parse(localStorage.getItem('wbz_saved_lists_v2') || '[]');
       savedLists = savedLists.filter(l => l.id !== id);
-      localStorage.setItem('wbz_saved_lists', JSON.stringify(savedLists));
+      localStorage.setItem('wbz_saved_lists_v2', JSON.stringify(savedLists));
       renderSavedLists();
     }
-    function resetCurrentBoard() {
-      if(confirm("Clear board?")) { document.querySelectorAll('.tier-items img').forEach(img => bank.appendChild(img)); saveCurrentDraft(); }
-    }
+
     function createSnow() {
       const s = document.createElement('div'); s.className='snowflake'; s.innerHTML='❄';
       s.style.left=Math.random()*100+'vw'; s.style.fontSize=(Math.random()*10+8)+'px';
@@ -315,4 +429,5 @@
     init();
   </script>
 </body>
+</html>
 </html>
