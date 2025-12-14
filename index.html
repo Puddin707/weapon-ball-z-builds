@@ -2,22 +2,45 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Weapon Ball Z - Download APK</title>
+  <title>Weapon Ball Z - Christmas Edition 🎄</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   
   <style>
+    /* --- CẤU HÌNH CƠ BẢN --- */
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #050814;
+      background: #0b1026; /* Nền xanh đậm hơn cho nổi bật tuyết */
       color: #f5f5f5;
+      overflow-x: hidden; /* Ẩn thanh cuộn ngang do tuyết rơi */
+      position: relative;
     }
+
+    /* --- HIỆU ỨNG TUYẾT RƠI (CSS) --- */
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      color: #fff;
+      font-size: 1em;
+      opacity: 0.8;
+      pointer-events: none; /* Để tuyết không che nút bấm */
+      z-index: 9999;
+      animation: fall linear forwards;
+    }
+    @keyframes fall {
+      to { transform: translateY(105vh); }
+    }
+
     .container {
       max-width: 900px;
       margin: 0 auto;
       padding: 24px 16px 48px;
+      position: relative;
+      z-index: 1; /* Để nội dung nằm trên tuyết background nếu cần */
     }
+
+    /* --- HEADER --- */
     header {
       display: flex;
       align-items: center;
@@ -30,59 +53,84 @@
       border-radius: 16px;
       object-fit: cover;
       background: #222;
+      border: 2px solid #d42426; /* Viền đỏ giáng sinh */
     }
     h1 {
       margin: 0 0 4px;
       font-size: 1.8rem;
+      /* Hiệu ứng chữ màu Gradient giáng sinh */
+      background: linear-gradient(to right, #ff4b4b, #fff, #2ea043);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
     }
     .subtitle {
       opacity: 0.8;
       font-size: 0.95rem;
+      color: #a8b8ff;
     }
+
+    /* --- DOWNLOAD BOX --- */
     .download-box {
       margin: 24px 0;
-      padding: 16px 20px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, #222a55, #101528);
-      border: 1px solid #4552ff55;
+      padding: 20px 24px;
+      border-radius: 20px;
+      /* Nền tối kết hợp viền Gradient Đỏ - Xanh */
+      background: rgba(16, 21, 40, 0.8);
+      border: 2px solid transparent;
+      background-image: linear-gradient(#101528, #101528), linear-gradient(135deg, #d42426, #2ea043);
+      background-origin: border-box;
+      background-clip: content-box, border-box;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      text-align: center; /* Căn giữa nội dung cho đẹp */
     }
     .btn-download {
       display: inline-block;
-      margin-top: 12px;
-      padding: 10px 18px;
+      margin-top: 16px;
+      padding: 12px 24px;
       border-radius: 999px;
       text-decoration: none;
-      background: #4b6fff;
+      /* Nút màu Đỏ Giáng Sinh */
+      background: linear-gradient(to bottom, #ff4b4b, #d42426);
       color: #fff;
-      font-weight: 600;
-      font-size: 0.95rem;
+      font-weight: 700;
+      font-size: 1rem;
+      box-shadow: 0 4px 15px rgba(212, 36, 38, 0.4);
+      transition: transform 0.2s;
     }
     .btn-download:hover {
       filter: brightness(1.1);
+      transform: scale(1.05);
     }
     .changelog {
-      margin-top: 8px;
+      margin-top: 12px;
       font-size: 0.9rem;
       opacity: 0.9;
       white-space: pre-line;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 10px;
+      border-radius: 8px;
     }
     .download-count {
-      margin-top: 6px;
+      margin-top: 12px;
       font-size: 0.85rem;
-      opacity: 0.8;
+      opacity: 0.7;
     }
-    /* Đổi margin một chút cho cân đối khi đổi vị trí */
+
+    /* --- SOCIAL LINKS --- */
     .social-links {
       margin-top: 32px;
       text-align: center;
-      margin-bottom: 32px; /* Thêm khoảng cách dưới để tách screenshot ra */
+      margin-bottom: 40px;
     }
     .social-links h2 {
       font-size: 1.2rem;
       margin-bottom: 16px;
+      color: #ffde59; /* Màu vàng ấm áp */
     }
     .social-links a {
-      margin: 0 12px;
+      margin: 0 10px;
       color: #f5f5f5;
       font-size: 1rem;
       text-decoration: none;
@@ -91,50 +139,89 @@
       align-items: center;
       gap: 8px;
       transition: all 0.2s;
+      background: rgba(255,255,255,0.05);
+      padding: 8px 16px;
+      border-radius: 50px;
+      margin-bottom: 8px;
     }
     .social-links a:hover {
       opacity: 1;
-      color: #4b6fff;
+      background: rgba(255,255,255,0.15);
       transform: translateY(-2px);
     }
-    .social-links i {
-      font-size: 24px; 
-    }
+    .social-links i { font-size: 20px; }
+    
+    /* Màu icon */
+    .fa-discord { color: #5865F2; }
+    .fa-youtube { color: #FF0000; }
+    .fa-tiktok { color: #fff; text-shadow: 1px 1px #000; }
+    .fa-mug-hot { color: #FF5E5B; }
+
+    /* --- SCREENSHOTS (DỌC / PORTRAIT) --- */
     .screenshots h2 {
-      font-size: 1.2rem;
-      margin-bottom: 12px;
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+      text-align: center;
     }
     .shot-grid {
       display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
+      justify-content: center; /* Căn giữa nếu màn hình lớn */
+      gap: 16px;
+      flex-wrap: wrap; /* Tự xuống dòng nếu hết chỗ */
     }
     .shot-grid img {
-      flex: 1 1 260px;
-      max-width: 100%;
+      /* Chỉnh sửa để ảnh thành dạng DỌC */
+      width: 220px; /* Chiều rộng cố định giống điện thoại */
+      aspect-ratio: 9/16; /* Tỉ lệ chuẩn màn hình điện thoại dọc */
+      object-fit: cover;
       border-radius: 12px;
-      border: 1px solid #ffffff22;
+      border: 2px solid #ffffff22;
       background: #1a1f35;
-      min-height: 150px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      transition: transform 0.3s;
     }
+    .shot-grid img:hover {
+      transform: translateY(-5px); /* Hiệu ứng nhấc lên khi di chuột */
+      border-color: #4b6fff;
+    }
+
+    /* Responsive cho màn hình nhỏ (Mobile) */
+    @media (max-width: 600px) {
+      .shot-grid {
+        justify-content: flex-start; /* Căn trái để cuộn */
+        flex-wrap: nowrap; /* Không xuống dòng */
+        overflow-x: auto; /* Cho phép cuộn ngang */
+        padding-bottom: 16px;
+        /* Ẩn thanh cuộn cho đẹp */
+        scrollbar-width: none; 
+      }
+      .shot-grid::-webkit-scrollbar {
+        display: none;
+      }
+      .shot-grid img {
+        width: 180px; /* Thu nhỏ chút trên mobile */
+        flex-shrink: 0; /* Không bị co lại */
+      }
+    }
+
     footer {
-      margin-top: 48px;
+      margin-top: 60px;
       text-align: center;
       font-size: 0.8rem;
       opacity: 0.6;
+      padding-bottom: 20px;
     }
-    .fa-discord { color: #5865F2; }
-    .fa-youtube { color: #FF0000; }
-    .fa-tiktok { color: #fff; text-shadow: 2px 2px #000; }
-    .fa-mug-hot { color: #FF5E5B; }
   </style>
 </head>
 <body>
+
+  <div id="snow-container"></div>
+
   <div class="container">
     <header>
       <img src="images/icon.png" alt="WBZ" onerror="this.src='https://placehold.co/72x72/222a55/FFF?text=Icon'" />
       <div>
-        <h1>Weapon Ball Z</h1>
+        <h1>Weapon Ball Z 🎅</h1>
         <div class="subtitle">
           Simulation Weapon Ball Games
         </div>
@@ -142,7 +229,7 @@
     </header>
 
     <section class="download-box">
-      <div>📦 Latest version: <strong id="versionText">Checking...</strong></div>
+      <div>📦 Latest version: <strong id="versionText" style="color: #ffde59;">Checking...</strong></div>
       <div class="changelog" id="changelog">
         Loading update notes...
       </div>
@@ -150,7 +237,7 @@
       <a class="btn-download"
          id="downloadLink"
          href="#">
-        ⬇️ Download APK for Android
+        ⬇️ Download APK (Xmas Version 🎄)
       </a>
 
       <div class="download-count" id="downloadCount">
@@ -159,7 +246,7 @@
     </section>
 
     <section class="social-links">
-      <h2>Join the Community</h2>
+      <h2>🎁 Join the Community</h2>
       <a href="https://discord.gg/4EuacCHqCG" target="_blank">
         <i class="fa-brands fa-discord"></i> Discord
       </a>
@@ -170,24 +257,26 @@
         <i class="fa-brands fa-tiktok"></i> TikTok
       </a>
       <a href="https://ko-fi.com/hyntezlegolas" target="_blank">
-        <i class="fa-solid fa-mug-hot"></i> Support on Ko-fi
+        <i class="fa-solid fa-mug-hot"></i> Support
       </a>
     </section>
 
     <section class="screenshots">
-      <h2>Screenshots</h2>
+      <h2>📸 Screenshots</h2>
       <div class="shot-grid">
-        <img src="https://placehold.co/400x200/222a55/FFF?text=Screen+1" alt="Screenshot 1" />
-        <img src="https://placehold.co/400x200/222a55/FFF?text=Screen+2" alt="Screenshot 2" />
+        <img src="https://placehold.co/225x400/222a55/FFF?text=Screen+1" alt="Screenshot 1" />
+        <img src="https://placehold.co/225x400/222a55/FFF?text=Screen+2" alt="Screenshot 2" />
+        <img src="https://placehold.co/225x400/222a55/FFF?text=Game+Play" alt="Screenshot 3" />
       </div>
     </section>
 
     <footer>
-      © 2025 Weapon Ball Z. All rights reserved.
+      © 2025 Weapon Ball Z. Merry Christmas! ❄️
     </footer>
   </div>
 
   <script>
+    // --- 1. SCRIPT LẤY THÔNG TIN GITHUB (GIỮ NGUYÊN) ---
     async function updateFromLatestRelease() {
       try {
         const [latestRes, allRes] = await Promise.all([
@@ -236,9 +325,35 @@
         console.log("Failed to fetch release info:", e);
       }
     }
-
     updateFromLatestRelease();
+
+    // --- 2. SCRIPT TẠO HIỆU ỨNG TUYẾT RƠI (MỚI) ---
+    function createSnowflake() {
+      const snowflake = document.createElement('div');
+      snowflake.classList.add('snowflake');
+      snowflake.innerHTML = '❄'; // Ký tự bông tuyết
+      
+      // Random vị trí bắt đầu (trái -> phải)
+      snowflake.style.left = Math.random() * 100 + 'vw';
+      
+      // Random kích thước
+      snowflake.style.fontSize = (Math.random() * 10 + 10) + 'px';
+      
+      // Random thời gian rơi (3s đến 8s)
+      const duration = Math.random() * 5 + 3;
+      snowflake.style.animationDuration = duration + 's';
+      
+      // Thêm vào body
+      document.body.appendChild(snowflake);
+      
+      // Xóa sau khi rơi xong để tránh nặng máy
+      setTimeout(() => {
+        snowflake.remove();
+      }, duration * 1000);
+    }
+
+    // Tạo tuyết mỗi 300ms
+    setInterval(createSnowflake, 300);
   </script>
 </body>
 </html>
-
