@@ -2,19 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>WBZ - Tier List Maker ❄️</title>
+  <title>WBZ - Tier List Maker Pro ❄️</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   
   <style>
     /* --- STYLE CHUNG --- */
     body {
-      margin: 0;
-      font-family: system-ui, -apple-system, sans-serif;
+      margin: 0; font-family: system-ui, -apple-system, sans-serif;
       background: radial-gradient(circle at top, #1a2344, #050814);
-      color: #f5f5f5;
-      min-height: 100vh;
-      overflow-x: hidden;
+      color: #f5f5f5; min-height: 100vh; overflow-x: hidden;
     }
     .snowflake {
       position: fixed; top: -10px; color: #fff; pointer-events: none; z-index: 9999;
@@ -24,7 +21,7 @@
 
     .container { max-width: 1000px; margin: 0 auto; padding: 32px 16px 48px; position: relative; z-index: 1; }
 
-    /* --- MENU NAVIGATION --- */
+    /* --- MENU --- */
     .main-nav {
       display: flex; justify-content: center; gap: 16px; margin-bottom: 32px;
       background: rgba(255, 255, 255, 0.05); padding: 8px; border-radius: 99px;
@@ -41,29 +38,44 @@
       box-shadow: 0 4px 15px rgba(75, 111, 255, 0.3);
     }
 
-    /* --- TIER LIST STYLES --- */
     h1 { text-align: center; margin-bottom: 24px; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+
+    /* --- SAVE CONTROLS (MỚI) --- */
+    .save-area {
+      display: flex; gap: 10px; justify-content: center; margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .input-name {
+      background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2);
+      padding: 10px 15px; border-radius: 8px; color: #fff; font-size: 1rem;
+      width: 250px; outline: none;
+    }
+    .input-name::placeholder { color: #aaa; }
     
+    .btn {
+      border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;
+      font-weight: bold; color: white; transition: transform 0.2s;
+    }
+    .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+    .btn-save { background: #2ea043; } /* Green */
+    .btn-reset { background: #d42426; } /* Red */
+
+    /* --- TIER LIST --- */
     .tier-container {
       display: flex; flex-direction: column; gap: 4px;
       background: #000; border: 2px solid #333; padding: 4px; border-radius: 8px;
     }
-
     .tier-row {
-      display: flex; min-height: 100px; background: #1a1a1a;
-      border-bottom: 1px solid #333;
+      display: flex; min-height: 100px; background: #1a1a1a; border-bottom: 1px solid #333;
     }
-
     .tier-label {
       width: 100px; display: flex; align-items: center; justify-content: center;
       font-size: 1.5rem; font-weight: 800; color: #000;
       text-shadow: 0 1px 2px rgba(255,255,255,0.4);
       flex-shrink: 0; cursor: pointer; user-select: none;
-      text-align: center; padding: 10px; word-break: break-word;
-      outline: none; /* Bỏ viền khi click sửa tên */
+      text-align: center; padding: 10px; word-break: break-word; outline: none;
     }
-    
-    /* Màu mặc định các Tier */
+    /* Màu mặc định */
     .tier-s { background-color: #ff7f7f; }
     .tier-a { background-color: #ffbf7f; }
     .tier-b { background-color: #ffdf7f; }
@@ -77,16 +89,13 @@
     }
     .tier-items.drag-over { background: #333; }
 
-    /* --- KHO ẢNH (BANK) --- */
+    /* --- BANK --- */
     .image-bank {
       margin-top: 32px; padding: 20px;
       background: rgba(255,255,255,0.05); border-radius: 16px;
       border: 1px dashed rgba(255,255,255,0.3);
       min-height: 150px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
     }
-    .image-bank h3 { width: 100%; text-align: center; margin-top: 0; color: #a8b8ff; }
-
-    /* --- ITEM ẢNH --- */
     .draggable-item {
       width: 70px; height: 70px; cursor: grab;
       border-radius: 8px; object-fit: cover;
@@ -94,20 +103,30 @@
       transition: transform 0.1s;
     }
     .draggable-item:active { cursor: grabbing; transform: scale(1.1); }
-    .draggable-item:hover { border-color: #fff; }
 
-    /* --- CONTROLS --- */
-    .controls { text-align: center; margin-top: 20px; }
-    .btn-reset {
-      background: #d42426; color: white; border: none; padding: 12px 24px;
-      border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem;
+    /* --- SAVED LISTS LIBRARY (MỚI) --- */
+    .library-section {
+      margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;
     }
-    .btn-reset:hover { background: #ff4b4b; }
+    .library-title { text-align: center; color: #ffde59; margin-bottom: 20px; }
+    .saved-list-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;
+    }
+    .saved-item {
+      background: rgba(255,255,255,0.05); padding: 16px; border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center;
+    }
+    .saved-info h4 { margin: 0 0 4px; font-size: 1.1rem; color: #fff; }
+    .saved-info span { font-size: 0.8rem; color: #888; }
+    .saved-actions { display: flex; gap: 8px; }
+    .btn-sm { padding: 6px 12px; font-size: 0.8rem; border-radius: 6px; }
+    .btn-load { background: #4b6fff; }
+    .btn-delete { background: #d42426; }
 
-    /* Mobile Responsive */
     @media (max-width: 600px) {
       .tier-label { width: 60px; font-size: 1.2rem; }
       .draggable-item { width: 50px; height: 50px; }
+      .input-name { width: 100%; }
     }
   </style>
 </head>
@@ -122,190 +141,222 @@
 
     <h1>Create Your Tier List</h1>
 
+    <div class="save-area">
+      <input type="text" id="listName" class="input-name" placeholder="Name your list (e.g. PVP Meta)..." />
+      <button class="btn btn-save" onclick="saveNewList()"><i class="fa-solid fa-floppy-disk"></i> Save List</button>
+      <button class="btn btn-reset" onclick="resetCurrentBoard()">🔄 Clear Board</button>
+    </div>
+
     <div class="tier-container">
-      <div class="tier-row">
-        <div class="tier-label tier-s" contenteditable="true">S</div>
-        <div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-      </div>
-      <div class="tier-row">
-        <div class="tier-label tier-a" contenteditable="true">A</div>
-        <div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-      </div>
-      <div class="tier-row">
-        <div class="tier-label tier-b" contenteditable="true">B</div>
-        <div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-      </div>
-      <div class="tier-row">
-        <div class="tier-label tier-c" contenteditable="true">C</div>
-        <div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-      </div>
-      <div class="tier-row">
-        <div class="tier-label tier-d" contenteditable="true">D</div>
-        <div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-      </div>
+      <div class="tier-row"><div class="tier-label tier-s" contenteditable="true">S</div><div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div></div>
+      <div class="tier-row"><div class="tier-label tier-a" contenteditable="true">A</div><div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div></div>
+      <div class="tier-row"><div class="tier-label tier-b" contenteditable="true">B</div><div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div></div>
+      <div class="tier-row"><div class="tier-label tier-c" contenteditable="true">C</div><div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div></div>
+      <div class="tier-row"><div class="tier-label tier-d" contenteditable="true">D</div><div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div></div>
     </div>
 
     <div class="image-bank" id="bank" ondrop="drop(event)" ondragover="allowDrop(event)">
-      <h3>Drag images from here 👇</h3>
+      <h3 style="width:100%; text-align:center; color:#888; margin:0 0 10px;">Drag images from here 👇</h3>
     </div>
 
-    <div class="controls">
-      <button class="btn-reset" onclick="resetTierList()">🔄 Reset All</button>
+    <div class="library-section" id="librarySection" style="display:none;">
+      <h2 class="library-title">📂 Your Saved Lists</h2>
+      <div class="saved-list-grid" id="savedListContainer">
+        </div>
     </div>
     
     <footer style="text-align: center; margin-top: 40px; color: #888; font-size: 0.8rem;">
-      Auto-saving enabled. Double click label to rename.
+      Changes are auto-saved to "Current Draft". Use "Save List" to create permanent saves.
     </footer>
   </div>
 
   <script>
-    // --- 1. CẤU HÌNH DANH SÁCH ẢNH (EDIT TẠI ĐÂY) ---
-    // Liệt kê tên file ảnh trong folder images/tierlist/
+    // --- 1. CẤU HÌNH ẢNH (SỬA Ở ĐÂY) ---
     const imageList = [
-      "ball1.png",
-      "ball2.png",
-      "ball3.png",
-      "icon.png", 
+      "ball1.png", "ball2.png", "ball3.png", "icon.png"
       // Thêm tên file của bạn vào đây...
     ];
-    
     const imagePath = "images/tierlist/"; 
 
-    // --- 2. LOGIC KHỞI TẠO VÀ KHÔI PHỤC (AUTO-LOAD) ---
+    // --- 2. LOGIC CHÍNH ---
     const bank = document.getElementById('bank');
-
-    function initBank() {
-      // 2.1. Tạo tất cả ảnh trước và ném vào Bank
+    
+    function init() {
+      // 1. Tạo ảnh vào Bank (ẩn đi nếu đã xếp rồi)
       imageList.forEach((imgName, index) => {
         const img = document.createElement('img');
         img.src = imagePath + imgName;
         img.className = 'draggable-item';
         img.draggable = true;
-        img.id = 'drag-' + index; // ID duy nhất cho mỗi ảnh
-        
-        // Sự kiện
+        img.id = 'drag-' + index;
         img.addEventListener('dragstart', drag);
-        img.onerror = function() { this.style.display = 'none'; }; // Ẩn nếu lỗi ảnh
-        
+        img.onerror = function() { this.style.display = 'none'; };
         bank.appendChild(img);
       });
 
-      // 2.2. Kiểm tra xem có dữ liệu đã lưu không
-      const savedData = localStorage.getItem('wbz_tier_data');
-      if (savedData) {
-        restoreState(JSON.parse(savedData));
+      // 2. Load "Current Draft" (Bản đang làm dở - Auto save)
+      const currentDraft = localStorage.getItem('wbz_current_draft');
+      if (currentDraft) {
+        restoreBoard(JSON.parse(currentDraft));
       }
+
+      // 3. Render danh sách đã lưu
+      renderSavedLists();
     }
 
-    // --- 3. CÁC HÀM XỬ LÝ KÉO THẢ (DRAG & DROP) ---
-    function allowDrop(ev) {
-      ev.preventDefault();
-      // Hiệu ứng highlight khi kéo vào vùng thả
-      ev.target.closest('.tier-items, .image-bank')?.classList.add('drag-over');
-    }
-
-    function drag(ev) {
-      ev.dataTransfer.setData("text", ev.target.id);
-    }
-
+    // --- DRAG & DROP ---
+    function allowDrop(ev) { ev.preventDefault(); ev.target.closest('.tier-items, .image-bank')?.classList.add('drag-over'); }
+    function drag(ev) { ev.dataTransfer.setData("text", ev.target.id); }
     function drop(ev) {
       ev.preventDefault();
       const dropZone = ev.target.closest('.tier-items, .image-bank');
-      
       if (dropZone) {
         dropZone.classList.remove('drag-over');
         var data = ev.dataTransfer.getData("text");
-        var draggedElement = document.getElementById(data);
-        if(draggedElement) {
-            dropZone.appendChild(draggedElement);
-            // 🔥 Lưu lại ngay sau khi thả
-            saveState();
-        }
+        var el = document.getElementById(data);
+        if(el) { dropZone.appendChild(el); saveCurrentDraft(); }
       }
     }
-
     document.addEventListener('dragleave', (ev) => {
-        if(ev.target.classList.contains('tier-items') || ev.target.classList.contains('image-bank')) {
-            ev.target.classList.remove('drag-over');
-        }
+        if(ev.target.classList.contains('tier-items') || ev.target.classList.contains('image-bank')) ev.target.classList.remove('drag-over');
     });
 
-    // --- 4. TÍNH NĂNG LƯU TRỮ (LOCAL STORAGE) ---
+    // --- LOGIC LƯU TRỮ ---
     
-    // Hàm Lưu: Quét toàn bộ Tier List và lưu vị trí ảnh + tên Label
-    function saveState() {
+    // Lấy trạng thái hiện tại của bảng
+    function getBoardState() {
       const state = {};
-      const rows = document.querySelectorAll('.tier-row');
-      
-      rows.forEach((row, index) => {
-        const tierName = row.querySelector('.tier-label').innerText;
-        const itemsContainer = row.querySelector('.tier-items');
-        // Lấy danh sách ID các ảnh đang nằm trong row này
-        const imgIds = Array.from(itemsContainer.querySelectorAll('img')).map(img => img.id);
-        
-        state['row-' + index] = {
-            label: tierName,
-            images: imgIds
-        };
+      document.querySelectorAll('.tier-row').forEach((row, index) => {
+        const label = row.querySelector('.tier-label').innerText;
+        const imgIds = Array.from(row.querySelector('.tier-items').querySelectorAll('img')).map(img => img.id);
+        state['row-' + index] = { label: label, images: imgIds };
       });
-
-      localStorage.setItem('wbz_tier_data', JSON.stringify(state));
+      return state;
     }
 
-    // Hàm Khôi phục: Đọc dữ liệu và sắp xếp lại
-    function restoreState(data) {
-      const rows = document.querySelectorAll('.tier-row');
-      
-      rows.forEach((row, index) => {
+    // Khôi phục bảng từ data
+    function restoreBoard(data) {
+      // Reset ảnh về bank trước (về mặt logic)
+      document.querySelectorAll('.tier-items img').forEach(img => bank.appendChild(img));
+
+      document.querySelectorAll('.tier-row').forEach((row, index) => {
         const key = 'row-' + index;
         if (data[key]) {
-            // 1. Khôi phục tên Label (VD: S sửa thành GOD)
-            const label = row.querySelector('.tier-label');
-            label.innerText = data[key].label;
-
-            // 2. Di chuyển ảnh vào đúng Tier
+            row.querySelector('.tier-label').innerText = data[key].label;
             const container = row.querySelector('.tier-items');
-            data[key].images.forEach(imgId => {
-                const img = document.getElementById(imgId);
-                // Chỉ di chuyển nếu ảnh đó có tồn tại (đã tạo ở bước init)
-                if (img) {
-                    container.appendChild(img);
-                }
+            data[key].images.forEach(id => {
+                const img = document.getElementById(id);
+                if (img) container.appendChild(img);
             });
         }
       });
     }
 
-    // Nút Reset: Xóa dữ liệu và tải lại trang
-    function resetTierList() {
-      if(confirm("Reset all tiers and images to default?")) {
-        localStorage.removeItem('wbz_tier_data');
-        location.reload();
+    // 1. Auto-save: Lưu mỗi khi thay đổi (không cần đặt tên)
+    function saveCurrentDraft() {
+      localStorage.setItem('wbz_current_draft', JSON.stringify(getBoardState()));
+    }
+    document.querySelectorAll('.tier-label').forEach(l => l.addEventListener('input', saveCurrentDraft));
+
+    // 2. Save New List: Lưu thành file riêng có tên
+    function saveNewList() {
+      const name = document.getElementById('listName').value.trim();
+      if (!name) return alert("Please enter a name for your list!");
+
+      const newSave = {
+        id: Date.now(), // ID duy nhất
+        name: name,
+        date: new Date().toLocaleDateString(),
+        data: getBoardState()
+      };
+
+      // Lấy danh sách cũ, thêm cái mới vào
+      const savedLists = JSON.parse(localStorage.getItem('wbz_saved_lists') || '[]');
+      savedLists.push(newSave);
+      localStorage.setItem('wbz_saved_lists', JSON.stringify(savedLists));
+
+      alert("Saved successfully!");
+      document.getElementById('listName').value = ''; // Xóa ô nhập
+      renderSavedLists();
+    }
+
+    // 3. Hiển thị danh sách đã lưu
+    function renderSavedLists() {
+      const savedLists = JSON.parse(localStorage.getItem('wbz_saved_lists') || '[]');
+      const container = document.getElementById('savedListContainer');
+      const section = document.getElementById('librarySection');
+      
+      if (savedLists.length === 0) {
+        section.style.display = 'none';
+        return;
+      }
+      
+      section.style.display = 'block';
+      container.innerHTML = ''; // Xóa cũ
+
+      savedLists.forEach(list => {
+        const div = document.createElement('div');
+        div.className = 'saved-item';
+        div.innerHTML = `
+          <div class="saved-info">
+            <h4>${list.name}</h4>
+            <span>${list.date}</span>
+          </div>
+          <div class="saved-actions">
+            <button class="btn btn-sm btn-load" onclick="loadSavedList(${list.id})">Load</button>
+            <button class="btn btn-sm btn-delete" onclick="deleteSavedList(${list.id})"><i class="fa-solid fa-trash"></i></button>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // 4. Load Saved List
+    function loadSavedList(id) {
+      if(!confirm("Load this list? Current unsaved changes on board will be replaced.")) return;
+      
+      const savedLists = JSON.parse(localStorage.getItem('wbz_saved_lists') || '[]');
+      const listToLoad = savedLists.find(l => l.id === id);
+      
+      if (listToLoad) {
+        restoreBoard(listToLoad.data);
+        saveCurrentDraft(); // Cập nhật luôn vào draft hiện tại
+        // Cuộn lên trên để xem
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
 
-    // Tự động lưu khi người dùng đổi tên Label
-    document.querySelectorAll('.tier-label').forEach(label => {
-        label.addEventListener('input', saveState);
-    });
-
-    // --- 5. HIỆU ỨNG TUYẾT RƠI ---
-    function createSnowflake() {
-      const snowflake = document.createElement('div');
-      snowflake.classList.add('snowflake');
-      snowflake.innerHTML = '❄';
-      snowflake.style.left = Math.random() * 100 + 'vw';
-      snowflake.style.fontSize = (Math.random() * 10 + 8) + 'px';
-      const duration = Math.random() * 5 + 5;
-      snowflake.style.animationDuration = duration + 's';
-      snowflake.style.opacity = Math.random();
-      document.body.appendChild(snowflake);
-      setTimeout(() => snowflake.remove(), duration * 1000);
+    // 5. Delete Saved List
+    function deleteSavedList(id) {
+      if(!confirm("Are you sure you want to delete this list?")) return;
+      
+      let savedLists = JSON.parse(localStorage.getItem('wbz_saved_lists') || '[]');
+      savedLists = savedLists.filter(l => l.id !== id);
+      localStorage.setItem('wbz_saved_lists', JSON.stringify(savedLists));
+      
+      renderSavedLists();
     }
-    setInterval(createSnowflake, 200);
 
-    // Chạy chương trình
-    initBank();
+    function resetCurrentBoard() {
+      if(confirm("Clear the board? Images will return to the bank.")) {
+        document.querySelectorAll('.tier-items img').forEach(img => bank.appendChild(img));
+        document.querySelectorAll('.tier-row').forEach(row => {
+            // Reset tên tier về mặc định nếu cần (hoặc giữ nguyên)
+        });
+        saveCurrentDraft();
+      }
+    }
+
+    // Snow
+    function createSnow() {
+      const s = document.createElement('div'); s.className='snowflake'; s.innerHTML='❄';
+      s.style.left=Math.random()*100+'vw'; s.style.fontSize=(Math.random()*10+8)+'px';
+      s.style.animationDuration=(Math.random()*5+5)+'s'; s.style.opacity=Math.random();
+      document.body.appendChild(s); setTimeout(()=>s.remove(),10000);
+    }
+    setInterval(createSnow, 200);
+
+    init();
   </script>
 </body>
 </html>
