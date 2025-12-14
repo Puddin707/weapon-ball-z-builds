@@ -72,7 +72,41 @@
       color: #a8b8ff;
       letter-spacing: 0.5px;
     }
-
+    
+    /* CSS CHO MENU */
+    .main-nav {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 32px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 8px;
+      border-radius: 99px;
+      backdrop-filter: blur(10px);
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .main-nav a {
+      text-decoration: none;
+      color: #a8b8ff;
+      padding: 8px 20px;
+      border-radius: 99px;
+      font-weight: 600;
+      transition: all 0.3s;
+      font-size: 0.95rem;
+    }
+    .main-nav a:hover {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+    .main-nav a.active {
+      background: linear-gradient(135deg, #4b6fff, #222a55);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(75, 111, 255, 0.3);
+    }
+    
     /* --- DOWNLOAD BOX (GLASSMORPHISM - HIỆU ỨNG BĂNG) --- */
     .download-box {
       margin: 24px 0;
@@ -226,6 +260,10 @@
   <div id="snow-container"></div>
 
   <div class="container">
+    <nav class="main-nav">
+      <a href="index.html" class="active"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="tierlist.html"><i class="fa-solid fa-ranking-star"></i> Tier Maker</a>
+    </nav>
     <header>
       <img src="images/icon.png" alt="WBZ" onerror="this.src='https://placehold.co/80x80/222a55/FFF?text=Icon'" />
       <div>
