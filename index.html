@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <title>Weapon Ball Z - Download APK</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
   <style>
     body {
       margin: 0;
@@ -27,6 +29,7 @@
       height: 72px;
       border-radius: 16px;
       object-fit: cover;
+      background: #222; /* Placeholder màu nền nếu chưa có icon game */
     }
     h1 {
       margin: 0 0 4px;
@@ -85,6 +88,8 @@
       max-width: 100%;
       border-radius: 12px;
       border: 1px solid #ffffff22;
+      background: #1a1f35; /* Màu nền giữ chỗ */
+      min-height: 150px;
     }
     footer {
       margin-top: 32px;
@@ -97,27 +102,36 @@
       text-align: center;
     }
     .social-links a {
-      margin: 0 8px;
+      margin: 0 12px; /* Tăng khoảng cách một chút */
       color: #f5f5f5;
       font-size: 1rem;
       text-decoration: none;
       opacity: 0.9;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
     }
     .social-links a:hover {
       opacity: 1;
+      color: #4b6fff; /* Hiệu ứng đổi màu khi di chuột */
+      transform: translateY(-2px);
     }
-    .social-links img {
-      width: 24px;
-      height: 24px;
-      margin-right: 8px;
+    /* Sửa lại style cho icon font thay vì img */
+    .social-links i {
+      font-size: 24px; 
     }
+    /* Màu riêng cho từng brand nếu thích */
+    .fa-discord { color: #5865F2; }
+    .fa-youtube { color: #FF0000; }
+    .fa-tiktok { color: #fff; text-shadow: 2px 2px #000; }
+    .fa-mug-hot { color: #FF5E5B; } /* Icon cho Ko-fi */
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <!-- Upload an icon to images/icon.png if you want to show it -->
-      <img src="images/icon.png" alt="Weapon Ball Z Icon" onerror="this.style.display='none'" />
+      <img src="images/icon.png" alt="WBZ" onerror="this.src='https://placehold.co/72x72/222a55/FFF?text=Icon'" />
       <div>
         <h1>Weapon Ball Z</h1>
         <div class="subtitle">
@@ -127,18 +141,17 @@
     </header>
 
     <section class="download-box">
-      <div>📦 Latest version: <strong id="versionText">v1.0.0</strong></div>
+      <div>📦 Latest version: <strong id="versionText">Checking...</strong></div>
       <div class="changelog" id="changelog">
-- I LOVE YOUUUUU
+        Loading update notes...
       </div>
 
       <a class="btn-download"
          id="downloadLink"
-         href="https://github.com/Puddin707/weapon-ball-z-builds/releases/download/v1.0.0/Weapon.Ball.Z.v1.0.0.apk">
+         href="#">
         ⬇️ Download APK for Android
       </a>
 
-      <!-- Chỗ hiện số lượt tải -->
       <div class="download-count" id="downloadCount">
         Downloads: ...
       </div>
@@ -147,25 +160,24 @@
     <section class="screenshots">
       <h2>Screenshots</h2>
       <div class="shot-grid">
-        <!-- Upload screenshots to images/screen1.jpg, images/screen2.jpg -->
-        <img src="images/screen1.jpg" alt="Screenshot 1" onerror="this.style.display='none'" />
-        <img src="images/screen2.jpg" alt="Screenshot 2" onerror="this.style.display='none'" />
+        <img src="https://placehold.co/400x200/222a55/FFF?text=Screen+1" alt="Screenshot 1" />
+        <img src="https://placehold.co/400x200/222a55/FFF?text=Screen+2" alt="Screenshot 2" />
       </div>
     </section>
 
     <section class="social-links">
       <h2>Join the Community</h2>
       <a href="https://discord.gg/4EuacCHqCG" target="_blank">
-        <img src="images/discord-icon.png" alt="Discord" /> Discord
+        <i class="fa-brands fa-discord"></i> Discord
       </a>
       <a href="https://youtube.com/@weaponballz" target="_blank">
-        <img src="images/youtube-icon.png" alt="YouTube" /> YouTube
+        <i class="fa-brands fa-youtube"></i> YouTube
       </a>
       <a href="https://www.tiktok.com/@weaponballz" target="_blank">
-        <img src="images/tiktok-icon.png" alt="TikTok" /> TikTok
+        <i class="fa-brands fa-tiktok"></i> TikTok
       </a>
       <a href="https://ko-fi.com/hyntezlegolas" target="_blank">
-        <img src="images/kofi-icon.png" alt="Ko-fi" /> Support on Ko-fi
+        <i class="fa-solid fa-mug-hot"></i> Support on Ko-fi
       </a>
     </section>
 
@@ -174,37 +186,32 @@
     </footer>
   </div>
 
-  <!-- Auto update version + download link + total download count from GitHub -->
   <script>
     async function updateFromLatestRelease() {
       try {
-        // Gọi song song: 1 cái lấy latest, 1 cái lấy list releases để cộng tổng download
         const [latestRes, allRes] = await Promise.all([
           fetch("https://api.github.com/repos/Puddin707/weapon-ball-z-builds/releases/latest"),
           fetch("https://api.github.com/repos/Puddin707/weapon-ball-z-builds/releases?per_page=100")
         ]);
 
-        if (!latestRes.ok) {
-          console.log("Failed to fetch latest release info");
-          return;
-        }
+        if (!latestRes.ok) return;
 
         const latest = await latestRes.json();
         const allReleases = allRes.ok ? await allRes.json() : [];
 
         const version = latest.tag_name || "v1.0.0";
-        const assets = latest.assets || [];
-        const asset = assets[0];
+        // Tìm asset có đuôi .apk
+        const apkAsset = latest.assets.find(a => a.name.endsWith(".apk")) || latest.assets[0];
 
-        const versionEl   = document.getElementById("versionText");
-        const linkEl      = document.getElementById("downloadLink");
-        const changelogEl = document.getElementById("changelog");
-        const downloadEl  = document.getElementById("downloadCount");
+        const versionEl    = document.getElementById("versionText");
+        const linkEl       = document.getElementById("downloadLink");
+        const changelogEl  = document.getElementById("changelog");
+        const downloadEl   = document.getElementById("downloadCount");
 
         if (versionEl) versionEl.textContent = version;
 
-        if (linkEl && asset && asset.browser_download_url) {
-          linkEl.href = asset.browser_download_url;
+        if (linkEl && apkAsset && apkAsset.browser_download_url) {
+          linkEl.href = apkAsset.browser_download_url;
         }
 
         if (changelogEl && latest.body) {
@@ -213,25 +220,16 @@
 
         if (downloadEl) {
           let totalDownloads = 0;
-
-          if (Array.isArray(allReleases)) {
-            for (const rel of allReleases) {
-              if (!rel.assets) continue;
-              for (const a of rel.assets) {
-                if (typeof a.download_count === "number") {
-                  totalDownloads += a.download_count;
-                }
-              }
-            }
-          } else if (assets.length > 0) {
-            // Fallback: nếu allReleases không phải array thì dùng tạm latest
-            for (const a of assets) {
+          const releasesList = Array.isArray(allReleases) ? allReleases : (latest.assets ? [latest] : []);
+          
+          for (const rel of releasesList) {
+            if (!rel.assets) continue;
+            for (const a of rel.assets) {
               if (typeof a.download_count === "number") {
                 totalDownloads += a.download_count;
               }
             }
           }
-
           downloadEl.textContent = "Downloads: " + totalDownloads;
         }
       } catch (e) {
@@ -242,5 +240,6 @@
     updateFromLatestRelease();
   </script>
 </body>
+</html>
 </html>
 
