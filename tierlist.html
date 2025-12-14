@@ -94,6 +94,9 @@
       width: 70px; height: 70px; cursor: grab;
       border-radius: 8px; object-fit: cover;
       background: #222; border: 2px solid transparent; transition: transform 0.1s;
+      image-rendering: pixelated;        /* Cho Chrome, Edge */
+      image-rendering: -moz-crisp-edges; /* Cho Firefox */
+      image-rendering: crisp-edges;      /* Chuẩn chung */
     }
     .draggable-item:active { cursor: grabbing; transform: scale(1.1); }
 
