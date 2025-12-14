@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>WBZ - Tier List Maker Pro ❄️</title>
+  <title>WBZ - Tier List Maker Ultimate ❄️</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   
@@ -21,7 +21,7 @@
 
     .container { max-width: 1000px; margin: 0 auto; padding: 32px 16px 48px; position: relative; z-index: 1; }
 
-    /* --- MENU --- */
+    /* MENU */
     .main-nav {
       display: flex; justify-content: center; gap: 16px; margin-bottom: 32px;
       background: rgba(255, 255, 255, 0.05); padding: 8px; border-radius: 99px;
@@ -40,27 +40,23 @@
 
     h1 { text-align: center; margin-bottom: 24px; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
 
-    /* --- SAVE CONTROLS (MỚI) --- */
+    /* SAVE CONTROLS */
     .save-area {
-      display: flex; gap: 10px; justify-content: center; margin-bottom: 20px;
-      flex-wrap: wrap;
+      display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap;
     }
     .input-name {
       background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2);
-      padding: 10px 15px; border-radius: 8px; color: #fff; font-size: 1rem;
-      width: 250px; outline: none;
+      padding: 10px 15px; border-radius: 8px; color: #fff; font-size: 1rem; width: 250px; outline: none;
     }
-    .input-name::placeholder { color: #aaa; }
-    
     .btn {
       border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;
       font-weight: bold; color: white; transition: transform 0.2s;
     }
     .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
-    .btn-save { background: #2ea043; } /* Green */
-    .btn-reset { background: #d42426; } /* Red */
+    .btn-save { background: #2ea043; }
+    .btn-reset { background: #d42426; }
 
-    /* --- TIER LIST --- */
+    /* TIER LIST BOARD */
     .tier-container {
       display: flex; flex-direction: column; gap: 4px;
       background: #000; border: 2px solid #333; padding: 4px; border-radius: 8px;
@@ -75,7 +71,6 @@
       flex-shrink: 0; cursor: pointer; user-select: none;
       text-align: center; padding: 10px; word-break: break-word; outline: none;
     }
-    /* Màu mặc định */
     .tier-s { background-color: #ff7f7f; }
     .tier-a { background-color: #ffbf7f; }
     .tier-b { background-color: #ffdf7f; }
@@ -84,12 +79,11 @@
 
     .tier-items {
       flex-grow: 1; display: flex; flex-wrap: wrap; align-items: center;
-      padding: 10px; gap: 8px; min-height: 100px;
-      transition: background 0.2s;
+      padding: 10px; gap: 8px; min-height: 100px; transition: background 0.2s;
     }
     .tier-items.drag-over { background: #333; }
 
-    /* --- BANK --- */
+    /* IMAGE BANK */
     .image-bank {
       margin-top: 32px; padding: 20px;
       background: rgba(255,255,255,0.05); border-radius: 16px;
@@ -99,12 +93,11 @@
     .draggable-item {
       width: 70px; height: 70px; cursor: grab;
       border-radius: 8px; object-fit: cover;
-      background: #222; border: 2px solid transparent;
-      transition: transform 0.1s;
+      background: #222; border: 2px solid transparent; transition: transform 0.1s;
     }
     .draggable-item:active { cursor: grabbing; transform: scale(1.1); }
 
-    /* --- SAVED LISTS LIBRARY (MỚI) --- */
+    /* LIBRARY (SAVED LISTS) */
     .library-section {
       margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;
     }
@@ -119,7 +112,7 @@
     .saved-info h4 { margin: 0 0 4px; font-size: 1.1rem; color: #fff; }
     .saved-info span { font-size: 0.8rem; color: #888; }
     .saved-actions { display: flex; gap: 8px; }
-    .btn-sm { padding: 6px 12px; font-size: 0.8rem; border-radius: 6px; }
+    .btn-sm { padding: 6px 12px; font-size: 0.8rem; border-radius: 6px; border: none; cursor: pointer; color: white; }
     .btn-load { background: #4b6fff; }
     .btn-delete { background: #d42426; }
 
@@ -132,7 +125,6 @@
 </head>
 <body>
   <div id="snow-container"></div>
-
   <div class="container">
     <nav class="main-nav">
       <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
@@ -156,55 +148,83 @@
     </div>
 
     <div class="image-bank" id="bank" ondrop="drop(event)" ondragover="allowDrop(event)">
-      <h3 style="width:100%; text-align:center; color:#888; margin:0 0 10px;">Drag images from here 👇</h3>
+      <h3 style="width:100%; text-align:center; color:#888; margin:0 0 10px;">Loading images from GitHub... 👇</h3>
     </div>
 
     <div class="library-section" id="librarySection" style="display:none;">
       <h2 class="library-title">📂 Your Saved Lists</h2>
-      <div class="saved-list-grid" id="savedListContainer">
-        </div>
+      <div class="saved-list-grid" id="savedListContainer"></div>
     </div>
     
     <footer style="text-align: center; margin-top: 40px; color: #888; font-size: 0.8rem;">
-      Changes are auto-saved to "Current Draft". Use "Save List" to create permanent saves.
+      Images are loaded automatically. Changes are auto-saved.
     </footer>
   </div>
 
   <script>
-    // --- 1. CẤU HÌNH ẢNH (SỬA Ở ĐÂY) ---
-    const imageList = [
-      "ball1.png", "ball2.png", "ball3.png", "icon.png"
-      // Thêm tên file của bạn vào đây...
-    ];
-    const imagePath = "images/tierlist/"; 
-
-    // --- 2. LOGIC CHÍNH ---
-    const bank = document.getElementById('bank');
+    // --- 1. CẤU HÌNH GITHUB (QUAN TRỌNG) ---
+    // Thay đổi thông tin này nếu bạn đổi tên repo hoặc username
+    const githubUser = 'Puddin707';
+    const githubRepo = 'weapon-ball-z-builds';
+    const folderPath = 'images/tierlist'; 
     
-    function init() {
-      // 1. Tạo ảnh vào Bank (ẩn đi nếu đã xếp rồi)
-      imageList.forEach((imgName, index) => {
+    // Đường dẫn gốc để hiển thị ảnh (dùng đường dẫn tương đối để load nhanh hơn)
+    const imageBasePath = `${folderPath}/`; 
+    const bank = document.getElementById('bank');
+
+    // --- 2. HÀM KHỞI TẠO (INIT) ---
+    async function init() {
+      // BƯỚC 1: TỰ ĐỘNG LẤY DANH SÁCH ẢNH TỪ GITHUB
+      let files = [];
+      try {
+        const response = await fetch(`https://api.github.com/repos/${githubUser}/${githubRepo}/contents/${folderPath}`);
+        if (!response.ok) throw new Error('Không thể kết nối GitHub API');
+        const data = await response.json();
+        
+        // Lọc lấy các file có đuôi ảnh
+        files = data
+          .filter(file => file.name.match(/\.(png|jpg|jpeg|gif)$/i))
+          .map(file => file.name);
+
+        console.log("Loaded images:", files); // Kiểm tra console nếu lỗi
+      } catch (err) {
+        console.error(err);
+        bank.innerHTML = `<h3 style="color:#ff6b6b; width:100%; text-align:center;">
+          Lỗi: Không tìm thấy ảnh!<br>
+          Hãy chắc chắn bạn đã tạo folder <code>images/tierlist</code> và upload ảnh lên GitHub.
+        </h3>`;
+        return; // Dừng lại nếu lỗi
+      }
+
+      // BƯỚC 2: TẠO ẢNH VÀO BANK
+      bank.innerHTML = '<h3 style="width:100%; text-align:center; color:#888; margin:0 0 10px;">Drag images from here 👇</h3>';
+      
+      files.forEach((imgName, index) => {
         const img = document.createElement('img');
-        img.src = imagePath + imgName;
+        img.src = imageBasePath + imgName;
         img.className = 'draggable-item';
         img.draggable = true;
-        img.id = 'drag-' + index;
+        // Tạo ID duy nhất từ tên file (xóa ký tự đặc biệt để tránh lỗi code)
+        const safeId = 'drag-' + imgName.replace(/[^a-zA-Z0-9]/g, '');
+        img.id = safeId;
+        
         img.addEventListener('dragstart', drag);
         img.onerror = function() { this.style.display = 'none'; };
         bank.appendChild(img);
       });
 
-      // 2. Load "Current Draft" (Bản đang làm dở - Auto save)
+      // BƯỚC 3: KHÔI PHỤC BẢN NHÁP (AUTO-SAVE)
       const currentDraft = localStorage.getItem('wbz_current_draft');
       if (currentDraft) {
-        restoreBoard(JSON.parse(currentDraft));
+        // Delay nhẹ để đảm bảo ảnh đã được tạo xong trong DOM
+        setTimeout(() => restoreBoard(JSON.parse(currentDraft)), 100);
       }
 
-      // 3. Render danh sách đã lưu
+      // BƯỚC 4: HIỆN DANH SÁCH ĐÃ LƯU
       renderSavedLists();
     }
 
-    // --- DRAG & DROP ---
+    // --- 3. CÁC HÀM XỬ LÝ KÉO THẢ (DRAG & DROP) ---
     function allowDrop(ev) { ev.preventDefault(); ev.target.closest('.tier-items, .image-bank')?.classList.add('drag-over'); }
     function drag(ev) { ev.dataTransfer.setData("text", ev.target.id); }
     function drop(ev) {
@@ -221,29 +241,34 @@
         if(ev.target.classList.contains('tier-items') || ev.target.classList.contains('image-bank')) ev.target.classList.remove('drag-over');
     });
 
-    // --- LOGIC LƯU TRỮ ---
-    
-    // Lấy trạng thái hiện tại của bảng
+    // --- 4. LOGIC LƯU TRỮ VÀ KHÔI PHỤC ---
+
+    // Lấy trạng thái hiện tại của bảng (Vị trí ảnh + Tên Tier)
     function getBoardState() {
       const state = {};
       document.querySelectorAll('.tier-row').forEach((row, index) => {
         const label = row.querySelector('.tier-label').innerText;
+        // Lấy danh sách ID ảnh trong hàng này
         const imgIds = Array.from(row.querySelector('.tier-items').querySelectorAll('img')).map(img => img.id);
         state['row-' + index] = { label: label, images: imgIds };
       });
       return state;
     }
 
-    // Khôi phục bảng từ data
+    // Khôi phục bảng từ dữ liệu đã lưu
     function restoreBoard(data) {
-      // Reset ảnh về bank trước (về mặt logic)
+      // Bước 1: Trả hết ảnh về Bank trước
       document.querySelectorAll('.tier-items img').forEach(img => bank.appendChild(img));
 
+      // Bước 2: Sắp xếp lại
       document.querySelectorAll('.tier-row').forEach((row, index) => {
         const key = 'row-' + index;
         if (data[key]) {
+            // Khôi phục tên Tier
             row.querySelector('.tier-label').innerText = data[key].label;
             const container = row.querySelector('.tier-items');
+            
+            // Tìm ảnh theo ID và di chuyển vào Tier
             data[key].images.forEach(id => {
                 const img = document.getElementById(id);
                 if (img) container.appendChild(img);
@@ -252,102 +277,92 @@
       });
     }
 
-    // 1. Auto-save: Lưu mỗi khi thay đổi (không cần đặt tên)
+    // --- 5. QUẢN LÝ LƯU FILE (LIBRARY) ---
+
+    // Auto-save: Lưu nháp liên tục vào localStorage
     function saveCurrentDraft() {
       localStorage.setItem('wbz_current_draft', JSON.stringify(getBoardState()));
     }
+    // Lắng nghe sự kiện đổi tên Tier để lưu nháp
     document.querySelectorAll('.tier-label').forEach(l => l.addEventListener('input', saveCurrentDraft));
 
-    // 2. Save New List: Lưu thành file riêng có tên
+    // Save New List: Tạo bản lưu mới có tên
     function saveNewList() {
       const name = document.getElementById('listName').value.trim();
       if (!name) return alert("Please enter a name for your list!");
 
       const newSave = {
-        id: Date.now(), // ID duy nhất
+        id: Date.now(),
         name: name,
         date: new Date().toLocaleDateString(),
         data: getBoardState()
       };
 
-      // Lấy danh sách cũ, thêm cái mới vào
       const savedLists = JSON.parse(localStorage.getItem('wbz_saved_lists') || '[]');
       savedLists.push(newSave);
       localStorage.setItem('wbz_saved_lists', JSON.stringify(savedLists));
 
-      alert("Saved successfully!");
-      document.getElementById('listName').value = ''; // Xóa ô nhập
+      alert("List Saved Successfully!");
+      document.getElementById('listName').value = '';
       renderSavedLists();
     }
 
-    // 3. Hiển thị danh sách đã lưu
+    // Render danh sách các bản đã lưu
     function renderSavedLists() {
       const savedLists = JSON.parse(localStorage.getItem('wbz_saved_lists') || '[]');
       const container = document.getElementById('savedListContainer');
       const section = document.getElementById('librarySection');
-      
+
       if (savedLists.length === 0) {
         section.style.display = 'none';
         return;
       }
-      
       section.style.display = 'block';
-      container.innerHTML = ''; // Xóa cũ
+      container.innerHTML = '';
 
       savedLists.forEach(list => {
         const div = document.createElement('div');
         div.className = 'saved-item';
         div.innerHTML = `
-          <div class="saved-info">
-            <h4>${list.name}</h4>
-            <span>${list.date}</span>
-          </div>
+          <div class="saved-info"><h4>${list.name}</h4><span>${list.date}</span></div>
           <div class="saved-actions">
             <button class="btn btn-sm btn-load" onclick="loadSavedList(${list.id})">Load</button>
             <button class="btn btn-sm btn-delete" onclick="deleteSavedList(${list.id})"><i class="fa-solid fa-trash"></i></button>
-          </div>
-        `;
+          </div>`;
         container.appendChild(div);
       });
     }
 
-    // 4. Load Saved List
+    // Load bản lưu
     function loadSavedList(id) {
-      if(!confirm("Load this list? Current unsaved changes on board will be replaced.")) return;
-      
+      if(!confirm("Load this list? Unsaved changes on the current board will be lost.")) return;
       const savedLists = JSON.parse(localStorage.getItem('wbz_saved_lists') || '[]');
       const listToLoad = savedLists.find(l => l.id === id);
-      
       if (listToLoad) {
         restoreBoard(listToLoad.data);
-        saveCurrentDraft(); // Cập nhật luôn vào draft hiện tại
-        // Cuộn lên trên để xem
+        saveCurrentDraft();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
 
-    // 5. Delete Saved List
+    // Xóa bản lưu
     function deleteSavedList(id) {
       if(!confirm("Are you sure you want to delete this list?")) return;
-      
       let savedLists = JSON.parse(localStorage.getItem('wbz_saved_lists') || '[]');
       savedLists = savedLists.filter(l => l.id !== id);
       localStorage.setItem('wbz_saved_lists', JSON.stringify(savedLists));
-      
       renderSavedLists();
     }
 
+    // Xóa trắng bảng hiện tại
     function resetCurrentBoard() {
       if(confirm("Clear the board? Images will return to the bank.")) {
         document.querySelectorAll('.tier-items img').forEach(img => bank.appendChild(img));
-        document.querySelectorAll('.tier-row').forEach(row => {
-            // Reset tên tier về mặc định nếu cần (hoặc giữ nguyên)
-        });
         saveCurrentDraft();
       }
     }
 
-    // Snow
+    // --- 6. HIỆU ỨNG TUYẾT RƠI ---
     function createSnow() {
       const s = document.createElement('div'); s.className='snowflake'; s.innerHTML='❄';
       s.style.left=Math.random()*100+'vw'; s.style.fontSize=(Math.random()*10+8)+'px';
@@ -356,7 +371,9 @@
     }
     setInterval(createSnow, 200);
 
+    // BẮT ĐẦU CHẠY
     init();
   </script>
 </body>
+</html>
 </html>
