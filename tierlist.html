@@ -70,14 +70,25 @@
       position: relative;
     }
     
+    /* --- NEW: LEFT HANDLE COLUMN (DI CHUYỂN LÊN XUỐNG) --- */
+    .tier-handle {
+        width: 30px; display: flex; flex-direction: column; 
+        align-items: center; justify-content: center;
+        background: #111; border-right: 1px solid #333;
+        color: #555; gap: 4px; flex-shrink: 0;
+    }
+    .handle-btn {
+        cursor: pointer; padding: 2px; font-size: 0.8rem; transition: 0.2s;
+    }
+    .handle-btn:hover { color: #fff; background: #333; border-radius: 3px; }
+
     /* LABEL & COLORS */
     .tier-label {
       width: 60px; display: flex; align-items: center; justify-content: center;
       font-size: 1.2rem; font-weight: 800; color: #000;
       text-shadow: 0 1px 2px rgba(255,255,255,0.4);
       flex-shrink: 0; text-align: center; padding: 5px; word-break: break-word; outline: none;
-      cursor: pointer; /* Click to change color */
-      user-select: none;
+      cursor: pointer; user-select: none;
     }
     .tier-label:hover::after {
         content: '🎨'; position: absolute; font-size: 10px; bottom: 2px; right: 2px; opacity: 0.5;
@@ -87,7 +98,7 @@
     .bg-red { background-color: #ff7f7f; }
     .bg-orange { background-color: #ffbf7f; }
     .bg-yellow { background-color: #ffdf7f; }
-    .bg-green { background-color: #ffff7f; } /* C thường là vàng chanh */
+    .bg-green { background-color: #ffff7f; }
     .bg-lightgreen { background-color: #bfff7f; }
     .bg-blue { background-color: #7ffffc; }
     .bg-purple { background-color: #d67fff; }
@@ -181,7 +192,7 @@
     </div>
     
     <footer style="text-align: center; margin-top: 40px; color: #888; font-size: 0.8rem;">
-      Click on Tier Label to change color.<br>Mobile supported. Auto-saving enabled.
+      Use arrows on left to move rows.<br>Mobile supported. Auto-saving enabled.
     </footer>
   </div>
 
@@ -194,10 +205,8 @@
     const bank = document.getElementById('bank');
     const board = document.getElementById('board');
 
-    // Mảng màu sắc để cycle khi đổi màu
     const tierColors = ['bg-red', 'bg-orange', 'bg-yellow', 'bg-green', 'bg-lightgreen', 'bg-blue', 'bg-purple', 'bg-grey'];
 
-    // Mặc định ban đầu
     const defaultRows = [
         { label: 'S', color: 'bg-red' },
         { label: 'A', color: 'bg-orange' },
@@ -235,49 +244,65 @@
         bank.appendChild(img);
       });
 
-      // Load Board State or Default
-      const currentDraft = localStorage.getItem('wbz_current_draft_v2');
+      // Load Board State
+      const currentDraft = localStorage.getItem('wbz_current_draft_v3'); // Nâng version để tránh lỗi data cũ
       if (currentDraft) {
          setTimeout(() => restoreBoard(JSON.parse(currentDraft)), 100);
       } else {
-         // Create default rows
          defaultRows.forEach(row => createRowDOM(row.label, row.color));
       }
       renderSavedLists();
     }
 
-    // --- 3. DYNAMIC ROW LOGIC (ADD/DELETE) ---
+    // --- 3. DYNAMIC ROW LOGIC (ADD/DELETE/MOVE) ---
     
     function createRowDOM(labelText = 'New', colorClass = 'bg-grey', images = []) {
         const rowDiv = document.createElement('div');
         rowDiv.className = 'tier-row';
         
-        // 1. Label
+        // 1. LEFT HANDLE (MỚI: CỘT DI CHUYỂN)
+        const handleDiv = document.createElement('div');
+        handleDiv.className = 'tier-handle';
+        // Nút Lên
+        const upBtn = document.createElement('i');
+        upBtn.className = 'fa-solid fa-caret-up handle-btn';
+        upBtn.onclick = function() { moveRow(this, -1); };
+        // Nút Xuống
+        const downBtn = document.createElement('i');
+        downBtn.className = 'fa-solid fa-caret-down handle-btn';
+        downBtn.onclick = function() { moveRow(this, 1); };
+        
+        handleDiv.appendChild(upBtn);
+        handleDiv.appendChild(downBtn);
+
+        // 2. Label
         const labelDiv = document.createElement('div');
         labelDiv.className = `tier-label ${colorClass}`;
         labelDiv.contentEditable = true;
         labelDiv.innerText = labelText;
         labelDiv.onclick = function() { cycleColor(this); };
-        labelDiv.addEventListener('input', saveCurrentDraft); // Auto save text change
+        labelDiv.addEventListener('input', saveCurrentDraft);
         
-        // 2. Items Container
+        // 3. Items Container
         const itemsDiv = document.createElement('div');
         itemsDiv.className = 'tier-items';
         itemsDiv.ondrop = function(event) { drop(event); };
         itemsDiv.ondragover = function(event) { allowDrop(event); };
         
-        // Put images in if any (for restore)
+        // Put images in if any
         images.forEach(imgId => {
             const img = document.getElementById(imgId);
             if(img) itemsDiv.appendChild(img);
         });
 
-        // 3. Delete Button
+        // 4. Delete Button
         const controlsDiv = document.createElement('div');
         controlsDiv.className = 'tier-controls';
         controlsDiv.innerHTML = '<i class="fa-solid fa-trash"></i>';
         controlsDiv.onclick = function() { deleteRow(this); };
 
+        // Append All
+        rowDiv.appendChild(handleDiv); // Thêm cột trái
         rowDiv.appendChild(labelDiv);
         rowDiv.appendChild(itemsDiv);
         rowDiv.appendChild(controlsDiv);
@@ -293,21 +318,36 @@
     function deleteRow(btn) {
         if(!confirm("Remove this row? Images will return to bank.")) return;
         const row = btn.closest('.tier-row');
-        // Move images back to bank
         const images = row.querySelectorAll('img');
         images.forEach(img => bank.appendChild(img));
-        // Remove DOM
         row.remove();
         saveCurrentDraft();
     }
 
+    // Logic di chuyển hàng (Lên/Xuống)
+    function moveRow(btn, direction) {
+        const currentRow = btn.closest('.tier-row');
+        if (direction === -1) {
+            // Move Up
+            const prevRow = currentRow.previousElementSibling;
+            if (prevRow) {
+                board.insertBefore(currentRow, prevRow);
+                saveCurrentDraft();
+            }
+        } else {
+            // Move Down
+            const nextRow = currentRow.nextElementSibling;
+            if (nextRow) {
+                board.insertBefore(nextRow, currentRow);
+                saveCurrentDraft();
+            }
+        }
+    }
+
     function cycleColor(labelEl) {
-        // Find current color class
         let currentClass = tierColors.find(c => labelEl.classList.contains(c)) || 'bg-grey';
         let index = tierColors.indexOf(currentClass);
-        // Remove old
         labelEl.classList.remove(currentClass);
-        // Add new (next in array)
         let newIndex = (index + 1) % tierColors.length;
         labelEl.classList.add(tierColors[newIndex]);
         saveCurrentDraft();
@@ -315,11 +355,8 @@
 
     function resetBoardFull() {
         if(!confirm("Reset board to default?")) return;
-        // Move all images to bank
         document.querySelectorAll('.tier-items img').forEach(img => bank.appendChild(img));
-        // Clear board HTML
         board.innerHTML = '';
-        // Re-create default rows
         defaultRows.forEach(row => createRowDOM(row.label, row.color));
         saveCurrentDraft();
     }
@@ -341,7 +378,7 @@
         if(ev.target.classList.contains('tier-items') || ev.target.classList.contains('image-bank')) ev.target.classList.remove('drag-over');
     });
 
-    // --- 5. SAVE SYSTEM (UPDATED FOR DYNAMIC ROWS) ---
+    // --- 5. SAVE SYSTEM ---
     function getBoardState() {
       const rowsData = [];
       const rows = document.querySelectorAll('.tier-row');
@@ -356,34 +393,30 @@
     }
 
     function restoreBoard(rowsData) {
-      // Clear current board
       board.innerHTML = '';
-      // Move all images to bank first to ensure they are found
       document.querySelectorAll('.draggable-item').forEach(img => bank.appendChild(img));
-      
-      // Re-build
       rowsData.forEach(data => {
           createRowDOM(data.label, data.color, data.images);
       });
     }
 
     function saveCurrentDraft() { 
-        localStorage.setItem('wbz_current_draft_v2', JSON.stringify(getBoardState())); 
+        localStorage.setItem('wbz_current_draft_v3', JSON.stringify(getBoardState())); 
     }
 
     function saveNewList() {
       const name = document.getElementById('listName').value.trim();
       if (!name) return alert("Please enter a name!");
       const newSave = { id: Date.now(), name: name, date: new Date().toLocaleDateString(), data: getBoardState() };
-      const savedLists = JSON.parse(localStorage.getItem('wbz_saved_lists_v2') || '[]');
+      const savedLists = JSON.parse(localStorage.getItem('wbz_saved_lists_v3') || '[]');
       savedLists.push(newSave);
-      localStorage.setItem('wbz_saved_lists_v2', JSON.stringify(savedLists));
+      localStorage.setItem('wbz_saved_lists_v3', JSON.stringify(savedLists));
       alert("Saved!");
       document.getElementById('listName').value = ''; renderSavedLists();
     }
 
     function renderSavedLists() {
-      const savedLists = JSON.parse(localStorage.getItem('wbz_saved_lists_v2') || '[]');
+      const savedLists = JSON.parse(localStorage.getItem('wbz_saved_lists_v3') || '[]');
       const container = document.getElementById('savedListContainer');
       const section = document.getElementById('librarySection');
       if (savedLists.length === 0) { section.style.display = 'none'; return; }
@@ -400,8 +433,8 @@
     }
 
     function loadSavedList(id) {
-      if(!confirm("Load this list? Current unsaved work will be lost.")) return;
-      const savedLists = JSON.parse(localStorage.getItem('wbz_saved_lists_v2') || '[]');
+      if(!confirm("Load this list?")) return;
+      const savedLists = JSON.parse(localStorage.getItem('wbz_saved_lists_v3') || '[]');
       const listToLoad = savedLists.find(l => l.id === id);
       if (listToLoad) { 
           restoreBoard(listToLoad.data); 
@@ -412,9 +445,9 @@
 
     function deleteSavedList(id) {
       if(!confirm("Delete this list?")) return;
-      let savedLists = JSON.parse(localStorage.getItem('wbz_saved_lists_v2') || '[]');
+      let savedLists = JSON.parse(localStorage.getItem('wbz_saved_lists_v3') || '[]');
       savedLists = savedLists.filter(l => l.id !== id);
-      localStorage.setItem('wbz_saved_lists_v2', JSON.stringify(savedLists));
+      localStorage.setItem('wbz_saved_lists_v3', JSON.stringify(savedLists));
       renderSavedLists();
     }
 
