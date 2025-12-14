@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   
   <style>
-    /* --- GIỮ NGUYÊN STYLE CƠ BẢN CỦA TRANG CHỦ --- */
+    /* --- STYLE CHUNG --- */
     body {
       margin: 0;
       font-family: system-ui, -apple-system, sans-serif;
@@ -60,6 +60,7 @@
       text-shadow: 0 1px 2px rgba(255,255,255,0.4);
       flex-shrink: 0; cursor: pointer; user-select: none;
       text-align: center; padding: 10px; word-break: break-word;
+      outline: none; /* Bỏ viền khi click sửa tên */
     }
     
     /* Màu mặc định các Tier */
@@ -98,8 +99,8 @@
     /* --- CONTROLS --- */
     .controls { text-align: center; margin-top: 20px; }
     .btn-reset {
-      background: #d42426; color: white; border: none; padding: 10px 20px;
-      border-radius: 8px; cursor: pointer; font-weight: bold;
+      background: #d42426; color: white; border: none; padding: 12px 24px;
+      border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem;
     }
     .btn-reset:hover { background: #ff4b4b; }
 
@@ -146,60 +147,60 @@
 
     <div class="image-bank" id="bank" ondrop="drop(event)" ondragover="allowDrop(event)">
       <h3>Drag images from here 👇</h3>
-      </div>
+    </div>
 
     <div class="controls">
-      <button class="btn-reset" onclick="resetTierList()">🔄 Reset Images</button>
+      <button class="btn-reset" onclick="resetTierList()">🔄 Reset All</button>
     </div>
     
     <footer style="text-align: center; margin-top: 40px; color: #888; font-size: 0.8rem;">
-      Double click label to rename. Screenshot to share!
+      Auto-saving enabled. Double click label to rename.
     </footer>
   </div>
 
   <script>
-    // --- 1. CẤU HÌNH DANH SÁCH ẢNH CỦA BẠN TẠI ĐÂY ---
-    // Bạn hãy liệt kê tên các file ảnh trong thư mục images/tierlist/
-    // Ví dụ: Tạo thư mục images/tierlist và bỏ ảnh ball1.png, ball2.png vào đó.
+    // --- 1. CẤU HÌNH DANH SÁCH ẢNH (EDIT TẠI ĐÂY) ---
+    // Liệt kê tên file ảnh trong folder images/tierlist/
     const imageList = [
       "ball1.png",
       "ball2.png",
       "ball3.png",
       "icon.png", 
-      // Thêm tiếp tên ảnh của bạn vào đây...
+      // Thêm tên file của bạn vào đây...
     ];
     
-    // Đường dẫn thư mục chứa ảnh tierlist
     const imagePath = "images/tierlist/"; 
 
-    // --- 2. LOGIC RENDER VÀ KÉO THẢ ---
+    // --- 2. LOGIC KHỞI TẠO VÀ KHÔI PHỤC (AUTO-LOAD) ---
     const bank = document.getElementById('bank');
 
     function initBank() {
-      // Xóa cũ nếu có
-      const existingImgs = bank.querySelectorAll('img');
-      existingImgs.forEach(img => img.remove());
-
+      // 2.1. Tạo tất cả ảnh trước và ném vào Bank
       imageList.forEach((imgName, index) => {
         const img = document.createElement('img');
         img.src = imagePath + imgName;
         img.className = 'draggable-item';
         img.draggable = true;
-        img.id = 'drag-' + index;
+        img.id = 'drag-' + index; // ID duy nhất cho mỗi ảnh
         
-        // Sự kiện kéo
+        // Sự kiện
         img.addEventListener('dragstart', drag);
-        
-        // Xử lý lỗi nếu ảnh không tồn tại
-        img.onerror = function() { this.style.display = 'none'; };
+        img.onerror = function() { this.style.display = 'none'; }; // Ẩn nếu lỗi ảnh
         
         bank.appendChild(img);
       });
+
+      // 2.2. Kiểm tra xem có dữ liệu đã lưu không
+      const savedData = localStorage.getItem('wbz_tier_data');
+      if (savedData) {
+        restoreState(JSON.parse(savedData));
+      }
     }
 
-    // Các hàm xử lý Drag & Drop
+    // --- 3. CÁC HÀM XỬ LÝ KÉO THẢ (DRAG & DROP) ---
     function allowDrop(ev) {
       ev.preventDefault();
+      // Hiệu ứng highlight khi kéo vào vùng thả
       ev.target.closest('.tier-items, .image-bank')?.classList.add('drag-over');
     }
 
@@ -209,7 +210,6 @@
 
     function drop(ev) {
       ev.preventDefault();
-      // Tìm vùng thả hợp lệ (là tier-items hoặc image-bank)
       const dropZone = ev.target.closest('.tier-items, .image-bank');
       
       if (dropZone) {
@@ -218,26 +218,78 @@
         var draggedElement = document.getElementById(data);
         if(draggedElement) {
             dropZone.appendChild(draggedElement);
+            // 🔥 Lưu lại ngay sau khi thả
+            saveState();
         }
       }
     }
 
-    // Xóa class highlight khi drag leave
     document.addEventListener('dragleave', (ev) => {
         if(ev.target.classList.contains('tier-items') || ev.target.classList.contains('image-bank')) {
             ev.target.classList.remove('drag-over');
         }
     });
 
+    // --- 4. TÍNH NĂNG LƯU TRỮ (LOCAL STORAGE) ---
+    
+    // Hàm Lưu: Quét toàn bộ Tier List và lưu vị trí ảnh + tên Label
+    function saveState() {
+      const state = {};
+      const rows = document.querySelectorAll('.tier-row');
+      
+      rows.forEach((row, index) => {
+        const tierName = row.querySelector('.tier-label').innerText;
+        const itemsContainer = row.querySelector('.tier-items');
+        // Lấy danh sách ID các ảnh đang nằm trong row này
+        const imgIds = Array.from(itemsContainer.querySelectorAll('img')).map(img => img.id);
+        
+        state['row-' + index] = {
+            label: tierName,
+            images: imgIds
+        };
+      });
+
+      localStorage.setItem('wbz_tier_data', JSON.stringify(state));
+    }
+
+    // Hàm Khôi phục: Đọc dữ liệu và sắp xếp lại
+    function restoreState(data) {
+      const rows = document.querySelectorAll('.tier-row');
+      
+      rows.forEach((row, index) => {
+        const key = 'row-' + index;
+        if (data[key]) {
+            // 1. Khôi phục tên Label (VD: S sửa thành GOD)
+            const label = row.querySelector('.tier-label');
+            label.innerText = data[key].label;
+
+            // 2. Di chuyển ảnh vào đúng Tier
+            const container = row.querySelector('.tier-items');
+            data[key].images.forEach(imgId => {
+                const img = document.getElementById(imgId);
+                // Chỉ di chuyển nếu ảnh đó có tồn tại (đã tạo ở bước init)
+                if (img) {
+                    container.appendChild(img);
+                }
+            });
+        }
+      });
+    }
+
+    // Nút Reset: Xóa dữ liệu và tải lại trang
     function resetTierList() {
-      if(confirm("Reset all images to the bank?")) {
-        initBank();
-        // Xóa hết ảnh trong các tier
-        document.querySelectorAll('.tier-items').forEach(tier => tier.innerHTML = '');
+      if(confirm("Reset all tiers and images to default?")) {
+        localStorage.removeItem('wbz_tier_data');
+        location.reload();
       }
     }
 
-    // --- 3. HIỆU ỨNG TUYẾT RƠI (Copy từ trang chủ) ---
+    // Tự động lưu khi người dùng đổi tên Label
+    document.querySelectorAll('.tier-label').forEach(label => {
+        label.addEventListener('input', saveState);
+    });
+
+    // --- 5. HIỆU ỨNG TUYẾT RƠI ---
     function createSnowflake() {
       const snowflake = document.createElement('div');
       snowflake.classList.add('snowflake');
@@ -252,7 +304,7 @@
     }
     setInterval(createSnowflake, 200);
 
-    // Chạy khởi tạo
+    // Chạy chương trình
     initBank();
   </script>
 </body>
