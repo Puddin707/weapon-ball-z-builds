@@ -29,7 +29,7 @@
       height: 72px;
       border-radius: 16px;
       object-fit: cover;
-      background: #222; /* Placeholder màu nền nếu chưa có icon game */
+      background: #222;
     }
     h1 {
       margin: 0 0 4px;
@@ -71,8 +71,34 @@
       font-size: 0.85rem;
       opacity: 0.8;
     }
-    .screenshots {
+    /* Đổi margin một chút cho cân đối khi đổi vị trí */
+    .social-links {
       margin-top: 32px;
+      text-align: center;
+      margin-bottom: 32px; /* Thêm khoảng cách dưới để tách screenshot ra */
+    }
+    .social-links h2 {
+      font-size: 1.2rem;
+      margin-bottom: 16px;
+    }
+    .social-links a {
+      margin: 0 12px;
+      color: #f5f5f5;
+      font-size: 1rem;
+      text-decoration: none;
+      opacity: 0.9;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .social-links a:hover {
+      opacity: 1;
+      color: #4b6fff;
+      transform: translateY(-2px);
+    }
+    .social-links i {
+      font-size: 24px; 
     }
     .screenshots h2 {
       font-size: 1.2rem;
@@ -88,44 +114,19 @@
       max-width: 100%;
       border-radius: 12px;
       border: 1px solid #ffffff22;
-      background: #1a1f35; /* Màu nền giữ chỗ */
+      background: #1a1f35;
       min-height: 150px;
     }
     footer {
-      margin-top: 32px;
+      margin-top: 48px;
       text-align: center;
       font-size: 0.8rem;
       opacity: 0.6;
     }
-    .social-links {
-      margin-top: 24px;
-      text-align: center;
-    }
-    .social-links a {
-      margin: 0 12px; /* Tăng khoảng cách một chút */
-      color: #f5f5f5;
-      font-size: 1rem;
-      text-decoration: none;
-      opacity: 0.9;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.2s;
-    }
-    .social-links a:hover {
-      opacity: 1;
-      color: #4b6fff; /* Hiệu ứng đổi màu khi di chuột */
-      transform: translateY(-2px);
-    }
-    /* Sửa lại style cho icon font thay vì img */
-    .social-links i {
-      font-size: 24px; 
-    }
-    /* Màu riêng cho từng brand nếu thích */
     .fa-discord { color: #5865F2; }
     .fa-youtube { color: #FF0000; }
     .fa-tiktok { color: #fff; text-shadow: 2px 2px #000; }
-    .fa-mug-hot { color: #FF5E5B; } /* Icon cho Ko-fi */
+    .fa-mug-hot { color: #FF5E5B; }
   </style>
 </head>
 <body>
@@ -157,14 +158,6 @@
       </div>
     </section>
 
-    <section class="screenshots">
-      <h2>Screenshots</h2>
-      <div class="shot-grid">
-        <img src="https://placehold.co/400x200/222a55/FFF?text=Screen+1" alt="Screenshot 1" />
-        <img src="https://placehold.co/400x200/222a55/FFF?text=Screen+2" alt="Screenshot 2" />
-      </div>
-    </section>
-
     <section class="social-links">
       <h2>Join the Community</h2>
       <a href="https://discord.gg/4EuacCHqCG" target="_blank">
@@ -179,6 +172,14 @@
       <a href="https://ko-fi.com/hyntezlegolas" target="_blank">
         <i class="fa-solid fa-mug-hot"></i> Support on Ko-fi
       </a>
+    </section>
+
+    <section class="screenshots">
+      <h2>Screenshots</h2>
+      <div class="shot-grid">
+        <img src="https://placehold.co/400x200/222a55/FFF?text=Screen+1" alt="Screenshot 1" />
+        <img src="https://placehold.co/400x200/222a55/FFF?text=Screen+2" alt="Screenshot 2" />
+      </div>
     </section>
 
     <footer>
@@ -200,7 +201,6 @@
         const allReleases = allRes.ok ? await allRes.json() : [];
 
         const version = latest.tag_name || "v1.0.0";
-        // Tìm asset có đuôi .apk
         const apkAsset = latest.assets.find(a => a.name.endsWith(".apk")) || latest.assets[0];
 
         const versionEl    = document.getElementById("versionText");
@@ -240,6 +240,5 @@
     updateFromLatestRelease();
   </script>
 </body>
-</html>
 </html>
 
