@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>WBZ - Tier List Maker ❄️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <style>
+    /* --- GIỮ NGUYÊN STYLE CƠ BẢN CỦA TRANG CHỦ --- */
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at top, #1a2344, #050814);
+      color: #f5f5f5;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .snowflake {
+      position: fixed; top: -10px; color: #fff; pointer-events: none; z-index: 9999;
+      animation: fall linear forwards; text-shadow: 0 0 5px rgba(255,255,255,0.8);
+    }
+    @keyframes fall { to { transform: translateY(105vh); } }
+
+    .container { max-width: 1000px; margin: 0 auto; padding: 32px 16px 48px; position: relative; z-index: 1; }
+
+    /* --- MENU NAVIGATION --- */
+    .main-nav {
+      display: flex; justify-content: center; gap: 16px; margin-bottom: 32px;
+      background: rgba(255, 255, 255, 0.05); padding: 8px; border-radius: 99px;
+      backdrop-filter: blur(10px); width: fit-content; margin-left: auto; margin-right: auto;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .main-nav a {
+      text-decoration: none; color: #a8b8ff; padding: 8px 20px; border-radius: 99px;
+      font-weight: 600; transition: all 0.3s; font-size: 0.95rem;
+    }
+    .main-nav a:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .main-nav a.active {
+      background: linear-gradient(135deg, #4b6fff, #222a55); color: #fff;
+      box-shadow: 0 4px 15px rgba(75, 111, 255, 0.3);
+    }
+
+    /* --- TIER LIST STYLES --- */
+    h1 { text-align: center; margin-bottom: 24px; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+    
+    .tier-container {
+      display: flex; flex-direction: column; gap: 4px;
+      background: #000; border: 2px solid #333; padding: 4px; border-radius: 8px;
+    }
+
+    .tier-row {
+      display: flex; min-height: 100px; background: #1a1a1a;
+      border-bottom: 1px solid #333;
+    }
+
+    .tier-label {
+      width: 100px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; font-weight: 800; color: #000;
+      text-shadow: 0 1px 2px rgba(255,255,255,0.4);
+      flex-shrink: 0; cursor: pointer; user-select: none;
+      text-align: center; padding: 10px; word-break: break-word;
+    }
+    
+    /* Màu mặc định các Tier */
+    .tier-s { background-color: #ff7f7f; }
+    .tier-a { background-color: #ffbf7f; }
+    .tier-b { background-color: #ffdf7f; }
+    .tier-c { background-color: #ffff7f; }
+    .tier-d { background-color: #bfff7f; }
+
+    .tier-items {
+      flex-grow: 1; display: flex; flex-wrap: wrap; align-items: center;
+      padding: 10px; gap: 8px; min-height: 100px;
+      transition: background 0.2s;
+    }
+    .tier-items.drag-over { background: #333; }
+
+    /* --- KHO ẢNH (BANK) --- */
+    .image-bank {
+      margin-top: 32px; padding: 20px;
+      background: rgba(255,255,255,0.05); border-radius: 16px;
+      border: 1px dashed rgba(255,255,255,0.3);
+      min-height: 150px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+    }
+    .image-bank h3 { width: 100%; text-align: center; margin-top: 0; color: #a8b8ff; }
+
+    /* --- ITEM ẢNH --- */
+    .draggable-item {
+      width: 70px; height: 70px; cursor: grab;
+      border-radius: 8px; object-fit: cover;
+      background: #222; border: 2px solid transparent;
+      transition: transform 0.1s;
+    }
+    .draggable-item:active { cursor: grabbing; transform: scale(1.1); }
+    .draggable-item:hover { border-color: #fff; }
+
+    /* --- CONTROLS --- */
+    .controls { text-align: center; margin-top: 20px; }
+    .btn-reset {
+      background: #d42426; color: white; border: none; padding: 10px 20px;
+      border-radius: 8px; cursor: pointer; font-weight: bold;
+    }
+    .btn-reset:hover { background: #ff4b4b; }
+
+    /* Mobile Responsive */
+    @media (max-width: 600px) {
+      .tier-label { width: 60px; font-size: 1.2rem; }
+      .draggable-item { width: 50px; height: 50px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="snow-container"></div>
+
+  <div class="container">
+    <nav class="main-nav">
+      <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="tierlist.html" class="active"><i class="fa-solid fa-ranking-star"></i> Tier Maker</a>
+    </nav>
+
+    <h1>Create Your Tier List</h1>
+
+    <div class="tier-container">
+      <div class="tier-row">
+        <div class="tier-label tier-s" contenteditable="true">S</div>
+        <div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-label tier-a" contenteditable="true">A</div>
+        <div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-label tier-b" contenteditable="true">B</div>
+        <div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-label tier-c" contenteditable="true">C</div>
+        <div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-label tier-d" contenteditable="true">D</div>
+        <div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+      </div>
+    </div>
+
+    <div class="image-bank" id="bank" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <h3>Drag images from here 👇</h3>
+      </div>
+
+    <div class="controls">
+      <button class="btn-reset" onclick="resetTierList()">🔄 Reset Images</button>
+    </div>
+    
+    <footer style="text-align: center; margin-top: 40px; color: #888; font-size: 0.8rem;">
+      Double click label to rename. Screenshot to share!
+    </footer>
+  </div>
+
+  <script>
+    // --- 1. CẤU HÌNH DANH SÁCH ẢNH CỦA BẠN TẠI ĐÂY ---
+    // Bạn hãy liệt kê tên các file ảnh trong thư mục images/tierlist/
+    // Ví dụ: Tạo thư mục images/tierlist và bỏ ảnh ball1.png, ball2.png vào đó.
+    const imageList = [
+      "ball1.png",
+      "ball2.png",
+      "ball3.png",
+      "icon.png", 
+      // Thêm tiếp tên ảnh của bạn vào đây...
+    ];
+    
+    // Đường dẫn thư mục chứa ảnh tierlist
+    const imagePath = "images/tierlist/"; 
+
+    // --- 2. LOGIC RENDER VÀ KÉO THẢ ---
+    const bank = document.getElementById('bank');
+
+    function initBank() {
+      // Xóa cũ nếu có
+      const existingImgs = bank.querySelectorAll('img');
+      existingImgs.forEach(img => img.remove());
+
+      imageList.forEach((imgName, index) => {
+        const img = document.createElement('img');
+        img.src = imagePath + imgName;
+        img.className = 'draggable-item';
+        img.draggable = true;
+        img.id = 'drag-' + index;
+        
+        // Sự kiện kéo
+        img.addEventListener('dragstart', drag);
+        
+        // Xử lý lỗi nếu ảnh không tồn tại
+        img.onerror = function() { this.style.display = 'none'; };
+        
+        bank.appendChild(img);
+      });
+    }
+
+    // Các hàm xử lý Drag & Drop
+    function allowDrop(ev) {
+      ev.preventDefault();
+      ev.target.closest('.tier-items, .image-bank')?.classList.add('drag-over');
+    }
+
+    function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function drop(ev) {
+      ev.preventDefault();
+      // Tìm vùng thả hợp lệ (là tier-items hoặc image-bank)
+      const dropZone = ev.target.closest('.tier-items, .image-bank');
+      
+      if (dropZone) {
+        dropZone.classList.remove('drag-over');
+        var data = ev.dataTransfer.getData("text");
+        var draggedElement = document.getElementById(data);
+        if(draggedElement) {
+            dropZone.appendChild(draggedElement);
+        }
+      }
+    }
+
+    // Xóa class highlight khi drag leave
+    document.addEventListener('dragleave', (ev) => {
+        if(ev.target.classList.contains('tier-items') || ev.target.classList.contains('image-bank')) {
+            ev.target.classList.remove('drag-over');
+        }
+    });
+
+    function resetTierList() {
+      if(confirm("Reset all images to the bank?")) {
+        initBank();
+        // Xóa hết ảnh trong các tier
+        document.querySelectorAll('.tier-items').forEach(tier => tier.innerHTML = '');
+      }
+    }
+
+    // --- 3. HIỆU ỨNG TUYẾT RƠI (Copy từ trang chủ) ---
+    function createSnowflake() {
+      const snowflake = document.createElement('div');
+      snowflake.classList.add('snowflake');
+      snowflake.innerHTML = '❄';
+      snowflake.style.left = Math.random() * 100 + 'vw';
+      snowflake.style.fontSize = (Math.random() * 10 + 8) + 'px';
+      const duration = Math.random() * 5 + 5;
+      snowflake.style.animationDuration = duration + 's';
+      snowflake.style.opacity = Math.random();
+      document.body.appendChild(snowflake);
+      setTimeout(() => snowflake.remove(), duration * 1000);
+    }
+    setInterval(createSnowflake, 200);
+
+    // Chạy khởi tạo
+    initBank();
+  </script>
+</body>
+</html>
