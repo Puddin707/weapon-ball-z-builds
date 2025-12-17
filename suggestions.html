@@ -7,28 +7,46 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   
   <style>
-    /* --- GIỮ NGUYÊN CSS CŨ --- */
-    body { margin: 0; font-family: system-ui, -apple-system, sans-serif; background: radial-gradient(circle at top, #1a2344, #050814); color: #f5f5f5; min-height: 100vh; overflow-x: hidden; }
+    /* --- CẤU TRÚC CƠ BẢN --- */
+    body { 
+        margin: 0; 
+        font-family: system-ui, -apple-system, sans-serif; 
+        background: radial-gradient(circle at top, #1a2344, #050814); 
+        color: #f5f5f5; 
+        min-height: 100vh; 
+        overflow-x: hidden; 
+    }
+
+    /* HIỆU ỨNG TUYẾT RƠI */
     .snowflake { position: fixed; top: -10px; color: #fff; pointer-events: none; z-index: 9999; animation: fall linear forwards; text-shadow: 0 0 5px rgba(255,255,255,0.8); }
     @keyframes fall { to { transform: translateY(105vh); } }
+
     .container { max-width: 900px; margin: 0 auto; padding: 20px 10px 48px; position: relative; z-index: 1; }
 
-    /* MENU */
-    .main-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 32px; flex-wrap: wrap; background: rgba(255, 255, 255, 0.05); padding: 8px; border-radius: 99px; backdrop-filter: blur(10px); width: fit-content; margin-left: auto; margin-right: auto; border: 1px solid rgba(255,255,255,0.1); }
+    /* MENU NAVIGATION */
+    .main-nav { 
+        display: flex; justify-content: center; gap: 10px; margin-bottom: 32px; flex-wrap: wrap; 
+        background: rgba(255, 255, 255, 0.05); padding: 8px; border-radius: 99px; 
+        backdrop-filter: blur(10px); width: fit-content; margin-left: auto; margin-right: auto; 
+        border: 1px solid rgba(255,255,255,0.1); 
+    }
     .main-nav a { text-decoration: none; color: #a8b8ff; padding: 8px 16px; border-radius: 99px; font-weight: 600; transition: all 0.3s; font-size: 0.9rem; white-space: nowrap; }
     .main-nav a:hover { background: rgba(255,255,255,0.1); color: #fff; }
     .main-nav a.active { background: linear-gradient(135deg, #4b6fff, #222a55); color: #fff; box-shadow: 0 4px 15px rgba(75, 111, 255, 0.3); }
 
+    /* TIÊU ĐỀ */
     h1 { text-align: center; margin-bottom: 8px; font-size: 2rem; color: #ffde59; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
     .subtitle { text-align: center; color: #a8b8ff; margin-bottom: 30px; }
 
-    /* --- KHUNG CHỨA CANNY --- */
+    /* --- KHUNG CHỨA CANNY (GIAO DIỆN TỐI) --- */
     .canny-box {
-        background: #ffffff; /* Nền trắng bắt buộc cho Canny Free */
+        background: rgba(20, 20, 35, 0.6); /* Nền tối mờ ảo */
+        backdrop-filter: blur(10px);        /* Hiệu ứng kính mờ */
         border-radius: 16px;
         padding: 20px;
         box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         min-height: 600px;
+        border: 1px solid rgba(255,255,255,0.1); /* Viền sáng nhẹ */
     }
 
     footer { text-align: center; margin-top: 40px; color: #888; font-size: 0.8rem; }
@@ -58,7 +76,7 @@
   </div>
 
   <script>
-    // 1. TUYẾT RƠI
+    // 1. HIỆU ỨNG TUYẾT RƠI
     function createSnow() {
       const s = document.createElement('div'); s.className='snowflake'; s.innerHTML='❄';
       s.style.left=Math.random()*100+'vw'; s.style.fontSize=(Math.random()*10+8)+'px';
@@ -70,12 +88,12 @@
     // 2. SCRIPT KẾT NỐI CANNY
     !function(w,d,i,s){function l(){if(!d.getElementById(i)){var f=d.getElementsByTagName(s)[0],e=d.createElement(s);e.type="text/javascript",e.async=!0,e.src="https://canny.io/sdk.js",f.parentNode.insertBefore(e,f)}}if("function"!=typeof w.Canny){var c=function(){c.q.push(arguments)};c.q=[],w.Canny=c,"complete"===d.readyState?l():w.attachEvent?w.attachEvent("onload",l):w.addEventListener("load",l,!1)}}(window,document,"canny-jssdk","script");
 
-    // 👇👇👇 TOKEN CỦA BẠN ĐÃ ĐƯỢC ĐIỀN Ở ĐÂY 👇👇👇
+    // 👇 CẤU HÌNH DARK MODE & TOKEN 👇
     Canny('render', {
-      boardToken: '5b29c140-bc3a-f5d6-d902-be8ff7bbc23e', 
+      boardToken: '5b29c140-bc3a-f5d6-d902-be8ff7bbc23e', // Token của bạn
       basePath: null, 
       ssoToken: null, 
-      theme: 'light', 
+      theme: 'dark', // Đã bật chế độ tối
     });
   </script>
 </body>
