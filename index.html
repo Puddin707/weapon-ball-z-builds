@@ -295,6 +295,11 @@
       <div class="download-count" id="downloadCount">
         Downloads: ...
       </div>
+      
+      <div style="margin-top: 8px; font-size: 0.8rem; color: #ffcc00; opacity: 0.9;">
+        <i class="fa-solid fa-triangle-exclamation"></i> 
+        If the download fails, please select <b>Open in Browser</b>
+      </div>
     </section>
 
     <section class="social-links">
@@ -352,6 +357,8 @@
 
         if (linkEl && apkAsset && apkAsset.browser_download_url) {
           linkEl.href = apkAsset.browser_download_url;
+          linkEl.setAttribute("target", "_blank");
+          linkEl.setAttribute("download", apkAsset.name);
         }
 
         if (changelogEl && latest.body) {
