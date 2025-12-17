@@ -7,11 +7,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   
   <style>
-    /* --- GIỮ NGUYÊN CSS CŨ --- */
+    /* --- STYLE CƠ BẢN --- */
     body { margin: 0; font-family: system-ui, -apple-system, sans-serif; background: radial-gradient(circle at top, #1a2344, #050814); color: #f5f5f5; min-height: 100vh; overflow-x: hidden; }
     .snowflake { position: fixed; top: -10px; color: #fff; pointer-events: none; z-index: 9999; animation: fall linear forwards; text-shadow: 0 0 5px rgba(255,255,255,0.8); }
     @keyframes fall { to { transform: translateY(105vh); } }
-    .container { max-width: 1000px; margin: 0 auto; padding: 20px 10px 48px; position: relative; z-index: 1; }
+    .container { max-width: 900px; margin: 0 auto; padding: 20px 16px 48px; position: relative; z-index: 1; }
 
     /* MENU */
     .main-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 32px; flex-wrap: wrap; background: rgba(255, 255, 255, 0.05); padding: 8px; border-radius: 99px; backdrop-filter: blur(10px); width: fit-content; margin-left: auto; margin-right: auto; border: 1px solid rgba(255,255,255,0.1); }
@@ -20,19 +20,52 @@
     .main-nav a.active { background: linear-gradient(135deg, #4b6fff, #222a55); color: #fff; box-shadow: 0 4px 15px rgba(75, 111, 255, 0.3); }
 
     h1 { text-align: center; margin-bottom: 8px; font-size: 2rem; color: #ffde59; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-    .subtitle { text-align: center; color: #a8b8ff; margin-bottom: 30px; }
+    .subtitle { text-align: center; color: #a8b8ff; margin-bottom: 40px; }
 
-    /* --- KHUNG CHAT DISCORD --- */
-    .discord-box {
-        width: 100%;
-        height: 70vh; /* Chiều cao bằng 70% màn hình */
-        border-radius: 16px;
-        overflow: hidden;
+    /* --- DISCORD PORTAL CARD --- */
+    .discord-card {
+        background: linear-gradient(145deg, #5865F2, #4752C4);
+        border-radius: 20px;
+        padding: 40px 20px;
+        text-align: center;
+        box-shadow: 0 10px 40px rgba(88, 101, 242, 0.3);
         border: 1px solid rgba(255,255,255,0.1);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        background: #36393e; /* Màu nền Discord */
+        max-width: 600px;
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
     }
     
+    /* Trang trí nền */
+    .discord-bg-icon {
+        position: absolute;
+        font-size: 150px;
+        color: rgba(0,0,0,0.1);
+        top: -20px;
+        right: -20px;
+        transform: rotate(15deg);
+    }
+
+    .discord-card h2 { margin: 0 0 10px; font-size: 1.8rem; }
+    .discord-card p { font-size: 1rem; color: #dee0fc; margin-bottom: 30px; line-height: 1.5; }
+    
+    .features-list {
+        display: flex; justify-content: center; gap: 20px; margin-bottom: 30px; flex-wrap: wrap;
+    }
+    .f-item { background: rgba(0,0,0,0.2); padding: 8px 16px; border-radius: 8px; font-size: 0.9rem; }
+
+    .btn-join {
+        display: inline-flex; align-items: center; gap: 10px;
+        background: #fff; color: #5865F2;
+        padding: 14px 32px; border-radius: 99px;
+        font-weight: 800; text-decoration: none; font-size: 1.1rem;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-join:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
     footer { text-align: center; margin-top: 40px; color: #888; font-size: 0.8rem; }
   </style>
 </head>
@@ -47,16 +80,31 @@
       <a href="fanart.html"><i class="fa-solid fa-palette"></i> Fan Art</a>
     </nav>
 
-    <h1>Live Suggestions</h1>
-    <div class="subtitle">Chat directly with developers & community via Discord!</div>
+    <h1>Idea Board</h1>
+    <div class="subtitle">Help shape the future of Weapon Ball Z!</div>
 
-    <div class="discord-box">
-        <widgetbot
-            server="1408343902288613418"
-            channel="1412463944660156570"
-            width="100%"
-            height="100%"
-        ></widgetbot>
+    <div class="discord-card">
+        <i class="fa-brands fa-discord discord-bg-icon"></i>
+        
+        <h2>Join our Suggestion Forum</h2>
+        <p>
+            We use a dedicated <b>Discord Forum</b> for tracking ideas.<br>
+            It allows you to upload images, vote on features, and discuss with devs.
+        </p>
+
+        <div class="features-list">
+            <div class="f-item"><i class="fa-solid fa-image"></i> Upload Images</div>
+            <div class="f-item"><i class="fa-solid fa-check-to-slot"></i> Vote Ideas</div>
+            <div class="f-item"><i class="fa-solid fa-comments"></i> Dev Reply</div>
+        </div>
+
+        <a href="https://discord.com/channels/1408343902288613418/1412463944660156570" target="_blank" class="btn-join">
+            <i class="fa-brands fa-discord"></i> Open Suggestions
+        </a>
+    </div>
+
+    <div style="text-align:center; margin-top: 30px; opacity: 0.6; font-size: 0.9rem;">
+        <i class="fa-solid fa-mobile-screen"></i> Works best on Discord Mobile App
     </div>
 
     <footer>
@@ -64,10 +112,7 @@
     </footer>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
-
   <script>
-    // TUYẾT RƠI
     function createSnow() {
       const s = document.createElement('div'); s.className='snowflake'; s.innerHTML='❄';
       s.style.left=Math.random()*100+'vw'; s.style.fontSize=(Math.random()*10+8)+'px';
