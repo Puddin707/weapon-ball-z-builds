@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>WBZ - Ideas & Suggestions 💡</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <style>
+    /* --- STYLE CHUNG --- */
+    body {
+      margin: 0; font-family: system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at top, #1a2344, #050814);
+      color: #f5f5f5; min-height: 100vh; overflow-x: hidden;
+    }
+    .snowflake {
+      position: fixed; top: -10px; color: #fff; pointer-events: none; z-index: 9999;
+      animation: fall linear forwards; text-shadow: 0 0 5px rgba(255,255,255,0.8);
+    }
+    @keyframes fall { to { transform: translateY(105vh); } }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 20px 16px 48px; position: relative; z-index: 1; }
+
+    /* MENU */
+    .main-nav {
+      display: flex; justify-content: center; gap: 10px; margin-bottom: 32px; flex-wrap: wrap;
+      background: rgba(255, 255, 255, 0.05); padding: 8px; border-radius: 99px;
+      backdrop-filter: blur(10px); width: fit-content; margin-left: auto; margin-right: auto;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .main-nav a {
+      text-decoration: none; color: #a8b8ff; padding: 8px 16px; border-radius: 99px;
+      font-weight: 600; transition: all 0.3s; font-size: 0.9rem; white-space: nowrap;
+    }
+    .main-nav a:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .main-nav a.active {
+      background: linear-gradient(135deg, #4b6fff, #222a55); color: #fff;
+      box-shadow: 0 4px 15px rgba(75, 111, 255, 0.3);
+    }
+
+    h1 { text-align: center; margin-bottom: 8px; font-size: 2rem; color: #ffde59; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+    .subtitle { text-align: center; color: #a8b8ff; margin-bottom: 30px; }
+
+    /* --- INFO BOX --- */
+    .info-box {
+      background: rgba(75, 111, 255, 0.1);
+      border: 1px solid rgba(75, 111, 255, 0.3);
+      padding: 20px; border-radius: 16px;
+      text-align: center; margin-bottom: 40px;
+    }
+    .info-box h3 { margin-top: 0; color: #89c4ff; }
+    .info-box p { font-size: 0.95rem; color: #ddd; line-height: 1.5; }
+    .highlight { color: #ffde59; font-weight: bold; }
+
+    /* --- SUGGESTION AREA --- */
+    .suggestion-area {
+      background: rgba(255, 255, 255, 0.02);
+      padding: 24px; border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    footer {
+      text-align: center; margin-top: 40px; color: #888; font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="snow-container"></div>
+
+  <div class="container">
+    <nav class="main-nav">
+      <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="tierlist.html"><i class="fa-solid fa-ranking-star"></i> Tier Maker</a>
+      <a href="fanart.html"><i class="fa-solid fa-palette"></i> Fan Art</a>
+      <a href="suggestions.html" class="active"><i class="fa-solid fa-lightbulb"></i> Ideas</a>
+    </nav>
+
+    <h1>Game Suggestions</h1>
+    <div class="subtitle">Help us make Weapon Ball Z better!</div>
+
+    <div class="info-box">
+      <h3><i class="fa-solid fa-bullhorn"></i> How to suggest?</h3>
+      <p>
+        Have an idea for a new Ball, Weapon, or Mode? Write it down below!<br>
+        You can <span class="highlight">Paste Images (Ctrl+V)</span> directly into the text box to show your concept.<br>
+        <small>Please be polite and vote for ideas you like!</small>
+      </p>
+    </div>
+
+    <div class="suggestion-area">
+      <script src="https://giscus.app/client.js"
+        data-repo="Puddin707/weapon-ball-z-builds"
+        data-repo-id="R_kgDOQWSPBw"
+        data-category="Ideas"
+        data-category-id="DIC_kwDOQWSPB84Cz7Pg" 
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="dark"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+      </script>
+    </div>
+
+    <footer>
+      © 2025 Weapon Ball Z. <br> Made with ❄️ for Gamers.
+    </footer>
+  </div>
+
+  <script>
+    // TUYẾT RƠI
+    function createSnow() {
+      const s = document.createElement('div'); s.className='snowflake'; s.innerHTML='❄';
+      s.style.left=Math.random()*100+'vw'; s.style.fontSize=(Math.random()*10+8)+'px';
+      s.style.animationDuration=(Math.random()*5+5)+'s'; s.style.opacity=Math.random();
+      document.body.appendChild(s); setTimeout(()=>s.remove(),10000);
+    }
+    setInterval(createSnow, 200);
+  </script>
+</body>
+</html>
