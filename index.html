@@ -149,7 +149,25 @@
       box-shadow: 0 0 30px rgba(229, 45, 39, 0.6);
       filter: brightness(1.1);
     }
-
+    
+    .btn-copy {
+      display: block; /* Xuống dòng */
+      margin: 12px auto 0; /* Căn giữa */
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 99px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    
+    .btn-copy:active {
+      transform: scale(0.95);
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
     .changelog {
       margin-top: 16px;
       font-size: 0.95rem;
@@ -291,6 +309,9 @@
          href="#">
         <i class="fa-brands fa-android"></i> Download APK
       </a>
+      <button id="copyBtn" class="btn-copy" onclick="copyToClipboard()">
+        <i class="fa-regular fa-copy"></i> Copy Link
+      </button>
 
       <div class="download-count" id="downloadCount">
         Downloads: ...
@@ -298,7 +319,7 @@
       
       <div style="margin-top: 8px; font-size: 0.8rem; color: #ffcc00; opacity: 0.9;">
         <i class="fa-solid fa-triangle-exclamation"></i> 
-        If the download fails, please select <b>Open in Browser</b>
+        If download fails, please use <b>Copy Link</b> & open in Chrome.
       </div>
     </section>
 
@@ -401,6 +422,39 @@
       }, duration * 1000);
     }
     setInterval(createSnowflake, 200);
+    function copyToClipboard() {
+      const linkEl = document.getElementById("downloadLink");
+      const url = linkEl.href;
+      
+      // Nếu chưa có link (đang loading) hoặc là link #
+      if (!url || url.endsWith("#")) {
+        alert("Please wait for the link to load!");
+        return;
+      }
+
+      // Copy vào bộ nhớ đệm
+      navigator.clipboard.writeText(url).then(() => {
+        const btn = document.getElementById("copyBtn");
+        const originalText = btn.innerHTML;
+        
+        // Đổi màu và chữ để báo thành công
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+        btn.style.background = "#4caf50";
+        btn.style.borderColor = "#4caf50";
+        
+        // Reset lại sau 2 giây
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.style.background = "rgba(255, 255, 255, 0.1)";
+          btn.style.borderColor = "rgba(255, 255, 255, 0.2)";
+        }, 2000);
+        
+        alert("Link copied! Please open Chrome/Safari to download.");
+      }).catch(err => {
+        console.error('Failed to copy: ', err);
+        alert("Failed to copy. Please long-press the download button.");
+      });
+    }
   </script>
 </body>
 </html>
