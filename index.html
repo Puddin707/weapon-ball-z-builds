@@ -2,14 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Weapon Ball Z - Christmas Edition ❄️</title>
-  <head>
-  <title>WBZ - Ideas & Suggestions 💡</title>
+  <title>Weapon Ball Z - Official Site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   
   <link rel="icon" type="image/png" href="favicon.png">
   
-  </head>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   
   <style>
@@ -17,26 +14,44 @@
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #1a2344, #050814); /* Nền chuyển màu sâu hơn */
+      /* Nền tối thẫm để đèn Neon nổi bật */
+      background-color: #0a0a0a;
       color: #f5f5f5;
       overflow-x: hidden;
       min-height: 100vh;
+      position: relative;
     }
 
-    /* --- HIỆU ỨNG TUYẾT RƠI --- */
-    .snowflake {
-      position: fixed;
-      top: -10px;
-      color: #fff;
-      font-size: 1em;
-      opacity: 0.8;
-      pointer-events: none;
-      z-index: 9999;
-      animation: fall linear forwards;
-      text-shadow: 0 0 5px rgba(255,255,255,0.8); /* Tuyết phát sáng nhẹ */
+    /* --- HIỆU ỨNG NEON (TRÁI ĐỎ - PHẢI XANH) --- */
+    
+    /* Đèn Neon ĐỎ bên TRÁI */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 20px;
+        height: 100%;
+        z-index: 0; 
+        pointer-events: none;
+        /* Ánh sáng đỏ lan tỏa */
+        box-shadow: 0px 0px 150px 80px rgba(255, 30, 30, 0.6),
+                    50px 0px 200px 100px rgba(255, 0, 0, 0.3);
     }
-    @keyframes fall {
-      to { transform: translateY(105vh); }
+
+    /* Đèn Neon XANH DƯƠNG bên PHẢI */
+    body::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 20px;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+        /* Ánh sáng xanh lan tỏa */
+        box-shadow: 0px 0px 150px 80px rgba(30, 70, 255, 0.6),
+                    -50px 0px 200px 100px rgba(0, 40, 255, 0.3);
     }
 
     .container {
@@ -44,7 +59,7 @@
       margin: 0 auto;
       padding: 32px 16px 48px;
       position: relative;
-      z-index: 1;
+      z-index: 1; /* Đưa nội dung lên trên ánh sáng nền */
     }
 
     /* --- HEADER --- */
@@ -60,22 +75,23 @@
       border-radius: 20px;
       object-fit: cover;
       background: #222;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.5); /* Bóng đổ mềm thay vì viền */
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255,255,255,0.1);
     }
     h1 {
       margin: 0 0 4px;
       font-size: 2rem;
       font-weight: 800;
-      /* Hiệu ứng chữ tuyết phủ (Trắng trên, xanh dưới) */
-      background: linear-gradient(to bottom, #ffffff 40%, #89c4ff 100%);
+      /* Hiệu ứng chữ kim loại/sáng */
+      background: linear-gradient(to right, #fff, #a8c0ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+      text-shadow: 0 0 20px rgba(168, 192, 255, 0.5);
     }
     .subtitle {
       opacity: 0.8;
       font-size: 1rem;
-      color: #a8b8ff;
+      color: #ccc;
       letter-spacing: 0.5px;
     }
     
@@ -85,7 +101,7 @@
       justify-content: center;
       gap: 16px;
       margin-bottom: 32px;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(20, 20, 20, 0.8);
       padding: 8px;
       border-radius: 99px;
       backdrop-filter: blur(10px);
@@ -93,10 +109,11 @@
       margin-left: auto;
       margin-right: auto;
       border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
     .main-nav a {
       text-decoration: none;
-      color: #a8b8ff;
+      color: #aaa;
       padding: 8px 20px;
       border-radius: 99px;
       font-weight: 600;
@@ -108,24 +125,25 @@
       color: #fff;
     }
     .main-nav a.active {
-      background: linear-gradient(135deg, #4b6fff, #222a55);
+      /* Gradient hòa trộn giữa đỏ và xanh */
+      background: linear-gradient(90deg, #ff3333, #3333ff);
       color: #fff;
-      box-shadow: 0 4px 15px rgba(75, 111, 255, 0.3);
+      box-shadow: 0 0 15px rgba(100, 100, 255, 0.5);
     }
     
-    /* --- DOWNLOAD BOX (GLASSMORPHISM - HIỆU ỨNG BĂNG) --- */
+    /* --- DOWNLOAD BOX --- */
     .download-box {
       margin: 24px 0;
       padding: 30px;
       border-radius: 24px;
       text-align: center;
       
-      /* Hiệu ứng kính mờ (Băng) */
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(16px); /* Làm mờ nền phía sau */
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.08); /* Viền mảnh như băng */
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+      /* Hiệu ứng kính tối màu */
+      background: rgba(25, 25, 25, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
     }
 
     .btn-download {
@@ -136,32 +154,31 @@
       border-radius: 999px;
       text-decoration: none;
       
-      /* Gradient Đỏ Giáng Sinh Sang Trọng */
-      background: linear-gradient(135deg, #ff5f6d, #ffc371); /* Cam đỏ ấm áp */
-      background: linear-gradient(135deg, #e52d27, #b31217); /* Đỏ đậm */
+      /* Gradient Cyberpunk mới */
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
       
       color: #fff;
       font-weight: 700;
       font-size: 1.05rem;
       
-      /* Hiệu ứng phát sáng nhẹ (Glow) */
-      box-shadow: 0 0 20px rgba(229, 45, 39, 0.4); 
-      border: 1px solid rgba(255,255,255,0.2);
+      /* Glow effect */
+      box-shadow: 0 0 25px rgba(37, 117, 252, 0.4); 
+      border: 1px solid rgba(255,255,255,0.1);
       transition: all 0.3s ease;
     }
 
     .btn-download:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0 30px rgba(229, 45, 39, 0.6);
-      filter: brightness(1.1);
+      box-shadow: 0 0 40px rgba(37, 117, 252, 0.6);
+      filter: brightness(1.2);
     }
     
     .btn-copy {
-      display: block; /* Xuống dòng */
-      margin: 12px auto 0; /* Căn giữa */
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #fff;
+      display: block;
+      margin: 12px auto 0;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #ccc;
       padding: 8px 16px;
       border-radius: 99px;
       cursor: pointer;
@@ -171,23 +188,25 @@
     
     .btn-copy:active {
       transform: scale(0.95);
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
     }
     
     .changelog {
       margin-top: 16px;
       font-size: 0.95rem;
-      color: #dbeafe; /* Màu xanh băng nhạt */
+      color: #d1d5db;
       white-space: pre-line;
-      background: rgba(0, 0, 0, 0.2);
+      background: rgba(0, 0, 0, 0.4);
       padding: 12px;
       border-radius: 12px;
       text-align: left;
+      border: 1px solid rgba(255,255,255,0.05);
     }
     .download-count {
       margin-top: 12px;
       font-size: 0.85rem;
       opacity: 0.6;
+      color: #888;
     }
 
     /* --- SOCIAL LINKS --- */
@@ -199,8 +218,7 @@
     .social-links h2 {
       font-size: 1.2rem;
       margin-bottom: 16px;
-      color: #ffde59;
-      text-shadow: 0 2px 10px rgba(255, 222, 89, 0.2);
+      color: #fff;
     }
     .social-links a {
       margin: 6px;
@@ -212,20 +230,19 @@
       gap: 8px;
       transition: all 0.3s;
       
-      /* Nút social kiểu tối giản */
-      background: rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.05);
       padding: 10px 20px;
       border-radius: 12px;
       border: 1px solid rgba(255,255,255,0.05);
     }
     .social-links a:hover {
-      background: rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.1);
       transform: translateY(-3px);
       border-color: rgba(255,255,255,0.2);
     }
     .social-links i { font-size: 20px; }
 
-    /* --- SCREENSHOTS (DỌC) --- */
+    /* --- SCREENSHOTS --- */
     .screenshots h2 {
       font-size: 1.4rem;
       margin-bottom: 20px;
@@ -243,14 +260,14 @@
       aspect-ratio: 9/16;
       object-fit: cover;
       border-radius: 16px;
-      /* Bỏ viền thô, dùng bóng đổ và viền mờ */
       border: 1px solid rgba(255,255,255,0.1);
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       transition: transform 0.3s, box-shadow 0.3s;
     }
     .shot-grid img:hover {
       transform: translateY(-8px);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.8); /* Bóng đậm hơn */
+      border-color: rgba(255,255,255,0.3);
     }
 
     /* Mobile Responsive */
@@ -260,7 +277,7 @@
         justify-content: flex-start;
         flex-wrap: nowrap;
         overflow-x: auto;
-        padding: 10px 4px 24px 4px; /* Thêm padding dưới để ko bị cắt bóng đổ */
+        padding: 10px 4px 24px 4px;
         scrollbar-width: none; 
       }
       .shot-grid::-webkit-scrollbar { display: none; }
@@ -274,14 +291,12 @@
       margin-top: 60px;
       text-align: center;
       font-size: 0.9rem;
-      color: #899bbd;
+      color: #666;
       padding-bottom: 20px;
     }
   </style>
 </head>
 <body>
-
-  <div id="snow-container"></div>
 
   <div class="container">
     <nav class="main-nav">
@@ -293,7 +308,7 @@
     <header>
       <img src="images/icon.png" alt="WBZ" onerror="this.src='https://placehold.co/80x80/222a55/FFF?text=Icon'" />
       <div>
-        <h1>Weapon Ball Z 🎅</h1>
+        <h1>Weapon Ball Z</h1>
         <div class="subtitle">
           Simulation Weapon Ball Games
         </div>
@@ -302,13 +317,11 @@
 
     <section class="download-box">
       <div style="margin-bottom: 8px; font-size: 1.1rem;">
-        🎄 Latest version: <strong id="versionText" style="color: #ffde59;">Checking...</strong>
+        🔥 Latest version: <strong id="versionText" style="color: #4facfe;">Checking...</strong>
       </div>
       
       <div class="changelog" id="changelog">
-        - XMAS EVENT: STRANGER CHRISTMAS
-        - CUSTOM MODE UPDATE: SANDBOX, BALL EDITOR UPDATE
-        - NEW WEAPONS
+        Loading update info...
       </div>
 
       <a class="btn-download"
@@ -324,7 +337,7 @@
         Downloads: ...
       </div>
       
-      <div style="margin-top: 8px; font-size: 0.8rem; color: #ffcc00; opacity: 0.9;">
+      <div style="margin-top: 8px; font-size: 0.8rem; color: #ffcc00; opacity: 0.8;">
         <i class="fa-solid fa-triangle-exclamation"></i> 
         If download fails, please use <b>Copy Link</b> & open in Chrome.
       </div>
@@ -356,7 +369,7 @@
     </section>
 
     <footer>
-      © 2025 Weapon Ball Z. <br> Made with ❄️ for Gamers.
+      © 2026 Weapon Ball Z. <br> Made with ❤️ for Gamers.
     </footer>
   </div>
 
@@ -373,7 +386,7 @@
         const latest = await latestRes.json();
         const allReleases = allRes.ok ? await allRes.json() : [];
 
-        const version = latest.tag_name || "v1.0.0";
+        const version = latest.tag_name || "v1.1";
         const apkAsset = latest.assets.find(a => a.name.endsWith(".apk")) || latest.assets[0];
 
         const versionEl    = document.getElementById("versionText");
@@ -413,50 +426,31 @@
     }
     updateFromLatestRelease();
 
-    // TẠO TUYẾT RƠI
-    function createSnowflake() {
-      const snowflake = document.createElement('div');
-      snowflake.classList.add('snowflake');
-      snowflake.innerHTML = '❄';
-      snowflake.style.left = Math.random() * 100 + 'vw';
-      snowflake.style.fontSize = (Math.random() * 10 + 8) + 'px'; // Kích thước tuyết ngẫu nhiên
-      const duration = Math.random() * 5 + 5; // Rơi chậm hơn chút cho chill
-      snowflake.style.animationDuration = duration + 's';
-      snowflake.style.opacity = Math.random(); // Độ mờ ngẫu nhiên
-      document.body.appendChild(snowflake);
-      setTimeout(() => {
-        snowflake.remove();
-      }, duration * 1000);
-    }
-    setInterval(createSnowflake, 200);
+    // Copy to Clipboard Function
     function copyToClipboard() {
       const linkEl = document.getElementById("downloadLink");
       const url = linkEl.href;
       
-      // Nếu chưa có link (đang loading) hoặc là link #
       if (!url || url.endsWith("#")) {
         alert("Please wait for the link to load!");
         return;
       }
 
-      // Copy vào bộ nhớ đệm
       navigator.clipboard.writeText(url).then(() => {
         const btn = document.getElementById("copyBtn");
         const originalText = btn.innerHTML;
         
-        // Đổi màu và chữ để báo thành công
         btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
-        btn.style.background = "#4caf50";
-        btn.style.borderColor = "#4caf50";
+        btn.style.background = "#28a745"; // Green success
+        btn.style.borderColor = "#28a745";
         
-        // Reset lại sau 2 giây
         setTimeout(() => {
           btn.innerHTML = originalText;
-          btn.style.background = "rgba(255, 255, 255, 0.1)";
-          btn.style.borderColor = "rgba(255, 255, 255, 0.2)";
+          btn.style.background = "rgba(255, 255, 255, 0.05)";
+          btn.style.borderColor = "rgba(255, 255, 255, 0.1)";
         }, 2000);
         
-        alert("Link copied! Please open Chrome/Safari to download.");
+        alert("Link copied! Open Chrome/Safari to download.");
       }).catch(err => {
         console.error('Failed to copy: ', err);
         alert("Failed to copy. Please long-press the download button.");
