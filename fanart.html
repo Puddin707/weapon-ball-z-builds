@@ -3,55 +3,100 @@
 <head>
   <meta charset="UTF-8" />
   <title>WBZ - Hall of Fame 🎨</title>
-  <head>
-  <title>WBZ - Ideas & Suggestions 💡</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   
   <link rel="icon" type="image/png" href="favicon.png">
   
-  </head>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   
   <style>
-    /* --- STYLE CƠ BẢN (GIỐNG INDEX) --- */
+    /* --- CẤU HÌNH CƠ BẢN (ĐỒNG BỘ) --- */
     body {
-      margin: 0; font-family: system-ui, -apple-system, sans-serif;
-      background: radial-gradient(circle at top, #1a2344, #050814);
-      color: #f5f5f5; min-height: 100vh; overflow-x: hidden;
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      
+      /* --- NỀN PHA MÀU SÁNG RỰC RỠ --- */
+      background-color: #050505; 
+      
+      /* Hai vùng sáng Đỏ (Trái) và Xanh (Phải) lan vào giữa */
+      background-image: 
+        radial-gradient(circle at 0% 50%, rgba(255, 0, 0, 0.5) 0%, transparent 70%),
+        radial-gradient(circle at 100% 50%, rgba(0, 50, 255, 0.5) 0%, transparent 70%);
+      
+      color: #f5f5f5;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
     }
-    .snowflake {
-      position: fixed; top: -10px; color: #fff; pointer-events: none; z-index: 9999;
-      animation: fall linear forwards; text-shadow: 0 0 5px rgba(255,255,255,0.8);
+
+    /* --- HIỆU ỨNG NEON VIỀN --- */
+    /* Neon ĐỎ bên TRÁI */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0; left: 0; width: 20px; height: 100%; z-index: 0; pointer-events: none;
+        box-shadow: 0px 0px 150px 80px rgba(255, 30, 30, 0.6),
+                    50px 0px 200px 100px rgba(255, 0, 0, 0.3);
     }
-    @keyframes fall { to { transform: translateY(105vh); } }
 
-    .container { max-width: 1000px; margin: 0 auto; padding: 20px 16px 48px; position: relative; z-index: 1; }
+    /* Neon XANH DƯƠNG bên PHẢI */
+    body::after {
+        content: '';
+        position: fixed;
+        top: 0; right: 0; width: 20px; height: 100%; z-index: 0; pointer-events: none;
+        box-shadow: 0px 0px 150px 80px rgba(30, 70, 255, 0.6),
+                    -50px 0px 200px 100px rgba(0, 40, 255, 0.3);
+    }
 
-    /* MENU */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px 16px 48px;
+      position: relative;
+      z-index: 1; 
+    }
+
+    /* --- MENU NAVIGATION --- */
     .main-nav {
       display: flex; justify-content: center; gap: 10px; margin-bottom: 32px;
-      background: rgba(255, 255, 255, 0.05); padding: 8px; border-radius: 99px;
+      background: rgba(20, 20, 20, 0.8); padding: 8px; border-radius: 99px;
       backdrop-filter: blur(10px); width: fit-content; margin-left: auto; margin-right: auto;
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
     .main-nav a {
-      text-decoration: none; color: #a8b8ff; padding: 8px 20px; border-radius: 99px;
+      text-decoration: none; color: #aaa; padding: 8px 20px; border-radius: 99px;
       font-weight: 600; transition: all 0.3s; font-size: 0.95rem;
     }
     .main-nav a:hover { background: rgba(255,255,255,0.1); color: #fff; }
     .main-nav a.active {
-      background: linear-gradient(135deg, #4b6fff, #222a55); color: #fff;
-      box-shadow: 0 4px 15px rgba(75, 111, 255, 0.3);
+      background: linear-gradient(90deg, #ff3333, #3333ff);
+      color: #fff; box-shadow: 0 0 15px rgba(100, 100, 255, 0.5);
     }
 
-    h1 { text-align: center; margin-bottom: 8px; font-size: 2rem; color: #ffde59; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-    .subtitle { text-align: center; color: #a8b8ff; margin-bottom: 40px; }
+    h1 { 
+      text-align: center; margin-bottom: 8px; font-size: 2rem; 
+      background: linear-gradient(to right, #fff, #a8c0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(168, 192, 255, 0.5);
+      font-weight: 800;
+    }
+    .subtitle { text-align: center; color: #ccc; margin-bottom: 40px; }
 
-    /* --- FAN ART GRID --- */
+    /* --- FAN ART GRID (Đã tối ưu cho Mobile) --- */
     .art-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      /* Mặc định cho PC/Tablet: Tự động chia cột, tối thiểu 180px */
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
       gap: 16px;
+    }
+
+    /* MOBILE RESPONSIVE: Ép hiển thị 2 cột */
+    @media (max-width: 600px) {
+      .art-grid {
+        grid-template-columns: repeat(2, 1fr); /* Luôn luôn 2 cột */
+        gap: 10px; /* Khoảng cách nhỏ hơn chút cho gọn */
+      }
     }
 
     .art-item {
@@ -62,13 +107,14 @@
       cursor: pointer;
       background: #000;
       border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
       transition: transform 0.3s, box-shadow 0.3s;
     }
     .art-item:hover {
       transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(75, 111, 255, 0.4);
+      box-shadow: 0 8px 25px rgba(75, 111, 255, 0.6); /* Glow xanh tím khi hover */
       z-index: 2;
+      border-color: rgba(255,255,255,0.5);
     }
     .art-item img {
       width: 100%; height: 100%; object-fit: cover;
@@ -85,30 +131,37 @@
       background: rgba(0,0,0,0.9); z-index: 10000;
       display: none; align-items: center; justify-content: center;
       opacity: 0; transition: opacity 0.3s;
+      backdrop-filter: blur(5px);
     }
     .lightbox.show { display: flex; opacity: 1; }
     .lightbox img {
       max-width: 90%; max-height: 90%; border-radius: 8px;
-      box-shadow: 0 0 50px rgba(255,255,255,0.1);
+      box-shadow: 0 0 50px rgba(255,255,255,0.2);
     }
     .close-lb {
       position: absolute; top: 20px; right: 30px; color: #fff;
-      font-size: 2rem; cursor: pointer;
+      font-size: 2rem; cursor: pointer; text-shadow: 0 0 10px #000;
     }
 
     /* --- SUBMIT BUTTON --- */
     .submit-section {
       text-align: center; margin: 40px 0;
-      padding: 20px; background: rgba(255,255,255,0.05); border-radius: 16px;
+      padding: 20px; 
+      background: rgba(25, 25, 25, 0.6); 
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.1);
     }
     .btn-submit {
-      display: inline-block; padding: 12px 24px; background: #ff4444;
+      display: inline-block; padding: 12px 24px; 
+      background: linear-gradient(135deg, #5865F2, #4752C4); /* Màu Discord */
       color: white; text-decoration: none; border-radius: 99px;
       font-weight: bold; transition: 0.3s; margin-top: 10px;
+      box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
     }
-    .btn-submit:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 68, 68, 0.4); }
+    .btn-submit:hover { transform: scale(1.05); filter: brightness(1.2); }
 
-    /* --- COMMENT SECTION (GISCUS) --- */
+    /* --- COMMENT SECTION --- */
     .comments-section {
       margin-top: 60px;
       padding-top: 20px;
@@ -116,10 +169,10 @@
     }
     .comments-title { text-align: center; margin-bottom: 20px; color: #fff; }
 
+    footer { text-align: center; margin-top: 40px; color: #666; font-size: 0.8rem; }
   </style>
 </head>
 <body>
-  <div id="snow-container"></div>
 
   <div class="container">
     <nav class="main-nav">
@@ -138,7 +191,7 @@
 
     <div class="submit-section">
       <h3>Want to see your art here?</h3>
-      <p style="color: #aaa; margin-bottom: 15px;">Join our Discord and post in #fan-art channel!</p>
+      <p style="color: #ccc; margin-bottom: 15px;">Join our Discord and post in #fan-art channel!</p>
       <a href="https://discord.gg/4EuacCHqCG" target="_blank" class="btn-submit">
         <i class="fa-brands fa-discord"></i> Submit on Discord
       </a>
@@ -166,8 +219,8 @@
       
     </div>
 
-    <footer style="text-align: center; margin-top: 40px; color: #888; font-size: 0.8rem;">
-      © 2025 Weapon Ball Z. <br> Made with ❄️ for Gamers.
+    <footer>
+      © 2026 Weapon Ball Z. <br> Made with ❤️ for Gamers.
     </footer>
   </div>
 
@@ -180,7 +233,7 @@
     // --- 1. CONFIG LOAD ẢNH TỰ ĐỘNG ---
     const githubUser = 'Puddin707';
     const githubRepo = 'weapon-ball-z-builds';
-    const folderPath = 'images/fanart'; // Nhớ tạo folder này trên Github
+    const folderPath = 'images/fanart'; 
     const grid = document.getElementById('artGrid');
 
     async function loadFanArt() {
@@ -202,12 +255,11 @@
         images.forEach(file => {
           const div = document.createElement('div');
           div.className = 'art-item';
-          // Dùng download_url để lấy link ảnh gốc
           div.onclick = () => openLightbox(file.download_url);
           
           const img = document.createElement('img');
-          img.src = file.download_url; // Load trực tiếp
-          img.loading = "lazy"; // Tối ưu tốc độ
+          img.src = file.download_url;
+          img.loading = "lazy";
           
           div.appendChild(img);
           grid.appendChild(div);
@@ -231,15 +283,6 @@
       lb.classList.remove('show');
       setTimeout(() => lbImg.src = '', 300);
     }
-
-    // --- 3. SNOW EFFECT ---
-    function createSnow() {
-      const s = document.createElement('div'); s.className='snowflake'; s.innerHTML='❄';
-      s.style.left=Math.random()*100+'vw'; s.style.fontSize=(Math.random()*10+8)+'px';
-      s.style.animationDuration=(Math.random()*5+5)+'s'; s.style.opacity=Math.random();
-      document.body.appendChild(s); setTimeout(()=>s.remove(),10000);
-    }
-    setInterval(createSnow, 200);
 
     // CHẠY HÀM LOAD ẢNH
     loadFanArt();
