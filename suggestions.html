@@ -3,63 +3,112 @@
 <head>
   <meta charset="UTF-8" />
   <title>WBZ - Ideas & Suggestions 💡</title>
-  <head>
-  <title>WBZ - Ideas & Suggestions 💡</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   
   <link rel="icon" type="image/png" href="favicon.png">
   
-  </head>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   
   <style>
-    /* --- CẤU TRÚC CƠ BẢN --- */
-    body { 
-        margin: 0; 
-        font-family: system-ui, -apple-system, sans-serif; 
-        background: radial-gradient(circle at top, #1a2344, #050814); 
-        color: #f5f5f5; 
-        min-height: 100vh; 
-        overflow-x: hidden; 
+    /* --- CẤU HÌNH CƠ BẢN (ĐỒNG BỘ VỚI INDEX) --- */
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      
+      /* --- NỀN PHA MÀU SÁNG RỰC RỠ --- */
+      background-color: #050505; 
+      
+      /* Hai vùng sáng Đỏ (Trái) và Xanh (Phải) lan vào giữa */
+      background-image: 
+        radial-gradient(circle at 0% 50%, rgba(255, 0, 0, 0.5) 0%, transparent 70%),
+        radial-gradient(circle at 100% 50%, rgba(0, 50, 255, 0.5) 0%, transparent 70%);
+      
+      color: #f5f5f5;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
     }
 
-    /* HIỆU ỨNG TUYẾT RƠI */
-    .snowflake { position: fixed; top: -10px; color: #fff; pointer-events: none; z-index: 9999; animation: fall linear forwards; text-shadow: 0 0 5px rgba(255,255,255,0.8); }
-    @keyframes fall { to { transform: translateY(105vh); } }
-
-    .container { max-width: 900px; margin: 0 auto; padding: 20px 10px 48px; position: relative; z-index: 1; }
-
-    /* MENU NAVIGATION */
-    .main-nav { 
-        display: flex; justify-content: center; gap: 10px; margin-bottom: 32px; flex-wrap: wrap; 
-        background: rgba(255, 255, 255, 0.05); padding: 8px; border-radius: 99px; 
-        backdrop-filter: blur(10px); width: fit-content; margin-left: auto; margin-right: auto; 
-        border: 1px solid rgba(255,255,255,0.1); 
+    /* --- HIỆU ỨNG NEON VIỀN --- */
+    /* Neon ĐỎ bên TRÁI */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0; left: 0; width: 20px; height: 100%; z-index: 0; pointer-events: none;
+        box-shadow: 0px 0px 150px 80px rgba(255, 30, 30, 0.6),
+                    50px 0px 200px 100px rgba(255, 0, 0, 0.3);
     }
-    .main-nav a { text-decoration: none; color: #a8b8ff; padding: 8px 16px; border-radius: 99px; font-weight: 600; transition: all 0.3s; font-size: 0.9rem; white-space: nowrap; }
+
+    /* Neon XANH DƯƠNG bên PHẢI */
+    body::after {
+        content: '';
+        position: fixed;
+        top: 0; right: 0; width: 20px; height: 100%; z-index: 0; pointer-events: none;
+        box-shadow: 0px 0px 150px 80px rgba(30, 70, 255, 0.6),
+                    -50px 0px 200px 100px rgba(0, 40, 255, 0.3);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 16px 48px;
+      position: relative;
+      z-index: 1; /* Nội dung nằm trên nền ánh sáng */
+    }
+
+    /* --- MENU NAVIGATION (ĐỒNG BỘ) --- */
+    .main-nav {
+      display: flex; justify-content: center; gap: 16px; margin-bottom: 32px;
+      background: rgba(20, 20, 20, 0.8); padding: 8px; border-radius: 99px;
+      backdrop-filter: blur(10px); width: fit-content; margin-left: auto; margin-right: auto;
+      border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .main-nav a {
+      text-decoration: none; color: #aaa; padding: 8px 20px; border-radius: 99px;
+      font-weight: 600; transition: all 0.3s; font-size: 0.95rem; white-space: nowrap;
+    }
     .main-nav a:hover { background: rgba(255,255,255,0.1); color: #fff; }
-    .main-nav a.active { background: linear-gradient(135deg, #4b6fff, #222a55); color: #fff; box-shadow: 0 4px 15px rgba(75, 111, 255, 0.3); }
-
-    /* TIÊU ĐỀ */
-    h1 { text-align: center; margin-bottom: 8px; font-size: 2rem; color: #ffde59; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-    .subtitle { text-align: center; color: #a8b8ff; margin-bottom: 30px; }
-
-    /* --- KHUNG CHỨA CANNY (GIAO DIỆN TỐI) --- */
-    .canny-box {
-        background: rgba(20, 20, 35, 0.6); /* Nền tối mờ ảo */
-        backdrop-filter: blur(10px);        /* Hiệu ứng kính mờ */
-        border-radius: 16px;
-        padding: 20px;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-        min-height: 600px;
-        border: 1px solid rgba(255,255,255,0.1); /* Viền sáng nhẹ */
+    
+    /* Active State đặc biệt cho trang Suggestions */
+    .main-nav a.active {
+      background: linear-gradient(90deg, #ff3333, #3333ff);
+      color: #fff; box-shadow: 0 0 15px rgba(100, 100, 255, 0.5);
     }
 
-    footer { text-align: center; margin-top: 40px; color: #888; font-size: 0.8rem; }
+    /* --- TIÊU ĐỀ --- */
+    h1 { 
+      text-align: center; margin-bottom: 8px; font-size: 2rem; 
+      /* Gradient text effect */
+      background: linear-gradient(to right, #fff, #a8c0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(168, 192, 255, 0.5);
+      font-weight: 800;
+    }
+    .subtitle { text-align: center; color: #ccc; margin-bottom: 30px; }
+
+    /* --- KHUNG CHỨA CANNY --- */
+    .canny-box {
+        background: rgba(25, 25, 25, 0.6); /* Nền tối mờ đồng bộ */
+        backdrop-filter: blur(20px);        /* Kính mờ mạnh hơn */
+        -webkit-backdrop-filter: blur(20px);
+        border-radius: 24px;
+        padding: 20px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        min-height: 600px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+      padding-bottom: 20px;
+    }
   </style>
 </head>
 <body>
-  <div id="snow-container"></div>
 
   <div class="container">
     <nav class="main-nav">
@@ -77,29 +126,20 @@
     </div>
 
     <footer>
-      © 2025 Weapon Ball Z. <br> Made with ❄️ for Gamers.
+      © 2026 Weapon Ball Z. <br> Made with ❤️ for Gamers.
     </footer>
   </div>
 
   <script>
-    // 1. HIỆU ỨNG TUYẾT RƠI
-    function createSnow() {
-      const s = document.createElement('div'); s.className='snowflake'; s.innerHTML='❄';
-      s.style.left=Math.random()*100+'vw'; s.style.fontSize=(Math.random()*10+8)+'px';
-      s.style.animationDuration=(Math.random()*5+5)+'s'; s.style.opacity=Math.random();
-      document.body.appendChild(s); setTimeout(()=>s.remove(),10000);
-    }
-    setInterval(createSnow, 200);
-
-    // 2. SCRIPT KẾT NỐI CANNY
+    // 1. SCRIPT KẾT NỐI CANNY
     !function(w,d,i,s){function l(){if(!d.getElementById(i)){var f=d.getElementsByTagName(s)[0],e=d.createElement(s);e.type="text/javascript",e.async=!0,e.src="https://canny.io/sdk.js",f.parentNode.insertBefore(e,f)}}if("function"!=typeof w.Canny){var c=function(){c.q.push(arguments)};c.q=[],w.Canny=c,"complete"===d.readyState?l():w.attachEvent?w.attachEvent("onload",l):w.addEventListener("load",l,!1)}}(window,document,"canny-jssdk","script");
 
-    // 👇 CẤU HÌNH DARK MODE & TOKEN 👇
+    // 2. CẤU HÌNH DARK MODE & TOKEN
     Canny('render', {
-      boardToken: '5b29c140-bc3a-f5d6-d902-be8ff7bbc23e', // Token của bạn
+      boardToken: '5b29c140-bc3a-f5d6-d902-be8ff7bbc23e', // Token giữ nguyên
       basePath: null, 
       ssoToken: null, 
-      theme: 'dark', // Đã bật chế độ tối
+      theme: 'dark', // Giữ theme dark để hợp với nền neon
     });
   </script>
 </body>
