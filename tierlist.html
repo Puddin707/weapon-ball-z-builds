@@ -2,58 +2,95 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>WBZ - Tier List Maker Ultimate ❄️</title>
-  <head>
-  <title>WBZ - Ideas & Suggestions 💡</title>
+  <title>WBZ - Tier List Maker Ultimate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
   
   <link rel="icon" type="image/png" href="favicon.png">
-  
-  </head>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   
   <style>
-    /* --- STYLE CHUNG --- */
+    /* --- CẤU HÌNH CƠ BẢN (ĐỒNG BỘ) --- */
     body {
-      margin: 0; font-family: system-ui, -apple-system, sans-serif;
-      background: radial-gradient(circle at top, #1a2344, #050814);
-      color: #f5f5f5; min-height: 100vh; overflow-x: hidden;
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      
+      /* --- NỀN PHA MÀU SÁNG RỰC RỠ --- */
+      background-color: #050505; 
+      
+      /* Hai vùng sáng Đỏ (Trái) và Xanh (Phải) lan vào giữa */
+      background-image: 
+        radial-gradient(circle at 0% 50%, rgba(255, 0, 0, 0.5) 0%, transparent 70%),
+        radial-gradient(circle at 100% 50%, rgba(0, 50, 255, 0.5) 0%, transparent 70%);
+      
+      color: #f5f5f5;
+      min-height: 100vh;
+      overflow-x: hidden;
       overscroll-behavior-y: contain; 
+      position: relative;
     }
-    .snowflake {
-      position: fixed; top: -10px; color: #fff; pointer-events: none; z-index: 9999;
-      animation: fall linear forwards; text-shadow: 0 0 5px rgba(255,255,255,0.8);
+
+    /* --- HIỆU ỨNG NEON VIỀN --- */
+    /* Neon ĐỎ bên TRÁI */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0; left: 0; width: 20px; height: 100%; z-index: 0; pointer-events: none;
+        box-shadow: 0px 0px 150px 80px rgba(255, 30, 30, 0.6),
+                    50px 0px 200px 100px rgba(255, 0, 0, 0.3);
     }
-    @keyframes fall { to { transform: translateY(105vh); } }
 
-    .container { max-width: 1000px; margin: 0 auto; padding: 20px 10px 48px; position: relative; z-index: 1; }
+    /* Neon XANH DƯƠNG bên PHẢI */
+    body::after {
+        content: '';
+        position: fixed;
+        top: 0; right: 0; width: 20px; height: 100%; z-index: 0; pointer-events: none;
+        box-shadow: 0px 0px 150px 80px rgba(30, 70, 255, 0.6),
+                    -50px 0px 200px 100px rgba(0, 40, 255, 0.3);
+    }
 
-    /* MENU */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px 10px 48px;
+      position: relative;
+      z-index: 1; /* Đảm bảo nội dung nằm trên nền neon để kéo thả được */
+    }
+
+    /* --- MENU NAVIGATION --- */
     .main-nav {
       display: flex; justify-content: center; gap: 10px; margin-bottom: 24px;
-      background: rgba(255, 255, 255, 0.05); padding: 6px; border-radius: 99px;
+      background: rgba(20, 20, 20, 0.8); padding: 6px; border-radius: 99px;
       backdrop-filter: blur(10px); width: fit-content; margin-left: auto; margin-right: auto;
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
     .main-nav a {
-      text-decoration: none; color: #a8b8ff; padding: 8px 16px; border-radius: 99px;
+      text-decoration: none; color: #aaa; padding: 8px 16px; border-radius: 99px;
       font-weight: 600; transition: all 0.3s; font-size: 0.9rem;
     }
     .main-nav a:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    
+    /* Active State Gradient */
     .main-nav a.active {
-      background: linear-gradient(135deg, #4b6fff, #222a55); color: #fff;
-      box-shadow: 0 4px 15px rgba(75, 111, 255, 0.3);
+      background: linear-gradient(90deg, #ff3333, #3333ff);
+      color: #fff; box-shadow: 0 0 15px rgba(100, 100, 255, 0.5);
     }
 
-    h1 { text-align: center; margin-bottom: 20px; font-size: 1.5rem; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+    h1 { 
+      text-align: center; margin-bottom: 20px; font-size: 1.8rem; 
+      background: linear-gradient(to right, #fff, #a8c0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(168, 192, 255, 0.5);
+      font-weight: 800;
+    }
 
-    /* SAVE CONTROLS */
+    /* --- SAVE CONTROLS --- */
     .save-area {
       display: flex; gap: 8px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap;
     }
     .input-name {
-      background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2);
       padding: 10px; border-radius: 8px; color: #fff; font-size: 0.9rem; width: 100%; max-width: 250px; outline: none;
     }
     .btn {
@@ -61,31 +98,30 @@
       font-weight: bold; color: white; font-size: 0.9rem; transition: transform 0.2s;
       display: flex; align-items: center; gap: 5px;
     }
-    .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
-    .btn-save { background: #2ea043; }
-    .btn-reset { background: #d42426; }
-    .btn-add { background: #4b6fff; margin-top: 10px; width: 100%; justify-content: center; padding: 12px; }
+    .btn:hover { transform: translateY(-2px); filter: brightness(1.2); }
+    .btn-save { background: #28a745; box-shadow: 0 0 10px rgba(40, 167, 69, 0.4); }
+    .btn-reset { background: #dc3545; box-shadow: 0 0 10px rgba(220, 53, 69, 0.4); }
+    .btn-add { background: linear-gradient(135deg, #6a11cb, #2575fc); margin-top: 10px; width: 100%; justify-content: center; padding: 12px; }
 
-    /* TIER LIST BOARD */
+    /* --- TIER LIST BOARD --- */
     .tier-container {
       display: flex; flex-direction: column; gap: 4px;
       background: #000; border: 2px solid #333; padding: 4px; border-radius: 8px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
     }
     .tier-row {
       display: flex; min-height: 80px; background: #1a1a1a; border-bottom: 1px solid #333;
       position: relative;
     }
     
-    /* --- NEW: LEFT HANDLE COLUMN (DI CHUYỂN LÊN XUỐNG) --- */
+    /* LEFT HANDLE */
     .tier-handle {
         width: 30px; display: flex; flex-direction: column; 
         align-items: center; justify-content: center;
         background: #111; border-right: 1px solid #333;
         color: #555; gap: 4px; flex-shrink: 0;
     }
-    .handle-btn {
-        cursor: pointer; padding: 2px; font-size: 0.8rem; transition: 0.2s;
-    }
+    .handle-btn { cursor: pointer; padding: 2px; font-size: 0.8rem; transition: 0.2s; }
     .handle-btn:hover { color: #fff; background: #333; border-radius: 3px; }
 
     /* LABEL & COLORS */
@@ -124,10 +160,12 @@
     }
     .tier-controls:hover { background: #3a0000; color: #ff5555; }
 
-    /* IMAGE BANK */
+    /* --- IMAGE BANK --- */
     .image-bank {
       margin-top: 24px; padding: 15px;
-      background: rgba(255,255,255,0.05); border-radius: 16px;
+      background: rgba(25, 25, 25, 0.6); 
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
       border: 1px dashed rgba(255,255,255,0.3);
       min-height: 120px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
     }
@@ -146,9 +184,12 @@
 
     /* LIBRARY (SAVED LISTS) */
     .library-section { margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
-    .library-title { text-align: center; color: #ffde59; margin-bottom: 20px; font-size: 1.2rem; }
+    .library-title { text-align: center; color: #fff; margin-bottom: 20px; font-size: 1.2rem; }
     .saved-list-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-    .saved-item { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; }
+    .saved-item { 
+        background: rgba(255,255,255,0.05); padding: 12px; border-radius: 12px; 
+        border: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; 
+    }
     .saved-info h4 { margin: 0 0 4px; font-size: 1rem; color: #fff; }
     .saved-info span { font-size: 0.75rem; color: #888; }
     .saved-actions { display: flex; gap: 8px; }
@@ -161,12 +202,14 @@
       .tier-label { width: 100px; font-size: 1.5rem; }
       .draggable-item { width: 70px; height: 70px; }
     }
+    
+    footer { text-align: center; margin-top: 40px; color: #666; font-size: 0.8rem; }
   </style>
 
   <script src="https://bernardo-castilho.github.io/DragDropTouch/DragDropTouch.js"></script>
 </head>
 <body>
-  <div id="snow-container"></div>
+
   <div class="container">
     <nav class="main-nav">
       <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
@@ -199,8 +242,9 @@
       <div class="saved-list-grid" id="savedListContainer"></div>
     </div>
     
-    <footer style="text-align: center; margin-top: 40px; color: #888; font-size: 0.8rem;">
+    <footer>
       Use arrows on left to move rows.<br>Mobile supported. Auto-saving enabled.
+      <br>© 2026 Weapon Ball Z.
     </footer>
   </div>
 
@@ -253,11 +297,11 @@
       });
 
       // Load Board State
-      const currentDraft = localStorage.getItem('wbz_current_draft_v3'); // Nâng version để tránh lỗi data cũ
+      const currentDraft = localStorage.getItem('wbz_current_draft_v3');
       if (currentDraft) {
-         setTimeout(() => restoreBoard(JSON.parse(currentDraft)), 100);
+          setTimeout(() => restoreBoard(JSON.parse(currentDraft)), 100);
       } else {
-         defaultRows.forEach(row => createRowDOM(row.label, row.color));
+          defaultRows.forEach(row => createRowDOM(row.label, row.color));
       }
       renderSavedLists();
     }
@@ -268,14 +312,12 @@
         const rowDiv = document.createElement('div');
         rowDiv.className = 'tier-row';
         
-        // 1. LEFT HANDLE (MỚI: CỘT DI CHUYỂN)
+        // 1. LEFT HANDLE (DI CHUYỂN)
         const handleDiv = document.createElement('div');
         handleDiv.className = 'tier-handle';
-        // Nút Lên
         const upBtn = document.createElement('i');
         upBtn.className = 'fa-solid fa-caret-up handle-btn';
         upBtn.onclick = function() { moveRow(this, -1); };
-        // Nút Xuống
         const downBtn = document.createElement('i');
         downBtn.className = 'fa-solid fa-caret-down handle-btn';
         downBtn.onclick = function() { moveRow(this, 1); };
@@ -310,7 +352,7 @@
         controlsDiv.onclick = function() { deleteRow(this); };
 
         // Append All
-        rowDiv.appendChild(handleDiv); // Thêm cột trái
+        rowDiv.appendChild(handleDiv);
         rowDiv.appendChild(labelDiv);
         rowDiv.appendChild(itemsDiv);
         rowDiv.appendChild(controlsDiv);
@@ -332,18 +374,15 @@
         saveCurrentDraft();
     }
 
-    // Logic di chuyển hàng (Lên/Xuống)
     function moveRow(btn, direction) {
         const currentRow = btn.closest('.tier-row');
         if (direction === -1) {
-            // Move Up
             const prevRow = currentRow.previousElementSibling;
             if (prevRow) {
                 board.insertBefore(currentRow, prevRow);
                 saveCurrentDraft();
             }
         } else {
-            // Move Down
             const nextRow = currentRow.nextElementSibling;
             if (nextRow) {
                 board.insertBefore(nextRow, currentRow);
@@ -459,16 +498,8 @@
       renderSavedLists();
     }
 
-    function createSnow() {
-      const s = document.createElement('div'); s.className='snowflake'; s.innerHTML='❄';
-      s.style.left=Math.random()*100+'vw'; s.style.fontSize=(Math.random()*10+8)+'px';
-      s.style.animationDuration=(Math.random()*5+5)+'s'; s.style.opacity=Math.random();
-      document.body.appendChild(s); setTimeout(()=>s.remove(),10000);
-    }
-    setInterval(createSnow, 200);
-
+    // INIT APP
     init();
   </script>
 </body>
-</html>
 </html>
