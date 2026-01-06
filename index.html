@@ -15,15 +15,15 @@
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       
-      /* --- CẬP NHẬT MỚI: NỀN PHA MÀU --- */
+      /* --- CẬP NHẬT MỚI: NỀN PHA MÀU SÁNG HƠN --- */
       background-color: #050505; /* Nền gốc rất tối */
       
-      /* Tạo 2 vùng sáng mờ (Radial Gradient) lan vào giữa màn hình */
+      /* Tăng độ đậm (opacity) từ 0.15 lên 0.5 để màu RỰC hơn */
       background-image: 
-        /* Vùng đỏ bên trái, lan đến 70% màn hình với độ mờ 15% */
-        radial-gradient(circle at 0% 50%, rgba(200, 0, 0, 0.15) 0%, transparent 70%),
-        /* Vùng xanh bên phải, lan đến 70% màn hình với độ mờ 15% */
-        radial-gradient(circle at 100% 50%, rgba(0, 0, 200, 0.15) 0%, transparent 70%);
+        /* Vùng đỏ bên trái */
+        radial-gradient(circle at 0% 50%, rgba(255, 0, 0, 0.5) 0%, transparent 70%),
+        /* Vùng xanh bên phải */
+        radial-gradient(circle at 100% 50%, rgba(0, 50, 255, 0.5) 0%, transparent 70%);
       
       color: #f5f5f5;
       overflow-x: hidden;
@@ -32,8 +32,6 @@
     }
 
     /* --- HIỆU ỨNG NEON VIỀN (TRÁI ĐỎ - PHẢI XANH) --- */
-    /* Vẫn giữ nguyên cái này để tạo nguồn sáng mạnh ở 2 mép */
-    
     /* Đèn Neon ĐỎ bên TRÁI */
     body::before {
         content: '';
@@ -44,7 +42,6 @@
         height: 100%;
         z-index: 0; 
         pointer-events: none;
-        /* Ánh sáng đỏ lan tỏa */
         box-shadow: 0px 0px 150px 80px rgba(255, 30, 30, 0.6),
                     50px 0px 200px 100px rgba(255, 0, 0, 0.3);
     }
@@ -59,7 +56,6 @@
         height: 100%;
         z-index: 0;
         pointer-events: none;
-        /* Ánh sáng xanh lan tỏa */
         box-shadow: 0px 0px 150px 80px rgba(30, 70, 255, 0.6),
                     -50px 0px 200px 100px rgba(0, 40, 255, 0.3);
     }
@@ -202,7 +198,7 @@
     }
     
     .changelog {
-      margin-top: 16px;
+      margin-top: 20px; /* Thêm khoảng cách với nút bên trên */
       font-size: 0.95rem;
       color: #d1d5db;
       white-space: pre-line;
@@ -330,10 +326,6 @@
         🔥 Latest version: <strong id="versionText" style="color: #4facfe;">Checking...</strong>
       </div>
       
-      <div class="changelog" id="changelog">
-        Loading update info...
-      </div>
-
       <a class="btn-download"
          id="downloadLink"
          href="#">
@@ -342,6 +334,10 @@
       <button id="copyBtn" class="btn-copy" onclick="copyToClipboard()">
         <i class="fa-regular fa-copy"></i> Copy Link
       </button>
+
+      <div class="changelog" id="changelog">
+        Loading update info...
+      </div>
 
       <div class="download-count" id="downloadCount">
         Downloads: ...
