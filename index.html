@@ -148,6 +148,40 @@
       box-shadow: 0 0 15px rgba(100, 100, 255, 0.5);
     }
     
+    /* --- SOCIAL LINKS --- */
+    .social-links {
+      margin-top: 10px; /* Điều chỉnh lại margin vì phần này nằm sát dưới header */
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .social-links h2 {
+      font-size: 1.2rem;
+      margin-bottom: 16px;
+      color: #fff;
+      display: none; /* Ẩn tiêu đề nếu không cần thiết vì nằm ngay dưới tên game */
+    }
+    .social-links a {
+      margin: 6px;
+      color: #fff;
+      font-size: 0.95rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s;
+      
+      background: rgba(255,255,255,0.05);
+      padding: 10px 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .social-links a:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,0.2);
+    }
+    .social-links i { font-size: 20px; }
+
     /* --- DOWNLOAD BOX --- */
     .download-box {
       margin: 24px 0;
@@ -228,39 +262,6 @@
       font-weight: 500;
     }
 
-    /* --- SOCIAL LINKS --- */
-    .social-links {
-      margin-top: 40px;
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    .social-links h2 {
-      font-size: 1.2rem;
-      margin-bottom: 16px;
-      color: #fff;
-    }
-    .social-links a {
-      margin: 6px;
-      color: #fff;
-      font-size: 0.95rem;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.3s;
-      
-      background: rgba(255,255,255,0.05);
-      padding: 10px 20px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.05);
-    }
-    .social-links a:hover {
-      background: rgba(255,255,255,0.1);
-      transform: translateY(-3px);
-      border-color: rgba(255,255,255,0.2);
-    }
-    .social-links i { font-size: 20px; }
-
     /* --- SCREENSHOTS --- */
     .screenshots h2 {
       font-size: 1.4rem;
@@ -334,6 +335,24 @@
       </div>
     </header>
 
+    <!-- Đưa cụm Community lên đây -->
+    <section class="social-links">
+      <h2>Join the Community</h2>
+      <a href="https://discord.gg/AgpJ6UGU9q" target="_blank" style="color: #5865F2;">
+        <i class="fa-brands fa-discord"></i> Discord
+      </a>
+      <a href="https://youtube.com/@weaponballz" target="_blank" style="color: #ff4444;">
+        <i class="fa-brands fa-youtube"></i> YouTube
+      </a>
+      <a href="https://www.tiktok.com/@weaponballz" target="_blank" style="color: #fff;">
+        <i class="fa-brands fa-tiktok"></i> TikTok
+      </a>
+      <a href="https://ko-fi.com/hyntezlegolas" target="_blank" style="color: #FF5E5B;">
+        <i class="fa-solid fa-mug-hot"></i> Support
+      </a>
+    </section>
+
+    <!-- Phần Download Box nằm phía dưới -->
     <section class="download-box">
       <div style="margin-bottom: 8px; font-size: 1.1rem;">
         🔥 Latest version: <strong id="versionText" style="color: #4facfe;">Checking...</strong>
@@ -380,24 +399,6 @@
         BUG
         + Tons
       </div>
-
-
-    </section>
-
-    <section class="social-links">
-      <h2>Join the Community</h2>
-      <a href="https://discord.gg/AgpJ6UGU9q" target="_blank" style="color: #5865F2;">
-        <i class="fa-brands fa-discord"></i> Discord
-      </a>
-      <a href="https://youtube.com/@weaponballz" target="_blank" style="color: #ff4444;">
-        <i class="fa-brands fa-youtube"></i> YouTube
-      </a>
-      <a href="https://www.tiktok.com/@weaponballz" target="_blank" style="color: #fff;">
-        <i class="fa-brands fa-tiktok"></i> TikTok
-      </a>
-      <a href="https://ko-fi.com/hyntezlegolas" target="_blank" style="color: #FF5E5B;">
-        <i class="fa-solid fa-mug-hot"></i> Support
-      </a>
     </section>
 
     <section class="screenshots">
