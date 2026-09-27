@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Privacy Policy - Weapon Ball Z</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <meta name="description" content="Privacy Policy for Weapon Ball Z - Learn how we collect, use, and protect your data when you use Google Sign-In." />
+  <meta name="author" content="Puddin707" />
+
+  <style>
+    /* --- CẤU HÌNH CƠ BẢN (giống index.html) --- */
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background-color: #050505;
+
+      background-image:
+        radial-gradient(circle at 0% 50%, rgba(255, 0, 0, 0.5) 0%, transparent 70%),
+        radial-gradient(circle at 100% 50%, rgba(0, 50, 255, 0.5) 0%, transparent 70%);
+
+      color: #f5f5f5;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Neon viền (giống index.html) */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 1px;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+        box-shadow: 0px 0px 150px 80px rgba(255, 30, 30, 0.6),
+                    50px 0px 200px 100px rgba(255, 0, 0, 0.3);
+    }
+    body::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 1px;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+        box-shadow: 0px 0px 150px 80px rgba(30, 70, 255, 0.6),
+                    -50px 0px 200px 100px rgba(0, 40, 255, 0.3);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 32px 16px 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* --- HEADER --- */
+    header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+    header img {
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      object-fit: cover;
+      background: #222;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    h1 {
+      margin: 0 0 4px;
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #fff, #a8c0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(168, 192, 255, 0.5);
+    }
+    .subtitle {
+      opacity: 0.8;
+      font-size: 1rem;
+      color: #ccc;
+      letter-spacing: 0.5px;
+    }
+
+    /* --- BACK LINK --- */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+      color: #4facfe;
+      text-decoration: none;
+      font-size: 0.95rem;
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 99px;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.3s;
+    }
+    .back-link:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateX(-3px);
+    }
+
+    /* --- CONTENT CARD --- */
+    .content {
+      background: rgba(25, 25, 25, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      border-radius: 24px;
+      padding: 32px;
+    }
+
+    .content h2 {
+      font-size: 1.4rem;
+      color: #4facfe;
+      margin-top: 28px;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+    .content h2:first-child { margin-top: 0; }
+
+    .content p, .content li {
+      color: #d1d5db;
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+
+    .content ul {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+
+    .content ul li {
+      margin-bottom: 8px;
+    }
+
+    .content strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .last-updated {
+      display: inline-block;
+      background: rgba(79, 172, 254, 0.15);
+      color: #4facfe;
+      padding: 6px 14px;
+      border-radius: 99px;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+      border: 1px solid rgba(79, 172, 254, 0.3);
+    }
+
+    .highlight-box {
+      background: rgba(79, 172, 254, 0.08);
+      border-left: 3px solid #4facfe;
+      padding: 14px 18px;
+      border-radius: 8px;
+      margin: 16px 0;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 600px) {
+      h1 { font-size: 1.6rem; }
+      .content { padding: 20px; }
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+      padding-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <a href="index.html" class="back-link">
+      <i class="fa-solid fa-arrow-left"></i> Back to Home
+    </a>
+
+    <header>
+      <img src="images/icon.png" alt="WBZ" onerror="this.src='https://placehold.co/80x80/222a55/FFF?text=Icon'" />
+      <div>
+        <h1>Privacy Policy</h1>
+        <div class="subtitle">Weapon Ball Z — Data & Privacy Information</div>
+      </div>
+    </header>
+
+    <section class="content">
+      <span class="last-updated">
+        <i class="fa-regular fa-calendar"></i> Last updated: September 27, 2026
+      </span>
+
+      <p>
+        This Privacy Policy describes how <strong>Weapon Ball Z</strong> ("we", "our", or "the Game")
+        collects, uses, and protects information when you sign in with Google and play the Game.
+      </p>
+
+      <h2><i class="fa-solid fa-database"></i> 1. Information We Collect</h2>
+      <p>
+        When you choose to sign in with Google, we receive the following information from your
+        Google account, depending on the permissions (scopes) you grant:
+      </p>
+      <ul>
+        <li><strong>Email address</strong> — used to create and identify your in-game account.</li>
+        <li><strong>Basic profile information</strong> — such as your name and profile picture, used to display your identity inside the Game.</li>
+        <li><strong>OpenID identifier</strong> — a unique, anonymous user ID used by our authentication system to keep you signed in across devices.</li>
+      </ul>
+      <p>
+        We do <strong>not</strong> access your Google password, contacts, Gmail, Drive, or any other
+        Google service data. We only request the minimum scopes required to authenticate you:
+        <code>openid</code>, <code>email</code>, and <code>profile</code>.
+      </p>
+
+      <h2><i class="fa-solid fa-server"></i> 2. How We Use Your Information</h2>
+      <p>We use the information above only for the following purposes:</p>
+      <ul>
+        <li>To create and manage your in-game account.</li>
+        <li>To save your game progress, settings, and unlocked content to our cloud database.</li>
+        <li>To allow sign-in across multiple devices using the same Google account.</li>
+        <li>To provide online features such as leaderboards, friend lists, or matchmaking.</li>
+      </ul>
+      <p>
+        We do <strong>not</strong> use your information for advertising, marketing, or profiling.
+      </p>
+
+      <h2><i class="fa-solid fa-cloud"></i> 3. Third-Party Services</h2>
+      <p>
+        We use the following third-party services to operate the Game. These services may process
+        your data according to their own privacy policies:
+      </p>
+      <ul>
+        <li>
+          <strong>Google Firebase Authentication</strong> — handles Google Sign-In and account management.
+          (<a href="https://firebase.google.com/support/privacy" target="_blank" style="color:#4facfe;">Firebase Privacy Policy</a>)
+        </li>
+        <li>
+          <strong>Google Firebase Realtime Database / Firestore</strong> — stores your in-game progress and settings.
+          (<a href="https://firebase.google.com/support/privacy" target="_blank" style="color:#4facfe;">Firebase Privacy Policy</a>)
+        </li>
+        <li>
+          <strong>Google Sign-In (OAuth 2.0)</strong> — used to verify your identity securely.
+          (<a href="https://policies.google.com/privacy" target="_blank" style="color:#4facfe;">Google Privacy Policy</a>)
+        </li>
+      </ul>
+
+      <h2><i class="fa-solid fa-shield-halved"></i> 4. Data Security</h2>
+      <p>
+        We take reasonable measures to protect your information:
+      </p>
+      <ul>
+        <li>All authentication traffic is encrypted over HTTPS / TLS.</li>
+        <li>Passwords are never stored or transmitted by us — authentication is fully delegated to Google.</li>
+        <li>Only the minimum required data is stored in our backend database.</li>
+      </ul>
+      <p>
+        However, no method of transmission over the internet is completely secure. We cannot
+        guarantee absolute security of your data.
+      </p>
+
+      <h2><i class="fa-solid fa-children"></i> 5. Children's Privacy</h2>
+      <p>
+        The Game is not directed to children under the age of <strong>13</strong>. We do not knowingly
+        collect personal information from children under 13. If you believe a child under 13 has
+        signed in, please contact us so we can delete the associated account.
+      </p>
+
+      <h2><i class="fa-solid fa-user-xmark"></i> 6. Your Rights & Data Deletion</h2>
+      <p>You have the right to:</p>
+      <ul>
+        <li>Access the personal data we hold about you.</li>
+        <li>Request correction of inaccurate data.</li>
+        <li>Request deletion of your account and all associated data.</li>
+        <li>Revoke Google Sign-In access at any time from your
+          <a href="https://myaccount.google.com/permissions" target="_blank" style="color:#4facfe;">Google Account permissions page</a>.</li>
+      </ul>
+      <div class="highlight-box">
+        <strong>To request account deletion</strong>, please contact us through one of the channels
+        listed in Section 8. We will delete your account within 30 days of your request.
+      </div>
+
+      <h2><i class="fa-solid fa-cookie-bite"></i> 7. Cookies & Local Storage</h2>
+      <p>
+        The Game itself does not use cookies or browser tracking. Our website
+        (<a href="https://puddin707.github.io/weapon-ball-z-builds/" style="color:#4facfe;">puddin707.github.io/weapon-ball-z-builds</a>)
+        may use minimal local storage to remember your preferences (such as dark/light mode), but
+        does not set tracking cookies.
+      </p>
+
+      <h2><i class="fa-solid fa-envelope"></i> 8. Contact Us</h2>
+      <p>
+        If you have any questions, concerns, or requests regarding this Privacy Policy or your data,
+        please contact us through any of these channels:
+      </p>
+      <ul>
+        <li><strong>Discord:</strong> <a href="https://discord.gg/AgpJ6UGU9q" target="_blank" style="color:#5865F2;">discord.gg/AgpJ6UGU9q</a></li>
+        <li><strong>YouTube:</strong> <a href="https://youtube.com/@weaponballz" target="_blank" style="color:#ff4444;">@weaponballz</a></li>
+        <li><strong>TikTok:</strong> <a href="https://www.tiktok.com/@weaponballz" target="_blank" style="color:#fff;">@weaponballz</a></li>
+        <li><strong>Support:</strong> <a href="https://ko-fi.com/hyntezlegolas" target="_blank" style="color:#FF5E5B;">ko-fi.com/hyntezlegolas</a></li>
+      </ul>
+
+      <h2><i class="fa-solid fa-rotate"></i> 9. Changes to This Policy</h2>
+      <p>
+        We may update this Privacy Policy from time to time. Any changes will be posted on this page
+        with an updated "Last updated" date. We encourage you to review this policy periodically.
+      </p>
+
+      <p style="margin-top: 32px; text-align: center; color: #888; font-size: 0.9rem;">
+        By using Weapon Ball Z and signing in with Google, you agree to the terms outlined in this Privacy Policy.
+      </p>
+    </section>
+
+    <footer>
+      © 2026 Weapon Ball Z.<br>
+      Made with ❤️ for Gamers.
+    </footer>
+  </div>
+
+</body>
+</html>
