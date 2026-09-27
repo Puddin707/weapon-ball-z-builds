@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Terms of Service - Weapon Ball Z</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <meta name="description" content="Terms of Service for Weapon Ball Z - Read the terms and conditions that govern your use of Weapon Ball Z." />
+  <meta name="author" content="Hyntez" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background-color: #050505;
+      background-image:
+        radial-gradient(circle at 0% 50%, rgba(255, 0, 0, 0.5) 0%, transparent 70%),
+        radial-gradient(circle at 100% 50%, rgba(0, 50, 255, 0.5) 0%, transparent 70%);
+      color: #f5f5f5;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 1px;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+        box-shadow: 0px 0px 150px 80px rgba(255, 30, 30, 0.6),
+                    50px 0px 200px 100px rgba(255, 0, 0, 0.3);
+    }
+    body::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 1px;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+        box-shadow: 0px 0px 150px 80px rgba(30, 70, 255, 0.6),
+                    -50px 0px 200px 100px rgba(0, 40, 255, 0.3);
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 32px 16px 48px;
+      position: relative;
+      z-index: 1;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+    header img {
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      object-fit: cover;
+      background: #222;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    h1 {
+      margin: 0 0 4px;
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #fff, #a8c0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(168, 192, 255, 0.5);
+    }
+    .subtitle {
+      opacity: 0.8;
+      font-size: 1rem;
+      color: #ccc;
+      letter-spacing: 0.5px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+      color: #4facfe;
+      text-decoration: none;
+      font-size: 0.95rem;
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 99px;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.3s;
+    }
+    .back-link:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateX(-3px);
+    }
+    .content {
+      background: rgba(25, 25, 25, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      border-radius: 24px;
+      padding: 32px;
+    }
+    .content h2 {
+      font-size: 1.4rem;
+      color: #4facfe;
+      margin-top: 28px;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+    .content h2:first-child { margin-top: 0; }
+    .content h3 {
+      font-size: 1.1rem;
+      color: #7ec8f8;
+      margin-top: 20px;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    .content p, .content li {
+      color: #d1d5db;
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+    .content ul {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    .content ul li {
+      margin-bottom: 8px;
+    }
+    .content strong {
+      color: #fff;
+      font-weight: 600;
+    }
+    .content a {
+      color: #4facfe;
+      text-decoration: none;
+    }
+    .content a:hover {
+      text-decoration: underline;
+    }
+    .last-updated {
+      display: inline-block;
+      background: rgba(79, 172, 254, 0.15);
+      color: #4facfe;
+      padding: 6px 14px;
+      border-radius: 99px;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+      border: 1px solid rgba(79, 172, 254, 0.3);
+    }
+    .highlight-box {
+      background: rgba(79, 172, 254, 0.08);
+      border-left: 3px solid #4facfe;
+      padding: 14px 18px;
+      border-radius: 8px;
+      margin: 16px 0;
+    }
+    .warning-box {
+      background: rgba(255, 204, 0, 0.08);
+      border-left: 3px solid #ffcc00;
+      padding: 14px 18px;
+      border-radius: 8px;
+      margin: 16px 0;
+    }
+    .separator {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin: 24px 0;
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: 1.6rem; }
+      .content { padding: 20px; }
+    }
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+      padding-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <a href="index.html" class="back-link">
+      <i class="fa-solid fa-arrow-left"></i> Back to Home
+    </a>
+
+    <header>
+      <img src="images/icon.png" alt="WBZ" onerror="this.src='https://placehold.co/80x80/222a55/FFF?text=Icon'" />
+      <div>
+        <h1>Terms of Service</h1>
+        <div class="subtitle">Weapon Ball Z — Terms & Conditions</div>
+      </div>
+    </header>
+
+    <section class="content">
+
+      <span class="last-updated">
+        <i class="fa-regular fa-calendar"></i> Last updated: September 27, 2026
+      </span>
+
+      <!-- ====================================================== -->
+      <!-- SECTION 1: ACCEPTANCE                                 -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-handshake"></i> 1. Acceptance of Terms</h2>
+      <p>
+        By downloading, installing, or playing <strong>Weapon Ball Z</strong> ("the Game"), you agree
+        to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms,
+        please do not use the Game.
+      </p>
+      <p>
+        These Terms constitute a legally binding agreement between you and
+        <strong>Hyntez</strong> ("we", "us", or "the Developer"). We reserve the right to update
+        these Terms at any time. Continued use of the Game after changes constitutes acceptance
+        of the revised Terms.
+      </p>
+
+      <hr class="separator" />
+
+      <!-- ====================================================== -->
+      <!-- SECTION 2: DESCRIPTION OF SERVICE                    -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-gamepad"></i> 2. Description of Service</h2>
+      <p>
+        <strong>Weapon Ball Z</strong> is a free-to-play mobile and PC game. The Game includes
+        optional in-app purchases, online multiplayer features, and account systems that may
+        require sign-in via Google, Apple, or other supported methods.
+      </p>
+      <p>
+        We reserve the right to modify, suspend, or discontinue any part of the Game at any time
+        without prior notice.
+      </p>
+
+      <hr class="separator" />
+
+      <!-- ====================================================== -->
+      <!-- SECTION 3: USER ACCOUNTS                             -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-user"></i> 3. User Accounts</h2>
+      <p>
+        Some features of the Game require you to create an account or sign in using a third-party
+        account (Google, Apple). You are responsible for:
+      </p>
+      <ul>
+        <li>Keeping your account credentials secure and confidential.</li>
+        <li>All activities that occur under your account.</li>
+        <li>Notifying us immediately if you suspect unauthorized use of your account.</li>
+      </ul>
+      <p>
+        We reserve the right to suspend or terminate accounts that violate these Terms or are
+        used for fraudulent, abusive, or illegal purposes.
+      </p>
+
+      <hr class="separator" />
+
+      <!-- ====================================================== -->
+      <!-- SECTION 4: IN-APP PURCHASES                         -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-cart-shopping"></i> 4. In-App Purchases</h2>
+      <p>
+        The Game may offer optional in-app purchases. All purchases are final and
+        <strong>non-refundable</strong> unless required by applicable law.
+      </p>
+      <div class="highlight-box">
+        <strong>No Refunds:</strong> Purchases made in the Game (coins, items, subscriptions,
+        battle passes, etc.) cannot be refunded, exchanged, or transferred, even if you
+        accidentally purchase them.
+      </div>
+      <p>
+        Purchased items are tied to your account and have no real-world monetary value.
+        We do not guarantee that purchased items will remain available or unchanged.
+      </p>
+
+      <hr class="separator" />
+
+      <!-- ====================================================== -->
+      <!-- SECTION 5: USER CONDUCT                             -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-gavel"></i> 5. User Conduct & Prohibited Activities</h2>
+      <p>You agree NOT to use the Game to:</p>
+      <ul>
+        <li>Violate any applicable law, regulation, or third-party rights.</li>
+        <li>Use cheats, exploits, hacks, bots, or any unauthorized third-party software.</li>
+        <li>Harass, abuse, threaten, or impersonate other users or developers.</li>
+        <li>Spam, scam, or distribute malicious content through any Game feature.</li>
+        <li>Attempt to access accounts, data, or systems you are not authorized to use.</li>
+        <li>Reverse engineer, decompile, or disassemble any part of the Game.</li>
+      </ul>
+      <div class="warning-box">
+        <strong>Account Penalties:</strong> Violations may result in warnings, temporary
+        suspensions, permanent bans, or removal of purchased content without refund.
+      </div>
+
+      <hr class="separator" />
+
+      <!-- ====================================================== -->
+      <!-- SECTION 6: ONLINE MULTIPLAYER                       -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-users"></i> 6. Online Multiplayer & Leaderboards</h2>
+      <p>
+        The Game features online multiplayer modes and leaderboards. Rankings and scores are
+        recorded and displayed publicly. We reserve the right to reset or remove scores that
+        we determine to be obtained through cheating or exploitation.
+      </p>
+      <p>
+        We are not responsible for user-generated content, communications, or interactions
+        in online modes. Use caution and good judgment when interacting with other players.
+      </p>
+
+      <hr class="separator" />
+
+      <!-- ====================================================== -->
+      <!-- SECTION 7: INTELLECTUAL PROPERTY                    -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-copyright"></i> 7. Intellectual Property</h2>
+      <p>
+        All content in the Game — including but not limited to characters, weapons, artwork,
+        music, sound effects, story, text, and code — is the intellectual property of
+        <strong>Hyntez</strong> and is protected by copyright and other intellectual property laws.
+      </p>
+      <p>
+        You may not copy, modify, distribute, sell, or create derivative works based on any
+        part of the Game without our written permission.
+      </p>
+
+      <hr class="separator" />
+
+      <!-- ====================================================== -->
+      <!-- SECTION 8: THIRD-PARTY SERVICES                     -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-link"></i> 8. Third-Party Services</h2>
+      <p>
+        The Game may integrate with or link to third-party services, including but not limited to:
+        Google Sign-In, Apple Sign-In, Firebase, Unity IAP, LootLocker, and ad networks.
+      </p>
+      <p>
+        Your use of third-party services is governed by their respective terms and privacy
+        policies. We are not responsible for the practices or content of any third-party
+        services.
+      </p>
+
+      <hr class="separator" />
+
+      <!-- ====================================================== -->
+      <!-- SECTION 9: DISCLAIMER OF WARRANTIES                  -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-triangle-exclamation"></i> 9. Disclaimer of Warranties</h2>
+      <p>
+        The Game is provided <strong>"AS IS"</strong> and <strong>"AS AVAILABLE"</strong> without
+        warranties of any kind, express or implied, including but not limited to implied
+        warranties of merchantability, fitness for a particular purpose, and non-infringement.
+      </p>
+      <p>
+        We do not guarantee that the Game will be uninterrupted, error-free, secure, or free
+        of bugs, glitches, or data loss. You use the Game at your own risk.
+      </p>
+
+      <hr class="separator" />
+
+      <!-- ====================================================== -->
+      <!-- SECTION 10: LIMITATION OF LIABILITY                  -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-scale-balanced"></i> 10. Limitation of Liability</h2>
+      <p>
+        To the fullest extent permitted by law, <strong>Hyntez</strong> and its affiliates shall
+        not be liable for any indirect, incidental, special, consequential, or punitive damages,
+        including but not limited to:
+      </p>
+      <ul>
+        <li>Loss of data, progress, accounts, or purchases.</li>
+        <li>Loss of revenue, profits, or business opportunities.</li>
+        <li>Emotional distress, device damage, or battery drain caused by the Game.</li>
+      </ul>
+      <p>
+        Our total liability shall not exceed the amount you have paid us (if any) in the
+        twelve (12) months preceding the event giving rise to the claim.
+      </p>
+
+      <hr class="separator" />
+
+      <!-- ====================================================== -->
+      <!-- SECTION 11: INDEMNIFICATION                         -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-shield"></i> 11. Indemnification</h2>
+      <p>
+        You agree to indemnify, defend, and hold harmless <strong>Hyntez</strong> and its
+        developers from any claims, damages, losses, or expenses (including legal fees) arising
+        from your use of the Game or your violation of these Terms.
+      </p>
+
+      <hr class="separator" />
+
+      <!-- ====================================================== -->
+      <!-- SECTION 12: TERMINATION                              -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-door-open"></i> 12. Termination</h2>
+      <p>
+        We may terminate or suspend your account and access to the Game at any time, without
+        notice, for any reason, including but not limited to:
+      </p>
+      <ul>
+        <li>Violation of these Terms.</li>
+        <li>Suspicious or fraudulent activity.</li>
+        <li>Extended inactivity of your account.</li>
+        <li>Requests from law enforcement or legal authorities.</li>
+      </ul>
+      <p>
+        Upon termination, your right to use the Game immediately ceases. Purchased items
+        and account data may be deleted and are not recoverable.
+      </p>
+
+      <hr class="separator" />
+
+      <!-- ====================================================== -->
+      <!-- SECTION 13: CHANGES TO TERMS                         -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-pen-to-square"></i> 13. Changes to These Terms</h2>
+      <p>
+        We may update these Terms from time to time to reflect changes in the Game, legal
+        requirements, or business practices. When we make material changes, we will update
+        the "Last updated" date at the top of this page.
+      </p>
+      <p>
+        Continued use of the Game after changes take effect constitutes your acceptance of
+        the revised Terms. If you do not agree, you must stop using the Game and delete it
+        from your device.
+      </p>
+
+      <hr class="separator" />
+
+      <!-- ====================================================== -->
+      <!-- SECTION 14: GOVERNING LAW                           -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-globe"></i> 14. Governing Law & Dispute Resolution</h2>
+      <p>
+        These Terms shall be governed by and construed in accordance with the laws of
+        the country in which the Developer is registered or resides, without regard
+        to its conflict of law provisions.
+      </p>
+      <p>
+        Any disputes arising from these Terms or your use of the Game shall first be attempted
+        to be resolved through good-faith negotiation. If unresolved within 30 days, either
+        party may submit the dispute to the competent courts of the country in which
+        the Developer is registered or resides.
+      </p>
+
+      <hr class="separator" />
+
+      <!-- ====================================================== -->
+      <!-- SECTION 15: CONTACT                                 -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-envelope"></i> 15. Contact Us</h2>
+      <p>
+        If you have any questions, concerns, or requests regarding these Terms, please contact us:
+      </p>
+      <div class="highlight-box">
+        <strong>Developer:</strong> Hyntez<br />
+        <strong>Email:</strong> <a href="mailto:hyntezgame@gmail.com">hyntezgame@gmail.com</a><br />
+        <strong>Website:</strong> <a href="index.html">Weapon Ball Z</a>
+      </div>
+
+    </section>
+
+    <footer>
+      <p>&copy; 2024–2026 <strong>Hyntez</strong>. All rights reserved.</p>
+      <p>
+        <a href="privacy.html" style="color: #4facfe; text-decoration: none;">Privacy Policy</a>
+        &nbsp;&middot;&nbsp;
+        <a href="terms.html" style="color: #4facfe; text-decoration: none;">Terms of Service</a>
+      </p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
