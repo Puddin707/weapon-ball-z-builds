@@ -8,27 +8,22 @@
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-  <meta name="description" content="Privacy Policy for Weapon Ball Z - Learn how we collect, use, and protect your data when you use Google Sign-In." />
-  <meta name="author" content="Puddin707" />
+  <meta name="description" content="Privacy Policy for Weapon Ball Z - Learn how we collect, use, and protect your data when you sign in with Google, Apple, or play our game." />
+  <meta name="author" content="Hyntez" />
 
   <style>
-    /* --- CẤU HÌNH CƠ BẢN (giống index.html) --- */
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background-color: #050505;
-
       background-image:
         radial-gradient(circle at 0% 50%, rgba(255, 0, 0, 0.5) 0%, transparent 70%),
         radial-gradient(circle at 100% 50%, rgba(0, 50, 255, 0.5) 0%, transparent 70%);
-
       color: #f5f5f5;
       overflow-x: hidden;
       min-height: 100vh;
       position: relative;
     }
-
-    /* Neon viền (giống index.html) */
     body::before {
         content: '';
         position: fixed;
@@ -53,7 +48,6 @@
         box-shadow: 0px 0px 150px 80px rgba(30, 70, 255, 0.6),
                     -50px 0px 200px 100px rgba(0, 40, 255, 0.3);
     }
-
     .container {
       max-width: 800px;
       margin: 0 auto;
@@ -61,8 +55,6 @@
       position: relative;
       z-index: 1;
     }
-
-    /* --- HEADER --- */
     header {
       display: flex;
       align-items: center;
@@ -93,8 +85,6 @@
       color: #ccc;
       letter-spacing: 0.5px;
     }
-
-    /* --- BACK LINK --- */
     .back-link {
       display: inline-flex;
       align-items: center;
@@ -113,8 +103,6 @@
       background: rgba(255,255,255,0.1);
       transform: translateX(-3px);
     }
-
-    /* --- CONTENT CARD --- */
     .content {
       background: rgba(25, 25, 25, 0.6);
       backdrop-filter: blur(20px);
@@ -124,7 +112,6 @@
       border-radius: 24px;
       padding: 32px;
     }
-
     .content h2 {
       font-size: 1.4rem;
       color: #4facfe;
@@ -133,28 +120,37 @@
       font-weight: 700;
     }
     .content h2:first-child { margin-top: 0; }
-
+    .content h3 {
+      font-size: 1.1rem;
+      color: #7ec8f8;
+      margin-top: 20px;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
     .content p, .content li {
       color: #d1d5db;
       font-size: 1rem;
       line-height: 1.7;
       margin-bottom: 12px;
     }
-
     .content ul {
       padding-left: 20px;
       margin-bottom: 16px;
     }
-
     .content ul li {
       margin-bottom: 8px;
     }
-
     .content strong {
       color: #fff;
       font-weight: 600;
     }
-
+    .content a {
+      color: #4facfe;
+      text-decoration: none;
+    }
+    .content a:hover {
+      text-decoration: underline;
+    }
     .last-updated {
       display: inline-block;
       background: rgba(79, 172, 254, 0.15);
@@ -165,7 +161,6 @@
       margin-bottom: 20px;
       border: 1px solid rgba(79, 172, 254, 0.3);
     }
-
     .highlight-box {
       background: rgba(79, 172, 254, 0.08);
       border-left: 3px solid #4facfe;
@@ -173,13 +168,22 @@
       border-radius: 8px;
       margin: 16px 0;
     }
-
-    /* Mobile Responsive */
+    .warning-box {
+      background: rgba(255, 204, 0, 0.08);
+      border-left: 3px solid #ffcc00;
+      padding: 14px 18px;
+      border-radius: 8px;
+      margin: 16px 0;
+    }
+    .separator {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin: 24px 0;
+    }
     @media (max-width: 600px) {
       h1 { font-size: 1.6rem; }
       .content { padding: 20px; }
     }
-
     footer {
       margin-top: 40px;
       text-align: center;
@@ -205,131 +209,350 @@
     </header>
 
     <section class="content">
+
       <span class="last-updated">
         <i class="fa-regular fa-calendar"></i> Last updated: September 27, 2026
       </span>
 
+      <!-- ====================================================== -->
+      <!-- SECTION 1: OVERVIEW                                   -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-shield-halved"></i> 1. Overview</h2>
       <p>
-        This Privacy Policy describes how <strong>Weapon Ball Z</strong> ("we", "our", or "the Game")
-        collects, uses, and protects information when you sign in with Google and play the Game.
+        <strong>Weapon Ball Z</strong> ("we", "our", or "the Game") is a mobile and PC game developed
+        and published by <strong>Hyntez</strong>. This Privacy Policy explains how we collect,
+        use, store, and protect your personal information when you play the Game, create an account,
+        or use in-app purchases.
+      </p>
+      <p>
+        By downloading, installing, or playing Weapon Ball Z, you agree to the collection and use
+        of information described in this policy. If you do not agree, please do not use the Game.
       </p>
 
-      <h2><i class="fa-solid fa-database"></i> 1. Information We Collect</h2>
-      <p>
-        When you choose to sign in with Google, we receive the following information from your
-        Google account, depending on the permissions (scopes) you grant:
-      </p>
-      <ul>
-        <li><strong>Email address</strong> — used to create and identify your in-game account.</li>
-        <li><strong>Basic profile information</strong> — such as your name and profile picture, used to display your identity inside the Game.</li>
-        <li><strong>OpenID identifier</strong> — a unique, anonymous user ID used by our authentication system to keep you signed in across devices.</li>
-      </ul>
-      <p>
-        We do <strong>not</strong> access your Google password, contacts, Gmail, Drive, or any other
-        Google service data. We only request the minimum scopes required to authenticate you:
-        <code>openid</code>, <code>email</code>, and <code>profile</code>.
-      </p>
+      <hr class="separator" />
 
-      <h2><i class="fa-solid fa-server"></i> 2. How We Use Your Information</h2>
-      <p>We use the information above only for the following purposes:</p>
-      <ul>
-        <li>To create and manage your in-game account.</li>
-        <li>To save your game progress, settings, and unlocked content to our cloud database.</li>
-        <li>To allow sign-in across multiple devices using the same Google account.</li>
-        <li>To provide online features such as leaderboards, friend lists, or matchmaking.</li>
-      </ul>
-      <p>
-        We do <strong>not</strong> use your information for advertising, marketing, or profiling.
-      </p>
+      <!-- ====================================================== -->
+      <!-- SECTION 2: INFORMATION WE COLLECT                    -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-database"></i> 2. Information We Collect</h2>
 
-      <h2><i class="fa-solid fa-cloud"></i> 3. Third-Party Services</h2>
-      <p>
-        We use the following third-party services to operate the Game. These services may process
-        your data according to their own privacy policies:
-      </p>
+      <h3>2.1. Account Information</h3>
+      <p>When you create an account using Google Sign-In, Apple Sign-In, or Email/Password:</p>
       <ul>
-        <li>
-          <strong>Google Firebase Authentication</strong> — handles Google Sign-In and account management.
-          (<a href="https://firebase.google.com/support/privacy" target="_blank" style="color:#4facfe;">Firebase Privacy Policy</a>)
-        </li>
-        <li>
-          <strong>Google Firebase Realtime Database / Firestore</strong> — stores your in-game progress and settings.
-          (<a href="https://firebase.google.com/support/privacy" target="_blank" style="color:#4facfe;">Firebase Privacy Policy</a>)
-        </li>
-        <li>
-          <strong>Google Sign-In (OAuth 2.0)</strong> — used to verify your identity securely.
-          (<a href="https://policies.google.com/privacy" target="_blank" style="color:#4facfe;">Google Privacy Policy</a>)
-        </li>
+        <li><strong>Email address</strong> — used to identify your account and for support purposes.</li>
+        <li><strong>Display name</strong> — your chosen in-game name shown to other players.</li>
+        <li><strong>Profile picture URL</strong> — optional, from your Google or Apple account.</li>
+        <li><strong>User ID</strong> — a unique identifier assigned by our authentication system (Firebase).</li>
+        <li><strong>Account creation timestamp</strong> — when your account was first created.</li>
+        <li><strong>Last login timestamp</strong> — when you last signed in.</li>
       </ul>
 
-      <h2><i class="fa-solid fa-shield-halved"></i> 4. Data Security</h2>
-      <p>
-        We take reasonable measures to protect your information:
-      </p>
+      <h3>2.2. Game Progress & Data</h3>
+      <p>We store the following data to sync your progress across devices:</p>
       <ul>
-        <li>All authentication traffic is encrypted over HTTPS / TLS.</li>
-        <li>Passwords are never stored or transmitted by us — authentication is fully delegated to Google.</li>
-        <li>Only the minimum required data is stored in our backend database.</li>
+        <li><strong>In-game currency</strong> — gold and diamonds balances.</li>
+        <li><strong>Inventory</strong> — weapons, balls, items, and cosmetics you have unlocked or purchased.</li>
+        <li><strong>Game progress</strong> — campaign levels cleared, high score, story stages, and daily reward claims.</li>
+        <li><strong>Tournament records</strong> — Grand Weekly match history and MMR rating.</li>
+        <li><strong>Purchase history</strong> — records of in-app purchases.</li>
       </ul>
-      <p>
-        However, no method of transmission over the internet is completely secure. We cannot
-        guarantee absolute security of your data.
-      </p>
 
-      <h2><i class="fa-solid fa-children"></i> 5. Children's Privacy</h2>
+      <h3>2.3. Advertising Data</h3>
       <p>
-        The Game is not directed to children under the age of <strong>13</strong>. We do not knowingly
-        collect personal information from children under 13. If you believe a child under 13 has
-        signed in, please contact us so we can delete the associated account.
+        When you watch rewarded or interstitial advertisements served through
+        <strong>Unity LevelPlay (IronSource)</strong>, the ad network may collect:
       </p>
-
-      <h2><i class="fa-solid fa-user-xmark"></i> 6. Your Rights & Data Deletion</h2>
-      <p>You have the right to:</p>
       <ul>
-        <li>Access the personal data we hold about you.</li>
-        <li>Request correction of inaccurate data.</li>
-        <li>Request deletion of your account and all associated data.</li>
-        <li>Revoke Google Sign-In access at any time from your
-          <a href="https://myaccount.google.com/permissions" target="_blank" style="color:#4facfe;">Google Account permissions page</a>.</li>
+        <li><strong>Device identifier</strong> — for ad targeting and frequency capping.</li>
+        <li><strong>Ad view/click records</strong> — to track ad completion for reward fulfillment.</li>
+        <li><strong>App Tracking Transparency (ATT) status</strong> — iOS 14.5+ permission status (if applicable).</li>
       </ul>
       <div class="highlight-box">
-        <strong>To request account deletion</strong>, please contact us through one of the channels
-        listed in Section 8. We will delete your account within 30 days of your request.
+        <strong>Note:</strong> We do not have direct access to your device advertising identifier.
+        Ad targeting and personalization are controlled by Unity LevelPlay's platform.
       </div>
 
-      <h2><i class="fa-solid fa-cookie-bite"></i> 7. Cookies & Local Storage</h2>
-      <p>
-        The Game itself does not use cookies or browser tracking. Our website
-        (<a href="https://puddin707.github.io/weapon-ball-z-builds/" style="color:#4facfe;">puddin707.github.io/weapon-ball-z-builds</a>)
-        may use minimal local storage to remember your preferences (such as dark/light mode), but
-        does not set tracking cookies.
-      </p>
-
-      <h2><i class="fa-solid fa-envelope"></i> 8. Contact Us</h2>
-      <p>
-        If you have any questions, concerns, or requests regarding this Privacy Policy or your data,
-        please contact us through any of these channels:
-      </p>
+      <h3>2.4. Basic Device Information</h3>
+      <p>When you play the Game, we may automatically collect:</p>
       <ul>
-        <li><strong>Discord:</strong> <a href="https://discord.gg/AgpJ6UGU9q" target="_blank" style="color:#5865F2;">discord.gg/AgpJ6UGU9q</a></li>
-        <li><strong>YouTube:</strong> <a href="https://youtube.com/@weaponballz" target="_blank" style="color:#ff4444;">@weaponballz</a></li>
-        <li><strong>TikTok:</strong> <a href="https://www.tiktok.com/@weaponballz" target="_blank" style="color:#fff;">@weaponballz</a></li>
-        <li><strong>Support:</strong> <a href="https://ko-fi.com/hyntezlegolas" target="_blank" style="color:#FF5E5B;">ko-fi.com/hyntezlegolas</a></li>
+        <li><strong>Device type and OS version</strong> — for compatibility and bug fixing.</li>
+        <li><strong>Game version</strong> — to diagnose version-specific issues.</li>
+        <li><strong>Network timestamp sync</strong> — we may sync with trusted time servers
+          (e.g., Google, Microsoft, Cloudflare) to keep the game's clock accurate
+          and consistent across sessions.</li>
       </ul>
 
-      <h2><i class="fa-solid fa-rotate"></i> 9. Changes to This Policy</h2>
+      <h3>2.5. What We Do NOT Collect</h3>
+      <div class="warning-box">
+        <strong>We do NOT collect:</strong> passwords (authentication is handled by Google/Apple),
+        precise location data, contacts, SMS, call logs, camera, microphone, storage contents,
+        browsing history, or any data not explicitly listed above.
+      </div>
+
+      <hr class="separator" />
+
+      <!-- ====================================================== -->
+      <!-- SECTION 3: HOW WE USE YOUR INFORMATION               -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-gears"></i> 3. How We Use Your Information</h2>
+      <p>We use the collected information for the following purposes:</p>
+      <ul>
+        <li>To create and manage your account across all platforms (Android, iOS, PC).</li>
+        <li>To sync your game progress and inventory to our cloud database so you can continue playing on any device.</li>
+        <li>To power online features: leaderboards, Grand Weekly tournaments, and matchmaking.</li>
+        <li>To process in-app purchases and deliver purchased items.</li>
+        <li>To reward you with in-game currency after watching video advertisements.</li>
+        <li>To prevent and detect cheating, hacking, and time manipulation.</li>
+        <li>To provide customer support and respond to your inquiries.</li>
+        <li>To push game updates and notify you of new content (via in-game notices).</li>
+      </ul>
       <p>
-        We may update this Privacy Policy from time to time. Any changes will be posted on this page
-        with an updated "Last updated" date. We encourage you to review this policy periodically.
+        <strong>We do NOT use your personal data for advertising, marketing campaigns,
+        or selling your information to third parties.</strong>
       </p>
 
-      <p style="margin-top: 32px; text-align: center; color: #888; font-size: 0.9rem;">
-        By using Weapon Ball Z and signing in with Google, you agree to the terms outlined in this Privacy Policy.
+      <hr class="separator" />
+
+      <!-- ====================================================== -->
+      <!-- SECTION 4: THIRD-PARTY SERVICES                      -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-people-arrows"></i> 4. Third-Party Services</h2>
+      <p>
+        We use the following third-party services to operate the Game. Each service processes
+        your data under their own privacy policies:
       </p>
+
+      <h3>4.1. Firebase (Google)</h3>
+      <ul>
+        <li>
+          <strong>Firebase Authentication</strong> — handles account creation and login via Google,
+          Apple, and Email/Password.
+          <br><a href="https://firebase.google.com/support/privacy" target="_blank">https://firebase.google.com/support/privacy</a>
+        </li>
+        <li>
+          <strong>Cloud Firestore</strong> — our primary cloud database for storing game progress,
+          inventory, currency, tournament data, and server-side game configuration (e.g., shop catalog,
+          event settings).
+          <br><a href="https://firebase.google.com/support/privacy" target="_blank">https://firebase.google.com/support/privacy</a>
+        </li>
+        <li>
+          <strong>Firebase Cloud Functions</strong> — server-side logic for secure operations
+          (IAP verification, reward distribution, tournament management).
+          <br><a href="https://firebase.google.com/support/privacy" target="_blank">https://firebase.google.com/support/privacy</a>
+        </li>
+      </ul>
+
+      <h3>4.2. Unity LevelPlay (IronSource)</h3>
+      <ul>
+        <li>
+          Serves video and interstitial advertisements within the Game.
+          <br><a href="https://developers.is.com/ironSource-mobile/privacy-policy/" target="_blank">https://developers.is.com/ironSource-mobile/privacy-policy/</a>
+        </li>
+      </ul>
+
+      <h3>4.3. Voluntary Support &amp; Future In-App Purchases</h3>
+      <ul>
+        <li>
+          <strong>Voluntary Support (currently active):</strong> Players may choose to support the
+          developer manually through the following platforms:
+          <strong>Ko-fi</strong>, <strong>Patreon</strong>, or <strong>PayPal</strong>.
+          These transactions are processed entirely on the respective platform and do not involve
+          any in-app purchase system. Supporters may receive in-game rewards (e.g., gems, cosmetic
+          items), which are granted manually by the developer.
+          <br>
+          <a href="https://ko-fi.com/hyntezlegolas" target="_blank">https://ko-fi.com/hyntezlegolas</a><br>
+          <a href="https://patreon.com/Hyntez" target="_blank">https://patreon.com/Hyntez</a><br>
+          <a href="https://www.paypal.com/paypalme/Hyntez" target="_blank">https://www.paypal.com/paypalme/Hyntez</a>
+        </li>
+        <li>
+          <strong>In-App Purchases (planned for future):</strong> At a later stage, the Game
+          will offer in-app purchases for hard currency (diamonds) and starter packs via the
+          <strong>Google Play Store</strong>, <strong>Apple App Store</strong>, or
+          <strong>Steam</strong>, powered by Unity IAP. When this feature becomes active,
+          this section will be updated accordingly.
+          <br><a href="https://unity.com/legal/privacy-policy" target="_blank">https://unity.com/legal/privacy-policy</a>
+        </li>
+      </ul>
+
+      <h3>4.4. Apple Sign-In (iOS only)</h3>
+      <ul>
+        <li>
+          Authenticates iOS players using their Apple ID.
+          <br><a href="https://www.apple.com/legal/privacy/" target="_blank">https://www.apple.com/legal/privacy/</a>
+        </li>
+      </ul>
+
+      <h3>4.5. Google Sign-In</h3>
+      <ul>
+        <li>
+          Authenticates players using their Google account. On Android, a Google Sign-In
+          popup appears directly within the app. On PC, authentication is completed via
+          a browser redirect.
+          <br>The following data is accessed with your consent:
+          <strong>email address</strong> (scope: email) and
+          <strong>basic profile information such as display name</strong> (scope: profile/openid).
+          <br><a href="https://policies.google.com/privacy" target="_blank">https://policies.google.com/privacy</a>
+        </li>
+      </ul>
+
+      <h3>4.6. GitHub</h3>
+      <ul>
+        <li>
+          Our website uses GitHub's API to check for game updates and load media assets.
+          <br><a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank">https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement</a>
+        </li>
+      </ul>
+
+      <hr class="separator" />
+
+      <!-- ====================================================== -->
+      <!-- SECTION 5: DATA STORAGE                               -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-hard-drive"></i> 5. Data Storage</h2>
+
+      <h3>5.1. Cloud Storage (Firebase Firestore)</h3>
+      <p>
+        Your account information and game progress are stored in
+        <strong>Firebase Cloud Firestore</strong>, operated by Google.
+        Data is stored on Google's servers and may be processed in data centers
+        located worldwide.
+      </p>
+
+      <h3>5.2. Local Storage (PlayerPrefs)</h3>
+      <p>
+        Some game data is also stored locally on your device using
+        <strong>Unity PlayerPrefs</strong>, including:
+      </p>
+      <ul>
+        <li>Display name, last login provider.</li>
+        <li>Game settings (sound, graphics preferences).</li>
+        <li>Temporary weapon/item data cache.</li>
+        <li>Apple Sign-In credentials (on iOS).</li>
+        <li>Pending OAuth deep-link data (for desktop web auth).</li>
+      </ul>
+      <p>
+        This local data is stored only on your device and is not accessible by us.
+        You can clear this data by uninstalling the Game.
+      </p>
+
+      <hr class="separator" />
+
+      <!-- ====================================================== -->
+      <!-- SECTION 6: DATA SECURITY                              -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-lock"></i> 6. Data Security</h2>
+      <p>We take the following measures to protect your data:</p>
+      <ul>
+        <li>All data transmitted between your device and our servers is encrypted over <strong>HTTPS/TLS</strong>.</li>
+        <li>User passwords are <strong>never stored or transmitted by us</strong> — authentication is fully delegated to Google and Apple.</li>
+        <li>Sensitive server-side operations (IAP verification, currency rewards, tournament logic) run through <strong>Firebase Cloud Functions</strong>, which prevents client-side tampering.</li>
+        <li>Time synchronization with trusted servers helps keep the game clock consistent and accurate.</li>
+        <li>Only the minimum required data is stored in our cloud database.</li>
+      </ul>
+      <p>
+        While we strive to protect your data, no method of transmission over the internet
+        or electronic storage is 100% secure. We cannot guarantee absolute security.
+      </p>
+
+      <hr class="separator" />
+
+      <!-- ====================================================== -->
+      <!-- SECTION 7: CHILDREN'S PRIVACY                         -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-children"></i> 7. Children's Privacy</h2>
+      <p>
+        The Game is <strong>not directed to children under the age of 13</strong>.
+        We do not knowingly collect personal information from children under 13.
+        If we discover that personal information from a child under 13 has been collected,
+        we will take steps to delete that information promptly.
+      </p>
+      <p>
+        Parents or guardians who believe their child has provided personal information
+        can contact us through the channels in Section 11 to request deletion.
+      </p>
+
+      <hr class="separator" />
+
+      <!-- ====================================================== -->
+      <!-- SECTION 8: YOUR RIGHTS                               -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-user-shield"></i> 8. Your Rights</h2>
+      <p>You have the following rights regarding your personal data:</p>
+      <ul>
+        <li><strong>Right to access</strong> — request a copy of the personal data we hold about you.</li>
+        <li><strong>Right to correction</strong> — request correction of inaccurate game data.</li>
+        <li><strong>Right to deletion</strong> — request complete deletion of your account and all associated data.</li>
+        <li><strong>Right to data portability</strong> — request your data in a machine-readable format.</li>
+        <li>
+          <strong>Right to revoke access</strong> — revoke Google Sign-In or Apple Sign-In access
+          at any time from your Google Account permissions page or Apple ID settings.
+        </li>
+      </ul>
+      <div class="highlight-box">
+        <strong>To request account deletion or data access:</strong> Contact us through one of the
+        channels in Section 11. We will respond to verified requests within <strong>30 days</strong>.
+        Note that some data (e.g., purchase receipts, tournament records) may be retained for
+        legal or fraud prevention purposes for a longer period.
+      </div>
+
+      <hr class="separator" />
+
+      <!-- ====================================================== -->
+      <!-- SECTION 9: INTERNATIONAL DATA TRANSFERS              -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-globe"></i> 9. International Data Transfers</h2>
+      <p>
+        As we use Firebase (Google Cloud) and other U.S.-based services, your data may be
+        transferred to and processed in servers located in the United States or other countries.
+        We ensure that such transfers comply with applicable data protection laws.
+      </p>
+
+      <hr class="separator" />
+
+      <!-- ====================================================== -->
+      <!-- SECTION 10: CHANGES TO THIS POLICY                   -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-rotate"></i> 10. Changes to This Policy</h2>
+      <p>
+        We may update this Privacy Policy from time to time to reflect changes in our services,
+        legal requirements, or business practices. When we make significant changes, we will:
+      </p>
+      <ul>
+        <li>Update the "Last updated" date at the top of this page.</li>
+        <li>Post a notice in-game.</li>
+        <li>Request re-consent if required by applicable law.</li>
+      </ul>
+      <p>
+        We encourage you to review this Privacy Policy periodically. Your continued use of the
+        Game after any changes constitutes your acceptance of the revised policy.
+      </p>
+
+      <hr class="separator" />
+
+      <!-- ====================================================== -->
+      <!-- SECTION 11: CONTACT US                               -->
+      <!-- ====================================================== -->
+      <h2><i class="fa-solid fa-envelope"></i> 11. Contact Us</h2>
+      <p>
+        If you have any questions, concerns, or requests regarding this Privacy Policy or your
+        personal data, please contact us through any of these channels:
+      </p>
+      <ul>
+        <li><strong>Email:</strong> <a href="mailto:galacticozstudio@gmail.com" target="_blank">galacticozstudio@gmail.com</a></li>
+        <li><strong>Discord:</strong> <a href="https://discord.gg/AgpJ6UGU9q" target="_blank">discord.gg/AgpJ6UGU9q</a></li>
+        <li><strong>YouTube:</strong> <a href="https://youtube.com/@weaponballz" target="_blank">@weaponballz</a></li>
+        <li><strong>TikTok:</strong> <a href="https://www.tiktok.com/@weaponballz" target="_blank">@weaponballz</a></li>
+        <li><strong>Support / Ko-fi:</strong> <a href="https://ko-fi.com/hyntezlegolas" target="_blank">ko-fi.com/hyntezlegolas</a></li>
+      </ul>
+
+      <p style="margin-top: 32px; text-align: center; color: #888; font-size: 0.9rem;">
+        By using Weapon Ball Z, you acknowledge that you have read and understood this Privacy Policy.
+      </p>
+
     </section>
 
     <footer>
-      © 2026 Weapon Ball Z.<br>
+      © 2026 Weapon Ball Z — Hyntez<br>
       Made with ❤️ for Gamers.
     </footer>
   </div>
